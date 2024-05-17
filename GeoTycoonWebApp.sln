@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClient", "WebClient\WebClient.csproj", "{E9263B5B-C12C-4FD9-9187-01ED7F23482A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bussiness Object", "Bussiness Object", "{E1C555D9-F3B0-47BF-9A90-CDB3BF257534}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Access", "Data Access", "{BA3FE7BF-1A4D-4D25-B36E-A2A561D9A6C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{0040E65B-4E1C-4AC7-BC54-63B08EA75FBA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{5410B506-08DB-41CD-B45F-C2CF46EDDF55}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{52BFC282-385E-4619-82EF-221FD2724375}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoImagesAPI", "..\GeoImagesAPI\GeoImagesAPI.csproj", "{D4673B5B-5BAA-4B08-AF57-0AC47A8B7E64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoClinet", "GeoClinet\GeoClinet.csproj", "{BD784E92-DE0D-4FF7-B65E-6255E9DF2F69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9263B5B-C12C-4FD9-9187-01ED7F23482A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9263B5B-C12C-4FD9-9187-01ED7F23482A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9263B5B-C12C-4FD9-9187-01ED7F23482A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9263B5B-C12C-4FD9-9187-01ED7F23482A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5410B506-08DB-41CD-B45F-C2CF46EDDF55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5410B506-08DB-41CD-B45F-C2CF46EDDF55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5410B506-08DB-41CD-B45F-C2CF46EDDF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5410B506-08DB-41CD-B45F-C2CF46EDDF55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52BFC282-385E-4619-82EF-221FD2724375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52BFC282-385E-4619-82EF-221FD2724375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52BFC282-385E-4619-82EF-221FD2724375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52BFC282-385E-4619-82EF-221FD2724375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4673B5B-5BAA-4B08-AF57-0AC47A8B7E64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4673B5B-5BAA-4B08-AF57-0AC47A8B7E64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4673B5B-5BAA-4B08-AF57-0AC47A8B7E64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4673B5B-5BAA-4B08-AF57-0AC47A8B7E64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD784E92-DE0D-4FF7-B65E-6255E9DF2F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD784E92-DE0D-4FF7-B65E-6255E9DF2F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD784E92-DE0D-4FF7-B65E-6255E9DF2F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD784E92-DE0D-4FF7-B65E-6255E9DF2F69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E9263B5B-C12C-4FD9-9187-01ED7F23482A} = {0040E65B-4E1C-4AC7-BC54-63B08EA75FBA}
+		{5410B506-08DB-41CD-B45F-C2CF46EDDF55} = {E1C555D9-F3B0-47BF-9A90-CDB3BF257534}
+		{52BFC282-385E-4619-82EF-221FD2724375} = {BA3FE7BF-1A4D-4D25-B36E-A2A561D9A6C4}
+		{D4673B5B-5BAA-4B08-AF57-0AC47A8B7E64} = {0040E65B-4E1C-4AC7-BC54-63B08EA75FBA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A65F29E8-2AF7-4EA3-B1FE-49BCE534AE3B}
+	EndGlobalSection
+EndGlobal

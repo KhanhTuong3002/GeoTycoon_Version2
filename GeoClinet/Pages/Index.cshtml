@@ -1,0 +1,89 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="flex justify-center items-center bg-base-200 p-8">
+    <div class="flex flex-md-row w-full w-5/6 items-center justify-center">
+        <div class="flex flex-col items-center items-start pr-60 w-1/3 w-auto order-1">
+            <div class="text-left">
+                <h2 class="text-2xl font-bold">Welcome to the</h2>
+                <h2 class="text-2xl font-bold mb-3">GeoTycoon!</h2>
+                <h3 class="text-sm mb-6">Discover the most exciting games</h3>
+            </div>
+            <div class="mb-6">
+                <div class="flex justify-center justify-start gap-2">
+                    <button class="btn btn-outline" type="button">Learn More</button>
+                    <button class="btn btn-neutral" type="button">Play Now</button>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center justify-center w-2/3 ml-30 w-auto order-2">
+            <img src="~/css/post-a5ccdfd60f81f96ee4c674094da5d2b19068b8921533445fcb7a8aec97f8efaa.jpg" alt="Description of your image" class="w-120 h-80" />
+        </div>
+    </div>
+</div>
+
+
+
+<div class="flex justify-center items-center bg-base-200 p-8 mt-8">
+    <div class="max-w-7xl mx-auto flex flex-row space-y-8 space-y-0 space-x-8">
+        <!-- Div 1 (left) -->
+        <div class="flex flex-col space-y-8 w-full w-1/3">
+            <!-- Small Div 1 -->
+            <div class="flex items-center space-x-4">
+                <img src="~/css/post-a5ccdfd60f81f96ee4c674094da5d2b19068b8921533445fcb7a8aec97f8efaa.jpg" alt="Description of image 1" class="w-12 h-12">
+                <div>
+                    <h3 class="text-xl font-bold">New Game Release</h3>
+                    <p>Explore a magical world in the new fantasy adventure!</p>
+                </div>
+            </div>
+            <!-- Small Div 2 -->
+            <div class="flex items-center space-x-4">
+                <img src="~/css/post-a5ccdfd60f81f96ee4c674094da5d2b19068b8921533445fcb7a8aec97f8efaa.jpg" alt="Description of image 2" class="w-12 h-12">
+                <div>
+                    <h3 class="text-xl font-bold">Another Game Release</h3>
+                    <p>Experience the thrill of a new quest!</p>
+                </div>
+            </div>
+        </div>
+        <!-- Div 2 (right) -->
+        <div class="flex flex-col justify-center items-start w-full w-2/3">
+            <h2 class="text-4xl font-bold mb-4">Latest News</h2>
+            <button class="btn btn-neutral btn-sm">Play Now</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="carousel w-full mt-8">
+    <div id="slide1" class="carousel-item relative w-full">
+        <img src="~/css/post-a5ccdfd60f81f96ee4c674094da5d2b19068b8921533445fcb7a8aec97f8efaa.jpg" class="w-full h-[50vh] object-cover" />
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+            <a href="#slide4" class="btn btn-circle">❮</a>
+            <a href="#slide2" class="btn btn-circle">❯</a>
+        </div>
+    </div>
+    <div id="slide2" class="carousel-item relative w-full">
+        <img src="~/css/post-a5ccdfd60f81f96ee4c674094da5d2b19068b8921533445fcb7a8aec97f8efaa.jpg" class="w-full h-[50vh] object-cover" />
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+            <a href="#slide1" class="btn btn-circle">❮</a>
+            <a href="#slide3" class="btn btn-circle">❯</a>
+        </div>
+    </div>
+    <div id="slide3" class="carousel-item relative w-full">
+        <img src="~/css/post-a5ccdfd60f81f96ee4c674094da5d2b19068b8921533445fcb7a8aec97f8efaa.jpg" class="w-full h-[50vh] object-cover" />
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+            <a href="#slide2" class="btn btn-circle">❮</a>
+            <a href="#slide4" class="btn btn-circle">❯</a>
+        </div>
+    </div>
+    <div id="slide4" class="carousel-item relative w-full">
+        <img src="~/css/post-a5ccdfd60f81f96ee4c674094da5d2b19068b8921533445fcb7a8aec97f8efaa.jpg" class="w-full h-[50vh] object-cover" />
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+            <a href="#slide3" class="btn btn-circle">❮</a>
+            <a href="#slide1" class="btn btn-circle">❯</a>
+        </div>
+    </div>
+</div>

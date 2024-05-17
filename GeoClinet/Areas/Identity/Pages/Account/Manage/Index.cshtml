@@ -1,0 +1,170 @@
+﻿@page
+@model IndexModel
+@{
+
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GeoTycoon</title>
+    <link rel="icon" type="image/svg+xml" href="~/css/oc_preview_rev_2.png">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <!-- Include jQuery from CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include jQuery Validation Plugin from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <!-- Include other libraries from CDN if needed -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.0/dist/alpine.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+</head>
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="flex items-center justify-center min-h-screen">
+    <form id="uploadForm" action="/Images" method="post" enctype="multipart/form-data" class="w-full h-fit max-w-4xl bg-base-300 p-8 shadow-lg rounded-lg">
+        <div class="flex">
+            <div class="hidden md:block items-center justify-center" style="padding-top: 3rem">
+                <div class="avatar" style="justify-content:center">
+                    <div class="w-3/4 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2" style="width:55%">
+                        <label id="upload-label">
+                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" id="image-preview" />
+                        </label>
+                        <input type="file" id="file-upload" style="display: none;" accept="image/*" />
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            console.log("upload");
+                            document.getElementById('upload-label').addEventListener('click', function () {
+                                document.getElementById('file-upload').click();
+                            });
+
+                            document.getElementById('file-upload').addEventListener('change', function (event) {
+                                const file = event.target.files[0];
+                                if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        document.getElementById('image-preview').src = e.target.result;
+                                    };
+                                    reader.readAsDataURL(file);
+                                }
+                            });
+                            document.getElementById('uploadForm').addEventListener('submit', async function (event) {
+                                event.preventDefault();
+                                const formData = new FormData();
+                                formData.append('File', document.getElementById('file-upload').files[0]);
+
+                                const response = await fetch('/Images', {
+                                    method: 'POST',
+                                    body: formData
+                                });
+
+                                if (response.ok) {
+                                    const imageUrl = await response.text();
+                                    alert('Image uploaded successfully! URL: ' + imageUrl);
+                                } else {
+                                    alert('Image upload failed!');
+                                }
+                            });
+                        });
+                    </script>
+
+                </div>
+
+                <div>
+                    <button style="margin-left: 150px" class="btn btn-success" type="submit">Upload Image</button>
+                    <a class="block text-sm font-bold mb-2 pt-4 flex" style="justify-content:center">
+                        @User.Identity?.Name!
+                    </a>
+                </div>
+            </div>
+            <div class="w-full">
+                <h2 class="flex text-2xl font-bold items-center mb-3">Your Profile</h2>
+                <div class="flex w-full space-x-4 mb-2">
+                    <div class="relative w-1/2 mr-2">
+                        <label class="block text-sm font-bold mb-2">First Name</label>
+                        <input disabled value="Hao" autocomplete="username" aria-required="true" placeholder="Enter your first name"
+                               class="input input-bordered w-full" />
+                        <span class="text-danger"></span>
+                    </div>
+                    <div class="relative w-1/2">
+                        <label class="block text-sm font-bold mb-2">Last Name</label>
+                        <input disabled value="Qiong" autocomplete="username" aria-required="true" placeholder="Enter your last name"
+                               class="input input-bordered w-full" />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="relative mb-2">
+                    <label class="block text-sm font-bold mb-2">Phone</label>
+                    <input disabled value="0886677921" autocomplete="username" aria-required="true" placeholder="Enter your phone"
+                           class="input input-bordered w-full" />
+                    <span class="text-danger"></span>
+
+                </div>
+                <div class="flex w-full space-x-4 mb-2">
+                    <div class="relative w-1/2 mr-2">
+                        <label class="block text-sm font-bold mb-2">City</label>
+                        <select disabled autocomplete="username" aria-required="true" placeholder="Select your city"
+                                class="input input-bordered w-full">
+                            <option value="Can Tho">Can Tho</option>
+                            <option value="Ho Chi Minh">Ho Chi Minh</option>
+                        </select>
+                    </div>
+                    <div class="relative w-1/2">
+                        <label class="block text-sm font-bold mb-2">State</label>
+                        <select disabled autocomplete="username" aria-required="true" placeholder="Select your state"
+                                class="input input-bordered w-full">
+                            <option value="Vietnam">Vietnam</option>
+                            <option value="Japan">Japan</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="relative mb-6">
+                    <label class="block text-sm font-bold mb-2">Description</label>
+                    <textarea disabled type class="textarea textarea-bordered h-24 w-full" placeholder="Description"></textarea>
+                </div>
+
+                <div class="mb-6 relative">
+                    <div class="flex gap-2">
+                        <a class="btn btn-accent" type="submit" href="">Edit Profile</a>
+                        <a class="btn btn-success  @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Change Password</a>
+                    </div>
+                </div>
+            </div>
+    </form>
+
+
+</div>
+
+
+
+@* <body class="w-full" data-theme="retro">
+  <div class="flex items-center justify-center min-h-screen">
+      <form class=" w-5/6 bg-base-300 p-8 shadow-lg rounded-lg space-y-4 relative">
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="profile-form" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
+                            <label asp-for="Username" class="form-label"></label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="Please enter your phone number." />
+                            <label asp-for="PhoneNumber" class="form-label"></label>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+      </form>
+    </div>
+</body> *@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,70 @@
+﻿@using BusinessObject.Entites
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    var currentUser = await UserManager.GetUserAsync(User) as User;
+}
+<ul class="navbar-nav flex justify-between">
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="navbar bg-base-200">
+            <div class="">
+                <div class="dropdown dropdown-end">
+                </div>
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                        <div class="w-10 rounded-full">        
+                       
+                                @if (!string.IsNullOrEmpty(currentUser?.Avatar))
+                                {
+                                <img alt="Tailwind CSS Navbar component" src="@currentUser.Avatar" />
+
+                            }
+                            else
+                            {
+                                Console.WriteLine(currentUser + "-------------------------NULL------------------------------");
+                                <img alt="Default Avatar" src="https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg" />
+                                }
+                       
+                        </div>
+                    </div>
+                    <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box inline-block">
+                        <li>
+                            <a class="nav-link text-dark" title="Manage">@User.Identity?.Name!</a>
+                        </li>
+                        <li>
+                            <a class="justify-between" asp-area="Identity" asp-page="/Account/Manage/Index">
+                                Profile
+                                <span class="badge">New</span>
+                            </a>
+                        </li>
+                        <li><a>Settings</a></li>
+                        <li>
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" class="no-underline text-dark">Sign out your account</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        @*     <li class="nav-item">
+    <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+    </li>
+    <li class="nav-item">
+    <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+    <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+    </form>
+    </li>     *@
+    //xam
+    }
+    else
+    {
+        <div class="flex items-center gap-2">
+            <a class="btn btn-accent " asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="btn btn-success" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </div>
+    }
+</ul>
