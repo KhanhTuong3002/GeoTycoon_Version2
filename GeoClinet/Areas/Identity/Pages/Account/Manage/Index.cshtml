@@ -1,7 +1,10 @@
 ﻿@page
 @model IndexModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @{
-
+    var currentUser = await UserManager.GetUserAsync(User);
+    var userId = currentUser?.Id;
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 <head>
@@ -93,6 +96,9 @@
                     <button style="margin-left: 150px" class="btn btn-success" type="submit">Upload Image</button>
                     <a class="block text-sm font-bold mb-2 pt-4 flex" style="justify-content:center">
                         @User.Identity?.Name!
+                    </a>
+                    <a class="block text-sm font-bold mb-2 pt-4 flex" style="justify-content:center">
+                        UserID: @userId
                     </a>
                 </div>
             </div>

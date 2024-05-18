@@ -467,6 +467,11 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("Published")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasMaxLength(450)
@@ -495,13 +500,7 @@ namespace DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("SetQuestions");
                 });
@@ -603,25 +602,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cb69e703-194b-4206-b931-061d3e7862b7",
+                            Id = "fa585a29-7237-4d80-b0b2-6f2b464c8d1d",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "a7445a97-b849-443d-9743-29c2679a6748",
+                            Id = "7d889890-e5cc-4829-ac4c-faf500387a53",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "b96048a5-304d-4701-ac68-b2acb6f3ab2c",
+                            Id = "4c7099be-c52c-4f7d-9a61-653778cedcb9",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "70dcdc51-e82c-48a4-9893-12c0cc0a95aa",
+                            Id = "fc8eee89-71f4-49df-a324-14fdeb7f7361",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -878,17 +877,6 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Province");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("BusinessObject.Entites.SetQuestion", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("User");
                 });

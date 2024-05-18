@@ -16,6 +16,10 @@ namespace BusinessObject.Entites
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public string Title { get; set; }
+
         [ForeignKey(nameof(Province))]
         public int ProvinceId { get; set; }
         public virtual Province Province { get; set; }
@@ -46,9 +50,9 @@ namespace BusinessObject.Entites
         [Required]
         [StringLength(2500)]
         public string Description { get; set; }
-       /* //
-        [ForeignKey("ListId")]
-        public List List { get; set; }*/
+       
+/*        [ForeignKey("ListId")]
+        public SetQuestion List { get; set; }*/
         public DateTime Published { get; set; }
      
 

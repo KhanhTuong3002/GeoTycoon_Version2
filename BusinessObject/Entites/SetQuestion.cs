@@ -18,8 +18,6 @@ namespace BusinessObject.Entites
         [Required]
         [StringLength(50)]
         public string SetName { get; set; }
-        [ForeignKey(nameof(IdentityUser))] public string UserId { get; set; }
-        //public virtual IdentityUser User { get; set; } = default!;
 
         [Required]
         public int QuestionNumber { get; set; }

@@ -4,6 +4,7 @@
 @inject UserManager<IdentityUser> UserManager
 @{
     var currentUser = await UserManager.GetUserAsync(User) as User;
+    var userId = currentUser?.Id;
 }
 <ul class="navbar-nav flex justify-between">
 
