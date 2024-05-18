@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObject.Entites;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace GeoClinet.Pages.set
 {
@@ -30,7 +31,14 @@ namespace GeoClinet.Pages.set
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            var existingSetQuestion = await _context.SetQuestions
+            .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
 
+            if (existingSetQuestion != null)
+            {
+                ModelState.AddModelError("SetQuestion.SetName", "SetName đã tồn tại.");
+                return Page();
+            }
             _context.SetQuestions.Add(SetQuestion);
             await _context.SaveChangesAsync();
 
