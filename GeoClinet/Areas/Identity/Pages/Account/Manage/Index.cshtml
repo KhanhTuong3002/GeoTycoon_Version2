@@ -22,8 +22,23 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 </head>
 
+
 <h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
+
+<script>
+    function enableInputs() {
+        var inputs = document.querySelectorAll('.input[disabled]');
+        inputs.forEach(function (input) {
+            input.removeAttribute('disabled');
+        });
+        var textareas = document.querySelectorAll('.textarea[disabled]');
+        textareas.forEach(function (textarea) {
+            textarea.removeAttribute('disabled');
+        });
+    }
+</script>
+
 <div class="flex items-center justify-center min-h-screen">
     <form id="uploadForm" action="/Images" method="post" enctype="multipart/form-data" class="w-full h-fit max-w-4xl bg-base-300 p-8 shadow-lg rounded-lg">
         <div class="flex">
@@ -129,7 +144,7 @@
 
                 <div class="mb-6 relative">
                     <div class="flex gap-2">
-                        <a class="btn btn-accent" type="submit" href="">Edit Profile</a>
+                        <button class="btn btn-accent" type="button" onclick="enableInputs()">Edit Profile</button>
                         <a class="btn btn-success  @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Change Password</a>
                     </div>
                 </div>
