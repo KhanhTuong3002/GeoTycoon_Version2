@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class mis : Migration
+    public partial class InnitCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,6 +34,11 @@ namespace DataAccess.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
                     Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsApproved = table.Column<bool>(type: "bit", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -66,6 +71,20 @@ namespace DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Province", x => x.province_id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SetQuestions",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SetName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    QuestionNumber = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SetQuestions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,8 +133,8 @@ namespace DataAccess.Migrations
                 name: "UserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -159,8 +178,8 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -182,7 +201,13 @@ namespace DataAccess.Migrations
                     ProvinceId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     Images = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(600)", maxLength: 600, nullable: false),
+                    Option1 = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Option2 = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Option3 = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Option4 = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Answer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(2500)", maxLength: 2500, nullable: false),
                     Published = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
@@ -205,55 +230,47 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserQuestions",
+                name: "Games",
                 columns: table => new
                 {
-                    Uquestion_id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProvinceId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Published = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LastUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    GameId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    GameName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SetQuestionId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserQuestions", x => x.Uquestion_id);
+                    table.PrimaryKey("PK_Games", x => x.GameId);
                     table.ForeignKey(
-                        name: "FK_UserQuestions_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_Games_SetQuestions_SetQuestionId",
+                        column: x => x.SetQuestionId,
+                        principalTable: "SetQuestions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserQuestions_Province_ProvinceId",
-                        column: x => x.ProvinceId,
-                        principalTable: "Province",
-                        principalColumn: "province_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Answers",
+                name: "SetQuestionDetails",
                 columns: table => new
                 {
-                    answer_id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    QuestionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Answers = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsCorrect = table.Column<bool>(type: "bit", nullable: true),
-                    LastUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SetQuestionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    QuestionId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Answers", x => x.answer_id);
+                    table.PrimaryKey("PK_SetQuestionDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Answers_Questions_QuestionId",
+                        name: "FK_SetQuestionDetails_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
                         principalColumn: "question_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SetQuestionDetails_SetQuestions_SetQuestionId",
+                        column: x => x.SetQuestionId,
+                        principalTable: "SetQuestions",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -262,7 +279,7 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     tracking_id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UquestionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    QuestionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     AuthorId = table.Column<int>(type: "int", nullable: false),
                     UpdContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UpdAnswers = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -275,33 +292,34 @@ namespace DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_Trackings", x => x.tracking_id);
                     table.ForeignKey(
-                        name: "FK_Trackings_UserQuestions_UquestionId",
-                        column: x => x.UquestionId,
-                        principalTable: "UserQuestions",
-                        principalColumn: "Uquestion_id",
+                        name: "FK_Trackings_Questions_QuestionId",
+                        column: x => x.QuestionId,
+                        principalTable: "Questions",
+                        principalColumn: "question_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserAnswers",
+                name: "GameSessions",
                 columns: table => new
                 {
-                    Uanswer_id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UquestionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Uanswers = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsCorrect = table.Column<bool>(type: "bit", nullable: true),
-                    LastUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    SessionID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    GameId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SetQuestionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccessCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PhotonRoomId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAnswers", x => x.Uanswer_id);
+                    table.PrimaryKey("PK_GameSessions", x => x.SessionID);
                     table.ForeignKey(
-                        name: "FK_UserAnswers_UserQuestions_UquestionId",
-                        column: x => x.UquestionId,
-                        principalTable: "UserQuestions",
-                        principalColumn: "Uquestion_id",
+                        name: "FK_GameSessions_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "GameId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -310,10 +328,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0c5420d4-d415-4f99-b524-286945a60976", null, "Student", "STUDENT" },
-                    { "b8635eae-b1ba-497b-9c09-97a72b0587ac", null, "Teacher", "TEACHER" },
-                    { "c8c84e9c-b8e2-4250-85f1-01c60f93d380", null, "Pending", "PENDING" },
-                    { "d458b4a6-ccf6-49db-a282-c933c5a189a1", null, "Administrator", "ADMINISTRATOR" }
+                    { "176b95b4-0bb7-4575-ace1-026e7822b012", null, "Administrator", "ADMINISTRATOR" },
+                    { "68fd45fe-6b92-4b85-a8ea-f49600693413", null, "Student", "STUDENT" },
+                    { "a0af2556-48e4-40be-85db-a302549ae713", null, "Pending", "PENDING" },
+                    { "c1b58417-8b42-4f74-be32-82142d859a84", null, "Teacher", "TEACHER" }
                 });
 
             migrationBuilder.InsertData(
@@ -384,11 +402,6 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answers_QuestionId",
-                table: "Answers",
-                column: "QuestionId");
-
-            migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
@@ -408,6 +421,16 @@ namespace DataAccess.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Games_SetQuestionId",
+                table: "Games",
+                column: "SetQuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameSessions_GameId",
+                table: "GameSessions",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Questions_ProvinceId",
                 table: "Questions",
                 column: "ProvinceId");
@@ -423,14 +446,19 @@ namespace DataAccess.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Trackings_UquestionId",
-                table: "Trackings",
-                column: "UquestionId");
+                name: "IX_SetQuestionDetails_QuestionId",
+                table: "SetQuestionDetails",
+                column: "QuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAnswers_UquestionId",
-                table: "UserAnswers",
-                column: "UquestionId");
+                name: "IX_SetQuestionDetails_SetQuestionId",
+                table: "SetQuestionDetails",
+                column: "SetQuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trackings_QuestionId",
+                table: "Trackings",
+                column: "QuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserClaims_UserId",
@@ -443,16 +471,6 @@ namespace DataAccess.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserQuestions_ProvinceId",
-                table: "UserQuestions",
-                column: "ProvinceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserQuestions_UserId",
-                table: "UserQuestions",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",
                 table: "UserRoles",
                 column: "RoleId");
@@ -462,16 +480,16 @@ namespace DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Answers");
+                name: "GameSessions");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
 
             migrationBuilder.DropTable(
-                name: "Trackings");
+                name: "SetQuestionDetails");
 
             migrationBuilder.DropTable(
-                name: "UserAnswers");
+                name: "Trackings");
 
             migrationBuilder.DropTable(
                 name: "UserClaims");
@@ -486,13 +504,16 @@ namespace DataAccess.Migrations
                 name: "UserTokens");
 
             migrationBuilder.DropTable(
+                name: "Games");
+
+            migrationBuilder.DropTable(
                 name: "Questions");
 
             migrationBuilder.DropTable(
-                name: "UserQuestions");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "SetQuestions");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

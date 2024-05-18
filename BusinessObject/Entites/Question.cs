@@ -23,7 +23,32 @@ namespace BusinessObject.Entites
         [ForeignKey(nameof(IdentityUser))] public string UserId { get; set; }
         public virtual IdentityUser User { get; set; } = default!;
         public string Images { get; set; }
-        public string Content { get; set; } = default!;
+        [Required]
+        [StringLength(600)]
+        public string Content { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string Option1 { get; set; }       
+        [Required]
+        [StringLength(200)]
+        public string Option2 { get; set; }       
+        [Required]
+        [StringLength(200)]
+        public string Option3 { get; set; }        
+        [Required]
+        [StringLength(200)]
+        public string Option4 { get; set; }
+        [Required]
+        [StringLength(200)]
+        public string Answer { get; set; }
+
+        [Required]
+        [StringLength(2500)]
+        public string Description { get; set; }
+       /* //
+        [ForeignKey("ListId")]
+        public List List { get; set; }*/
         public DateTime Published { get; set; }
      
 
