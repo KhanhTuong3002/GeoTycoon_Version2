@@ -1,0 +1,42 @@
+﻿@page
+@model GeoClinet.Pages.setdetail.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SetQuestionDetail[0].SetQuestion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SetQuestionDetail[0].Question)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.SetQuestionDetail) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SetQuestion.SetName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question.Title)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InnitCreate : Migration
+    public partial class mistu : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -79,7 +79,6 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     SetName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     QuestionNumber = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -198,6 +197,7 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     question_id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ProvinceId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     Images = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -328,10 +328,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "176b95b4-0bb7-4575-ace1-026e7822b012", null, "Administrator", "ADMINISTRATOR" },
-                    { "68fd45fe-6b92-4b85-a8ea-f49600693413", null, "Student", "STUDENT" },
-                    { "a0af2556-48e4-40be-85db-a302549ae713", null, "Pending", "PENDING" },
-                    { "c1b58417-8b42-4f74-be32-82142d859a84", null, "Teacher", "TEACHER" }
+                    { "4c7099be-c52c-4f7d-9a61-653778cedcb9", null, "Pending", "PENDING" },
+                    { "7d889890-e5cc-4829-ac4c-faf500387a53", null, "Teacher", "TEACHER" },
+                    { "fa585a29-7237-4d80-b0b2-6f2b464c8d1d", null, "Administrator", "ADMINISTRATOR" },
+                    { "fc8eee89-71f4-49df-a324-14fdeb7f7361", null, "Student", "STUDENT" }
                 });
 
             migrationBuilder.InsertData(

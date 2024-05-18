@@ -1,0 +1,87 @@
+﻿@page
+@model GeoClinet.Pages.Questionsss.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Question.Title" class="control-label"></label>
+                <input asp-for="Question.Title" class="form-control" />
+                <span asp-validation-for="Question.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.ProvinceId" class="control-label"></label>
+                <select asp-for="Question.ProvinceId" class ="form-control" asp-items="ViewBag.ProvinceId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.UserId" class="control-label"></label>
+                <input asp-for="Question.UserId" class="form-control" asp-items="ViewBag.FirstName"></input>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Images" class="control-label"></label>
+                <input asp-for="Question.Images" class="form-control" />
+                <span asp-validation-for="Question.Images" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Content" class="control-label"></label>
+                <input asp-for="Question.Content" class="form-control" />
+                <span asp-validation-for="Question.Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Option1" class="control-label"></label>
+                <input asp-for="Question.Option1" class="form-control" />
+                <span asp-validation-for="Question.Option1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Option2" class="control-label"></label>
+                <input asp-for="Question.Option2" class="form-control" />
+                <span asp-validation-for="Question.Option2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Option3" class="control-label"></label>
+                <input asp-for="Question.Option3" class="form-control" />
+                <span asp-validation-for="Question.Option3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Option4" class="control-label"></label>
+                <input asp-for="Question.Option4" class="form-control" />
+                <span asp-validation-for="Question.Option4" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Answer" class="control-label"></label>
+                <input asp-for="Question.Answer" class="form-control" />
+                <span asp-validation-for="Question.Answer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Description" class="control-label"></label>
+                <input asp-for="Question.Description" class="form-control" />
+                <span asp-validation-for="Question.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Published" class="control-label"></label>
+                <input asp-for="Question.Published" class="form-control" />
+                <span asp-validation-for="Question.Published" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
