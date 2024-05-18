@@ -32,7 +32,22 @@ namespace GeoClinet.Pages.setdetail
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            var setQuestion = await _context.SetQuestions.FindAsync(SetQuestionDetail.SetQuestionId);
 
+            if (setQuestion == null)
+            {
+                ModelState.AddModelError(string.Empty, "SetQuestion không tồn tại.");
+                return Page();
+            }
+
+            var existingQuestionsCount = _context.SetQuestionDetails
+                                                 .Count(sqd => sqd.SetQuestionId == SetQuestionDetail.SetQuestionId);
+
+            if (existingQuestionsCount >= setQuestion.QuestionNumber)
+            {
+                ModelState.AddModelError(string.Empty, "Số lượng câu hỏi đã vượt quá số lượng cho phép.");
+                return Page();
+            }
             _context.SetQuestionDetails.Add(SetQuestionDetail);
             await _context.SaveChangesAsync();
 

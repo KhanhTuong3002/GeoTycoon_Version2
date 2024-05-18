@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class mistu : Migration
+    public partial class mit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -132,8 +132,8 @@ namespace DataAccess.Migrations
                 name: "UserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -177,8 +177,8 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -328,10 +328,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4c7099be-c52c-4f7d-9a61-653778cedcb9", null, "Pending", "PENDING" },
-                    { "7d889890-e5cc-4829-ac4c-faf500387a53", null, "Teacher", "TEACHER" },
-                    { "fa585a29-7237-4d80-b0b2-6f2b464c8d1d", null, "Administrator", "ADMINISTRATOR" },
-                    { "fc8eee89-71f4-49df-a324-14fdeb7f7361", null, "Student", "STUDENT" }
+                    { "0820ea7f-9a8e-48f1-a6d1-c801f4c29885", null, "Pending", "PENDING" },
+                    { "570c0100-a73e-46be-b8a1-fd3b99816e2f", null, "Teacher", "TEACHER" },
+                    { "debcaf66-edea-4477-ae88-926116991ad2", null, "Administrator", "ADMINISTRATOR" },
+                    { "fcd5c223-ec5a-4377-add7-a877c89b20a4", null, "Student", "STUDENT" }
                 });
 
             migrationBuilder.InsertData(

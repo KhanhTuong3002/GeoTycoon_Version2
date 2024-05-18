@@ -45,10 +45,7 @@ namespace GeoClinet.Pages.Questionsss
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+
 
             _context.Attach(Question).State = EntityState.Modified;
 
