@@ -14,8 +14,8 @@ namespace BusinessObject.Entites
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
-        [ForeignKey(nameof(UserQuestion))] public string UquestionId { get; set; }
-        public virtual UserQuestion UserQuestion { get; set; } = default!;
+        [ForeignKey(nameof(Question))] public string QuestionId { get; set; }
+        public virtual Question Question { get; set; }
         public int AuthorId { get; set; }
         public string UpdContent { get; set; }
         public string UpdAnswers { get; set; }
