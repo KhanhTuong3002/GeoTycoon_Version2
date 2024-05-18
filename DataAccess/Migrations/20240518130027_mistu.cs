@@ -40,6 +40,7 @@ namespace DataAccess.Migrations
                     State = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsApproved = table.Column<bool>(type: "bit", nullable: true),
+                    Isbanned = table.Column<bool>(type: "bit", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -328,10 +329,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4c7099be-c52c-4f7d-9a61-653778cedcb9", null, "Pending", "PENDING" },
-                    { "7d889890-e5cc-4829-ac4c-faf500387a53", null, "Teacher", "TEACHER" },
-                    { "fa585a29-7237-4d80-b0b2-6f2b464c8d1d", null, "Administrator", "ADMINISTRATOR" },
-                    { "fc8eee89-71f4-49df-a324-14fdeb7f7361", null, "Student", "STUDENT" }
+                    { "0d96fec4-d15d-45e3-92fb-c1c357723573", null, "Pending", "PENDING" },
+                    { "3710cafd-557d-4265-a52e-b259d30c8202", null, "Student", "STUDENT" },
+                    { "b3488599-e1a1-4dd5-b29f-0c9605e09896", null, "Teacher", "TEACHER" },
+                    { "edb0f8e0-2877-47ca-8599-b7547b3e3c6e", null, "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.InsertData(

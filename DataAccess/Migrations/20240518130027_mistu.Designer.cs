@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-    [Migration("20240518071000_mistu")]
+    [Migration("20240518130027_mistu")]
     partial class mistu
     {
         /// <inheritdoc />
@@ -605,25 +605,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fa585a29-7237-4d80-b0b2-6f2b464c8d1d",
+                            Id = "edb0f8e0-2877-47ca-8599-b7547b3e3c6e",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "7d889890-e5cc-4829-ac4c-faf500387a53",
+                            Id = "b3488599-e1a1-4dd5-b29f-0c9605e09896",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "4c7099be-c52c-4f7d-9a61-653778cedcb9",
+                            Id = "0d96fec4-d15d-45e3-92fb-c1c357723573",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "fc8eee89-71f4-49df-a324-14fdeb7f7361",
+                            Id = "3710cafd-557d-4265-a52e-b259d30c8202",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -830,6 +830,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Isbanned")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
