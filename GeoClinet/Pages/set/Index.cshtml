@@ -2,46 +2,57 @@
 @model GeoClinet.Pages.set.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "List of Set Question";
 }
 
-<h1>Index</h1>
+<div class="content">
+    <div class="container w-[90%] mx-auto py-8 mb-8 items-center justify-center">
+        <!-- Title and Create Button -->
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
+            <a class="btn btn-success" asp-page="Create">
+                <img src="~/css/plus-circle.svg" class="mr-2" />
+                <span class="text-white">Create New Question</span>
+            </a>
+        </div>
+        <!-- Questions Table -->
+        <div class="w-full mt-8">
+            <table class="table w-full rounded-box table-auto">
+                <thead>
+                    <tr>
+                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.SetQuestion[0].SetName)</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.SetQuestion[0].QuestionNumber)</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Actions</th>
+                    </tr>
+                </thead>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<div class="overflow-x-auto">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.SetQuestion[0].SetName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SetQuestion[0].QuestionNumber)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.SetQuestion)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SetName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.QuestionNumber)
-                    </td>
-                    <td>
-                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                <tbody>
+                    @foreach (var item in Model.SetQuestion)
+                    {
+                        <tr class="bg-base-100 hover">
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.SetName)</td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.QuestionNumber)</td>
+                            <td class="flex flex-grow font-semibold p-4 relative pr-6 break-words">
+                                <a asp-page="./Details" asp-route-id="@item.Id" class="mr-2">
+                                    <img src="css/info.svg" />
+                                </a>
+                                <a asp-page="./Edit" asp-route-id="@item.Id" class="mr-2">
+                                    <img src="~/css/edit.svg" />
+                                </a>
+                                <a asp-page="./Delete" asp-route-id="@item.Id">
+                                    <img src="~/css/trash-2.svg" />
+                                </a>
 
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <!-- Pagination Partial -->
+            @* <div class="w-full mt-4 flex justify-end items-center gap-2">
+            @await Html.PartialAsync("_PaginationPartial")
+            </div> *@
+        </div>
+    </div>
 </div>
 

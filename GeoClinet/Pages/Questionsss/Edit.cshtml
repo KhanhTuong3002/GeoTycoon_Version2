@@ -26,8 +26,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Question.UserId" class="control-label"></label>
-                <select asp-for="Question.UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="Question.UserId" class="text-danger"></span>
+                <input asp-for="Question.UserId" class="form-control" asp-items="ViewBag.FirstName" readonly></input>
             </div>
             <div class="form-group">
                 <label asp-for="Question.Images" class="control-label"></label>
@@ -41,27 +40,29 @@
             </div>
             <div class="form-group">
                 <label asp-for="Question.Option1" class="control-label"></label>
-                <input asp-for="Question.Option1" class="form-control" />
+                <input id="option1Input" asp-for="Question.Option1" class="form-control" oninput="updateAnswerDropdown()" />
                 <span asp-validation-for="Question.Option1" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Question.Option2" class="control-label"></label>
-                <input asp-for="Question.Option2" class="form-control" />
+                <input id="option2Input" asp-for="Question.Option2" class="form-control" oninput="updateAnswerDropdown()" />
                 <span asp-validation-for="Question.Option2" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Question.Option3" class="control-label"></label>
-                <input asp-for="Question.Option3" class="form-control" />
+                <input id="option3Input" asp-for="Question.Option3" class="form-control" oninput="updateAnswerDropdown()" />
                 <span asp-validation-for="Question.Option3" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Question.Option4" class="control-label"></label>
-                <input asp-for="Question.Option4" class="form-control" />
+                <input id="option4Input" asp-for="Question.Option4" class="form-control" oninput="updateAnswerDropdown()" />
                 <span asp-validation-for="Question.Option4" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Question.Answer" class="control-label"></label>
-                <input asp-for="Question.Answer" class="form-control" />
+                <select id="answerDropdown" asp-for="Question.Answer" class="form-control">
+                    <option value="">Select option</option>
+                </select>
                 <span asp-validation-for="Question.Answer" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -91,5 +92,51 @@
 </div>
 
 @section Scripts {
+    <script>
+        function updateAnswerDropdown() {
+            var option1 = document.getElementById('option1Input').value;
+            var option2 = document.getElementById('option2Input').value;
+            var option3 = document.getElementById('option3Input').value;
+            var option4 = document.getElementById('option4Input').value;
+
+            var answerDropdown = document.getElementById('answerDropdown');
+            answerDropdown.innerHTML = '';
+
+            if (!option1 && !option2 && !option3 && !option4) {
+                var defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Select option';
+                answerDropdown.appendChild(defaultOption);
+            }
+
+            if (option1.trim() !== '') {
+                var option1Element = document.createElement('option');
+                option1Element.value = option1;
+                option1Element.textContent = option1;
+                answerDropdown.appendChild(option1Element);
+            }
+
+            if (option2.trim() !== '') {
+                var option2Element = document.createElement('option');
+                option2Element.value = option2;
+                option2Element.textContent = option2;
+                answerDropdown.appendChild(option2Element);
+            }
+
+            if (option3.trim() !== '') {
+                var option3Element = document.createElement('option');
+                option3Element.value = option3;
+                option3Element.textContent = option3;
+                answerDropdown.appendChild(option3Element);
+            }
+
+            if (option4.trim() !== '') {
+                var option4Element = document.createElement('option');
+                option4Element.value = option4;
+                option4Element.textContent = option4;
+                answerDropdown.appendChild(option4Element);
+            }
+        }
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

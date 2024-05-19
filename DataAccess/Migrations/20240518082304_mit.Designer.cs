@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-    partial class GeoTycoonDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240518082304_mit")]
+    partial class mit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -602,27 +605,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-
-                            Id = "edb0f8e0-2877-47ca-8599-b7547b3e3c6e",
+                            Id = "debcaf66-edea-4477-ae88-926116991ad2",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-
-                            Id = "b3488599-e1a1-4dd5-b29f-0c9605e09896",
+                            Id = "570c0100-a73e-46be-b8a1-fd3b99816e2f",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "0d96fec4-d15d-45e3-92fb-c1c357723573",
+                            Id = "0820ea7f-9a8e-48f1-a6d1-c801f4c29885",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "3710cafd-557d-4265-a52e-b259d30c8202",
+                            Id = "fcd5c223-ec5a-4377-add7-a877c89b20a4",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -833,9 +834,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsApproved")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Isbanned")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
