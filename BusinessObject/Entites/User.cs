@@ -24,6 +24,7 @@ namespace BusinessObject.Entites
         public string State { get; set; }
         public string Description { get; set; }
         public bool IsApproved { get; set; }
+        public bool Isbanned { get; set; } = false;
 
         public User()
         {

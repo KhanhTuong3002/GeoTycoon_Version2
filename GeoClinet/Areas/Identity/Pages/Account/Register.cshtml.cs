@@ -171,6 +171,14 @@ namespace GeoClinet.Areas.Identity.Pages.Account
         {
             try
             {
+                string newEmailContent = @"
+                                       Xin chào,
+
+                                        Chúng tôi xin gửi lời cảm ơn đến bạn về việc đăng ký tài khoản.
+
+                                        Để hoàn tất quá trình đăng ký, vui lòng nhấp vào liên kết sau để xác nhận đăng ký:
+                                       <a href='" + confirmLink + "'>" + confirmLink + @"</a>
+Nếu bạn không thực hiện hành động này, tài khoản của bạn có thể không được kích hoạt và một số tính năng có thể bị hạn chế.";
                 MailMessage message = new MailMessage();
                 SmtpClient smtpClient = new SmtpClient();
                 // message.From = new MailAddress("AIAIYan@yandex.com");
@@ -179,7 +187,7 @@ namespace GeoClinet.Areas.Identity.Pages.Account
                 message.To.Add(email);
                 message.Subject = subject;
                 message.IsBodyHtml = true;
-                message.Body = confirmLink;
+                message.Body = newEmailContent;
 
                 smtpClient.Port = 587;
                 //smtpClient.Host = "smtp.yandex.com";
