@@ -1,0 +1,25 @@
+﻿@page
+@model GeoClinet.Pages.UserListModel
+@using Microsoft.AspNetCore.Identity
+
+<h2>User List</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <!-- Thêm các thông tin người dùng khác nếu cần -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <!-- Hiển thị các thông tin người dùng khác nếu cần -->
+            </tr>
+        }
+    </tbody>
+</table>
