@@ -24,10 +24,10 @@
                 <select asp-for="Question.ProvinceId" class="form-control" asp-items="ViewBag.ProvinceId"></select>
                 <span asp-validation-for="Question.ProvinceId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+           @*  <div class="form-group">
                 <label asp-for="Question.UserId" class="control-label"></label>
                 <input asp-for="Question.UserId" class="form-control" asp-items="ViewBag.FirstName" readonly></input>
-            </div>
+            </div> *@
             <div class="form-group">
                 <label asp-for="Question.Images" class="control-label"></label>
                 <input asp-for="Question.Images" class="form-control" />
