@@ -5,79 +5,88 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
 
-<h4>Question</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+
+<div class="container w-[60%] mx-auto py-8 mb-8 items-center justify-center">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h2 class="flex text-2xl font-bold items-center mb-3">Edit Question</h2>
             <input type="hidden" asp-for="Question.Id" />
-            <div class="form-group">
-                <label asp-for="Question.Title" class="control-label"></label>
-                <input asp-for="Question.Title" class="form-control" />
+        <div class="flex w-full space-x-4 mb-2">
+            <div class="relative w-1/2 mr-2">
+                <label asp-for="Question.Title" class="block text-sm font-bold mb-2">Title</label>
+                <input asp-for="Question.Title" class="input input-bordered w-full bg-base-200" />
                 <span asp-validation-for="Question.Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Question.ProvinceId" class="control-label"></label>
-                <select asp-for="Question.ProvinceId" class="form-control" asp-items="ViewBag.ProvinceId"></select>
+            <div class="relative w-1/2">
+                <label asp-for="Question.ProvinceId" class="block text-sm font-bold mb-2">Province</label>
+                <select asp-for="Question.ProvinceId" class="input input-bordered w-full bg-base-200" asp-items="ViewBag.ProvinceId"></select>
                 <span asp-validation-for="Question.ProvinceId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Question.UserId" class="control-label"></label>
-                <input asp-for="Question.UserId" class="form-control" asp-items="ViewBag.FirstName" readonly></input>
+        </div>
+
+        <div class="relative mb-2">
+            <label asp-for="Question.UserId" class="block text-sm font-bold mb-2">User ID</label>
+            <input asp-for="Question.UserId" class="input input-bordered w-full bg-base-200" asp-items="ViewBag.FirstName" readonly></input>
             </div>
-            <div class="form-group">
-                <label asp-for="Question.Images" class="control-label"></label>
-                <input asp-for="Question.Images" class="form-control" />
+        <div class="relative mb-2">
+            <label asp-for="Question.Images" class="block text-sm font-bold mb-2">Image</label>
+            <input asp-for="Question.Images" class="input input-bordered w-full bg-base-200" />
                 <span asp-validation-for="Question.Images" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Question.Content" class="control-label"></label>
-                <input asp-for="Question.Content" class="form-control" />
+        <div class="relative mb-2">
+            <label asp-for="Question.Content" class="block text-sm font-bold mb-2">Content</label>
+            <input asp-for="Question.Content" class="input input-bordered w-full bg-base-200" />
                 <span asp-validation-for="Question.Content" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Question.Option1" class="control-label"></label>
-                <input id="option1Input" asp-for="Question.Option1" class="form-control" oninput="updateAnswerDropdown()" />
+
+        <div class="flex w-full space-x-4 mb-2">
+            <div class="relative w-1/2 mr-2">
+                <label asp-for="Question.Option1" class="block text-sm font-bold mb-2">Option 1</label>
+                <input id="option1Input" asp-for="Question.Option1" class="input input-bordered w-full bg-base-200" oninput="updateAnswerDropdown()" />
                 <span asp-validation-for="Question.Option1" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Question.Option2" class="control-label"></label>
-                <input id="option2Input" asp-for="Question.Option2" class="form-control" oninput="updateAnswerDropdown()" />
+            <div class="relative w-1/2">
+                <label asp-for="Question.Option2" class="block text-sm font-bold mb-2">Option 2</label>
+                <input id="option2Input" asp-for="Question.Option2" class="input input-bordered w-full bg-base-200" oninput="updateAnswerDropdown()" />
                 <span asp-validation-for="Question.Option2" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Question.Option3" class="control-label"></label>
-                <input id="option3Input" asp-for="Question.Option3" class="form-control" oninput="updateAnswerDropdown()" />
+            </div>
+        <div class="flex w-full space-x-4 mb-2">
+            <div class="relative w-1/2 mr-2">
+                <label asp-for="Question.Option3" class="block text-sm font-bold mb-2">Option 3</label>
+                <input id="option3Input" asp-for="Question.Option3" class="input input-bordered w-full bg-base-200" oninput="updateAnswerDropdown()" />
                 <span asp-validation-for="Question.Option3" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Question.Option4" class="control-label"></label>
-                <input id="option4Input" asp-for="Question.Option4" class="form-control" oninput="updateAnswerDropdown()" />
+            <div class="relative w-1/2">
+                <label asp-for="Question.Option4" class="block text-sm font-bold mb-2">Option 4</label>
+                <input id="option4Input" asp-for="Question.Option4" class="input input-bordered w-full bg-base-200" oninput="updateAnswerDropdown()" />
                 <span asp-validation-for="Question.Option4" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Question.Answer" class="control-label"></label>
-                <select id="answerDropdown" asp-for="Question.Answer" class="form-control">
+        </div>
+        <div class="flex w-full space-x-4 mb-2">
+            <div class="relative mb-2">
+                <label asp-for="Question.Answer" class="block text-sm font-bold mb-2">Answer</label>
+                <select id="answerDropdown" asp-for="Question.Answer" class="input input-bordered w-full bg-base-200">
                     <option value="">Select option</option>
                 </select>
                 <span asp-validation-for="Question.Answer" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Question.Description" class="control-label"></label>
-                <input asp-for="Question.Description" class="form-control" />
+        </div>
+        
+        <div class="relative mb-2">
+            <label asp-for="Question.Description" class="block text-sm font-bold mb-2">Description</label>
+            <input asp-for="Question.Description" class="input input-bordered w-full bg-base-200" />
                 <span asp-validation-for="Question.Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Question.Published" class="control-label"></label>
-                <input asp-for="Question.Published" class="form-control" />
+        <div class="relative mb-2">
+            <label asp-for="Question.Published" class="block text-sm font-bold mb-2">Published</label>
+            <input asp-for="Question.Published" class="input input-bordered w-full bg-base-200" />
                 <span asp-validation-for="Question.Published" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Question.CreatedAt" class="control-label"></label>
-                <input asp-for="Question.CreatedAt" class="form-control" />
+        <div class="relative mb-2">
+            <label asp-for="Question.CreatedAt" class="block text-sm font-bold mb-2">Created At</label>
+            <input asp-for="Question.CreatedAt" class="input input-bordered w-full bg-base-200" />
                 <span asp-validation-for="Question.CreatedAt" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -85,7 +94,6 @@
             </div>
         </form>
     </div>
-</div>
 
 <div>
     <a asp-page="./Index">Back to List</a>

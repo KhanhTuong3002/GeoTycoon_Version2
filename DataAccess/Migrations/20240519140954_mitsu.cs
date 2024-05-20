@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class mit : Migration
+    public partial class mitsu : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,6 +40,7 @@ namespace DataAccess.Migrations
                     State = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsApproved = table.Column<bool>(type: "bit", nullable: true),
+                    Isbanned = table.Column<bool>(type: "bit", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -328,10 +329,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0820ea7f-9a8e-48f1-a6d1-c801f4c29885", null, "Pending", "PENDING" },
-                    { "570c0100-a73e-46be-b8a1-fd3b99816e2f", null, "Teacher", "TEACHER" },
-                    { "debcaf66-edea-4477-ae88-926116991ad2", null, "Administrator", "ADMINISTRATOR" },
-                    { "fcd5c223-ec5a-4377-add7-a877c89b20a4", null, "Student", "STUDENT" }
+                    { "64f88177-ba7f-4dfd-b774-895a5f92a086", null, "Administrator", "ADMINISTRATOR" },
+                    { "8dcdd083-3f19-4cd6-ab4a-b3604c8f5011", null, "Teacher", "TEACHER" },
+                    { "8e956432-8577-4b16-899a-aa1f3993234a", null, "Pending", "PENDING" },
+                    { "d49313f1-1730-4a33-9534-0972413f31a8", null, "Student", "STUDENT" }
                 });
 
             migrationBuilder.InsertData(
