@@ -134,7 +134,7 @@
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
                         <label class="block text-sm font-bold mb-2">City</label>
-                        <select disabled aria-required="true" placeholder="Select your city"
+                        <select disabled   asp-for="Input.City" aria-required="true" placeholder="Select your city"
                                 class="input input-bordered w-full">
                             <option value="Can Tho">Can Tho</option>
                             <option value="Ho Chi Minh">Ho Chi Minh</option>
@@ -142,7 +142,7 @@
                     </div>
                     <div class="relative w-1/2">
                         <label class="block text-sm font-bold mb-2">State</label>
-                        <select disabled aria-required="true" placeholder="Select your state"
+                        <select disabled asp-for="Input.State" aria-required="true" placeholder="Select your state"
                                 class="input input-bordered w-full">
                             <option value="Vietnam">Vietnam</option>
                             <option value="Japan">Japan</option>
@@ -151,7 +151,7 @@
                 </div>
                 <div class="relative mb-6">
                     <label class="block text-sm font-bold mb-2">Description</label>
-                    <textarea disabled type class="textarea textarea-bordered h-24 w-full" placeholder="Description"></textarea>
+                    <textarea disabled asp-for="Input.Description" type class="textarea textarea-bordered h-24 w-full" placeholder="Description"></textarea>
                 </div>
 
                 <div class="mb-6 relative">
