@@ -98,17 +98,14 @@
 
                 </div>
 
-                <div>
-                    <button style="margin-left: 150px" class="btn btn-success" form="uploadForm" type="submit">Upload Image</button>
-                    <a class="block text-sm font-bold mb-2 pt-4 flex" style="justify-content:center">
+                <div class="flex flex-col items-center justify-center mt-4">
+                    <button class="btn btn-outline btn-accent justify-center items-center" form="uploadForm" type="submit">Upload Image</button>
+                    <a class="block text-sm font-bold mb-2 pt-4 flex">
                         @User.Identity?.Name!
-                    </a>
-                    <a class="block text-sm font-bold mb-2 pt-4 flex" style="justify-content:center">
-                        UserID: @userId
                     </a>
                 </div>
             </div>
-            <div class="w-full">
+            <div class="w-full ml-8">
                 <h2 class="flex text-2xl font-bold items-center mb-3">Your Profile</h2>
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
