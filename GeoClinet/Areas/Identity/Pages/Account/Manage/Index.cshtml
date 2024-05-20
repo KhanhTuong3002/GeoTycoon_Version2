@@ -59,7 +59,7 @@
                 <div class="avatar" style="justify-content:center">
                     <div class="w-[250px] rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                         <label id="upload-label">
-                            <img  src="@Model.Input.Avatar" id="image-preview" />
+                            <img src="@(!string.IsNullOrEmpty(Model.Input.Avatar) ? Model.Input.Avatar : "https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg")" id="image-preview" />
                         </label>
                         <input type="file" form="uploadForm" id="file-upload" style="display: none;" accept="image/*" />
                         <input type="hidden" asp-for="Input.Avatar" id="avatar-url" />
