@@ -1,4 +1,6 @@
+using BusinessObject.Entites;
 using DataAccess;
+using DataAccess.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -14,6 +16,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<GeoTycoonDbcontext>();
+builder.Services.AddScoped<DbContext,GeoTycoonDbcontext>();
+builder.Services.AddScoped<ProfileRepo>();
 builder.Services.AddControllersWithViews();
 
 string storagePath = Path.Combine(Directory.GetCurrentDirectory(), "Storage", "Images");
@@ -50,6 +54,14 @@ builder.Services.AddAuthorization(options =>
     });
 });
 var app = builder.Build();
+
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = fileProvider,
+    RequestPath = new PathString("/Images"),
+    ServeUnknownFileTypes = false
+});
 
 
 
@@ -96,13 +108,13 @@ using (var scope = app.Services.CreateScope())
             UserName = email,
             Email = email,
             EmailConfirmed = true,
-            NormalizedEmail = email.ToUpper(),
-            NormalizedUserName = email.ToUpper(),
         };
         var result = await userManager.CreateAsync(user, password);
         if (result.Succeeded)
         {
             await userManager.AddToRoleAsync(user, "Administrator");
+            var profileRepo = services.GetRequiredService<ProfileRepo>();
+            var profile = profileRepo.GetprofileFrommUser(user);
         }
     }
 }

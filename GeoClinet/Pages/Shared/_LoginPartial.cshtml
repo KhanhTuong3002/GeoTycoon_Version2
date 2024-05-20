@@ -1,15 +1,19 @@
 ﻿@using BusinessObject.Entites
+@using DataAccess.Repository
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject ProfileRepo ProfileRepo
 @{
-    var currentUser = await UserManager.GetUserAsync(User) as User;
+    var currentUser = await UserManager.GetUserAsync(User);
     var userId = currentUser?.Id;
 }
 <ul class="navbar-nav flex justify-between">
 
     @if (SignInManager.IsSignedIn(User))
     {
+        var profile = ProfileRepo.GetprofileFrommUser(currentUser);
+
         <div class="navbar bg-base-200">
             <div class="">
                 <div class="dropdown dropdown-end">
@@ -18,9 +22,9 @@
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                         <div class="w-10 rounded-full">
 
-                            @if (!string.IsNullOrEmpty(currentUser?.Avatar))
+                            @if (!string.IsNullOrEmpty(profile.Avatar))
                             {
-                                <img alt="Tailwind CSS Navbar component" src="@currentUser.Avatar" />
+                                <img alt="Tailwind CSS Navbar component" src="@profile.Avatar" />
 
                             }
                             else
