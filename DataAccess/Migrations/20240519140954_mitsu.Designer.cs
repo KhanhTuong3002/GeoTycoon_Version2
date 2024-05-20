@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-    [Migration("20240518082304_mit")]
-    partial class mit
+    [Migration("20240519140954_mitsu")]
+    partial class mitsu
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -605,25 +605,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "debcaf66-edea-4477-ae88-926116991ad2",
+                            Id = "64f88177-ba7f-4dfd-b774-895a5f92a086",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "570c0100-a73e-46be-b8a1-fd3b99816e2f",
+                            Id = "8dcdd083-3f19-4cd6-ab4a-b3604c8f5011",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "0820ea7f-9a8e-48f1-a6d1-c801f4c29885",
+                            Id = "8e956432-8577-4b16-899a-aa1f3993234a",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "fcd5c223-ec5a-4377-add7-a877c89b20a4",
+                            Id = "d49313f1-1730-4a33-9534-0972413f31a8",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -834,6 +834,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Isbanned")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
