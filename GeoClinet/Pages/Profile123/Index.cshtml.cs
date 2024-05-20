@@ -19,12 +19,40 @@ namespace GeoClinet.Pages.Profile123
             _context = context;
         }
 
-        public IList<Profile> Profile { get;set; } = default!;
+        public IList<Profile> Profile { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
             Profile = await _context.Profiles
                 .Include(p => p.User).ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostBanAsync(string id)
+        {
+            var profile = await _context.Profiles.FindAsync(id);
+            if (profile == null)
+            {
+                return NotFound();
+            }
+
+            profile.Isbanned = true;
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostUnbanAsync(string id)
+        {
+            var profile = await _context.Profiles.FindAsync(id);
+            if (profile == null)
+            {
+                return NotFound();
+            }
+
+            profile.Isbanned = false;
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage();
         }
     }
 }
