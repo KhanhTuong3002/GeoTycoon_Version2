@@ -16,6 +16,13 @@
             </a>
         </div>
 
+
+<form method="get">
+    <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search questions..." />
+    <input type="checkbox" name="SearchByTitle" value="true" @(Model.SearchByTitle ? "checked" : "") /> Search by Title
+    <input type="checkbox" name="SearchByContent" value="true" @(Model.SearchByContent ? "checked" : "") /> Search by Content
+    <input type="submit" value="Search" />
+</form>
         <!-- Questions Table -->
         <div class="w-full mt-8">
             <table class="table w-full rounded-box table-auto overflow-auto">
