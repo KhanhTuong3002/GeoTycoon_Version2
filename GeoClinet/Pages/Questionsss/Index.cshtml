@@ -2,10 +2,20 @@
 @model GeoClinet.Pages.Questionsss.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "List of Questions";
 }
 
-<h1>Index</h1>
+<div class="content items-center justify-center">
+    <div class="container w-[90%] mx-auto py-8 mb-8 items-center justify-center">
+        <!-- Title and Create Button -->
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
+            <a class="btn btn-success" asp-page="Create">
+                <img src="~/css/plus-circle.svg" class="mr-2" />
+                <span class="text-white">Create New Question</span>
+            </a>
+        </div>
+
 
 <form method="get">
     <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search questions..." />
@@ -13,68 +23,48 @@
     <input type="checkbox" name="SearchByContent" value="true" @(Model.SearchByContent ? "checked" : "") /> Search by Content
     <input type="submit" value="Search" />
 </form>
+        <!-- Questions Table -->
+        <div class="w-full mt-8">
+            <table class="table w-full rounded-box table-auto overflow-auto">
+                <thead>
+                    <tr>
+                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].Title)</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].Province)</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].User)</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].Content)</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Actions</th>
+                    </tr>
+                </thead>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Question[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question[0].Province)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question[0].User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question[0].Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question[0].Published)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question[0].LastUpdated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question[0].CreatedAt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Question)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Province.ProvinceName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Content)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Published)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastUpdated)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedAt)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <tbody>
+                    @foreach (var item in Model.Question)
+                    {
+                        <tr class="bg-base-100 hover">
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.Title)</td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.Province.ProvinceName)</td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.User.UserName)</td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.Content)</td>
+                            <td class="flex flex-grow font-semibold p-4 relative pr-6 break-words">
+                                <a asp-page="./Details" asp-route-id="@item.Id" class="mr-2">
+                                    <img src="css/info.svg" />
+                                </a>
+                                <a asp-page="./Edit" asp-route-id="@item.Id" class="mr-2">
+                                    <img src="~/css/edit.svg" />
+                                </a>
+                                <a asp-page="./Delete" asp-route-id="@item.Id">
+                                    <img src="~/css/trash-2.svg" />
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Pagination Partial -->
+            @* <div class="w-full mt-4 flex justify-end items-center gap-2">
+                @await Html.PartialAsync("_PaginationPartial")
+            </div> *@
+        </div>
+    </div>
+</div>

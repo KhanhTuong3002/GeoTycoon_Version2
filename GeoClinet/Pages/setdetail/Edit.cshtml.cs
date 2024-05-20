@@ -36,8 +36,8 @@ namespace GeoClinet.Pages.setdetail
                 return NotFound();
             }
             SetQuestionDetail = setquestiondetail;
-           ViewData["QuestionId"] = new SelectList(_context.Questions, "Id", "Id");
-           ViewData["SetQuestionId"] = new SelectList(_context.SetQuestions, "Id", "Id");
+           ViewData["QuestionId"] = new SelectList(_context.Questions, "Id", "Title");
+           ViewData["SetQuestionId"] = new SelectList(_context.SetQuestions, "Id", "SetName");
             return Page();
         }
 
@@ -45,10 +45,7 @@ namespace GeoClinet.Pages.setdetail
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+
 
             _context.Attach(SetQuestionDetail).State = EntityState.Modified;
 

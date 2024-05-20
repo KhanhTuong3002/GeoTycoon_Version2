@@ -8,16 +8,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject.Entites;
 using DataAccess;
+using Microsoft.AspNetCore.Identity;
 
 namespace GeoClinet.Pages.Questionsss
 {
     public class EditModel : PageModel
     {
         private readonly DataAccess.GeoTycoonDbcontext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public EditModel(DataAccess.GeoTycoonDbcontext context)
+        public EditModel(DataAccess.GeoTycoonDbcontext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -37,7 +40,7 @@ namespace GeoClinet.Pages.Questionsss
             }
             Question = question;
            ViewData["ProvinceId"] = new SelectList(_context.Set<Province>(), "Id", "ProvinceName");
-           ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+           //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
@@ -45,12 +48,10 @@ namespace GeoClinet.Pages.Questionsss
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
 
+            var currentUser = await _userManager.GetUserAsync(User);
             _context.Attach(Question).State = EntityState.Modified;
+            Question.UserId = currentUser?.Id;
 
             try
             {

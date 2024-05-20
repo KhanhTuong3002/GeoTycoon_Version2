@@ -7,22 +7,25 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObject.Entites;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace GeoClinet.Pages.Questionsss
 {
     public class CreateModel : PageModel
     {
         private readonly DataAccess.GeoTycoonDbcontext _context;
-
-        public CreateModel(DataAccess.GeoTycoonDbcontext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        public CreateModel(DataAccess.GeoTycoonDbcontext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult OnGet()
         {
         ViewData["ProvinceId"] = new SelectList(_context.Set<Province>(), "Id", "ProvinceName");
-        ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+        //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
@@ -32,7 +35,16 @@ namespace GeoClinet.Pages.Questionsss
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            var existingSetQuestion = await _context.Questions
+            .FirstOrDefaultAsync(sq => sq.Title == Question.Title);
 
+            if (existingSetQuestion != null)
+            {
+                ModelState.AddModelError("Question.Title", "Title đã tồn tại.");
+                return Page();
+            }
+            Question.UserId = currentUser?.Id;
             _context.Questions.Add(Question);
             await _context.SaveChangesAsync();
 
