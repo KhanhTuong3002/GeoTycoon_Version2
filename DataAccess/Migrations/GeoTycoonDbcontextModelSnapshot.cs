@@ -125,6 +125,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -650,27 +651,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-
-
-                            Id = "64f88177-ba7f-4dfd-b774-895a5f92a086",
+                            Id = "086e7836-0b13-4c70-9365-c4baf762fbf3",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "8dcdd083-3f19-4cd6-ab4a-b3604c8f5011",
+                            Id = "d7379324-a37d-490a-a75e-3820a80f9245",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "8e956432-8577-4b16-899a-aa1f3993234a",
+                            Id = "6f958bee-9ebb-40f7-bbb6-4f370d291cb5",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "d49313f1-1730-4a33-9534-0972413f31a8",
+                            Id = "d4c3b78b-9efc-4223-9c2e-323b0a975807",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -874,7 +873,8 @@ namespace DataAccess.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

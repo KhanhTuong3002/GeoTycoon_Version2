@@ -1,0 +1,81 @@
+﻿@* @page
+@model GeoClinet.Pages.Pending.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Profile</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Profile.Avatar" class="control-label"></label>
+                <input asp-for="Profile.Avatar" class="form-control" />
+                <span asp-validation-for="Profile.Avatar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Profile.FirstName" class="control-label"></label>
+                <input asp-for="Profile.FirstName" class="form-control" />
+                <span asp-validation-for="Profile.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Profile.LastName" class="control-label"></label>
+                <input asp-for="Profile.LastName" class="form-control" />
+                <span asp-validation-for="Profile.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Profile.City" class="control-label"></label>
+                <input asp-for="Profile.City" class="form-control" />
+                <span asp-validation-for="Profile.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Profile.State" class="control-label"></label>
+                <input asp-for="Profile.State" class="form-control" />
+                <span asp-validation-for="Profile.State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Profile.Description" class="control-label"></label>
+                <input asp-for="Profile.Description" class="form-control" />
+                <span asp-validation-for="Profile.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Profile.IsApproved" /> @Html.DisplayNameFor(model => model.Profile.IsApproved)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Profile.Isbanned" /> @Html.DisplayNameFor(model => model.Profile.Isbanned)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Profile.UserId" class="control-label"></label>
+                <select asp-for="Profile.UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                <span asp-validation-for="Profile.UserId" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Profile.Id" />
+            <div class="form-group">
+                <label asp-for="Profile.CreatedAt" class="control-label"></label>
+                <input asp-for="Profile.CreatedAt" class="form-control" />
+                <span asp-validation-for="Profile.CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+ *@
