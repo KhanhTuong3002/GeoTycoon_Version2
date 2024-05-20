@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-    partial class GeoTycoonDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240520031220_InitialCreates")]
+    partial class InitialCreates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -650,27 +653,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-
-
-                            Id = "64f88177-ba7f-4dfd-b774-895a5f92a086",
+                            Id = "73bdd012-86fa-416e-908f-16ea15d6e171",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "8dcdd083-3f19-4cd6-ab4a-b3604c8f5011",
+                            Id = "dd44481f-50d5-49b2-a57e-20c7c58e89d0",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "8e956432-8577-4b16-899a-aa1f3993234a",
+                            Id = "9bcbe916-2341-4d7a-9269-5c05cbf60aaf",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "d49313f1-1730-4a33-9534-0972413f31a8",
+                            Id = "59894d38-76db-45eb-bd32-e8bdb1bbbd8b",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -873,8 +874,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });

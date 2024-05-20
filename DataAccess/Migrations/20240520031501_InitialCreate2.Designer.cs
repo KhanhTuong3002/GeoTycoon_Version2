@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-    partial class GeoTycoonDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240520031501_InitialCreate2")]
+    partial class InitialCreate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -650,27 +653,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-
-
-                            Id = "64f88177-ba7f-4dfd-b774-895a5f92a086",
+                            Id = "e1826c1d-f88a-4c36-9f86-82106581ea0f",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "8dcdd083-3f19-4cd6-ab4a-b3604c8f5011",
+                            Id = "61a92486-d810-4067-8610-915f5671f1be",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "8e956432-8577-4b16-899a-aa1f3993234a",
+                            Id = "72bdab57-e8bd-4b89-a709-ec4d43a06b3c",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "d49313f1-1730-4a33-9534-0972413f31a8",
+                            Id = "bfe568b4-613e-4676-9aac-b235b6261125",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
