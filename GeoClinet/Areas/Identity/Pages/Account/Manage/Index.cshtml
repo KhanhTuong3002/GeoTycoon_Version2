@@ -6,6 +6,7 @@
     var currentUser = await UserManager.GetUserAsync(User);
     var userId = currentUser?.Id;
     ViewData["ActivePage"] = ManageNavPages.Index;
+
 }
 <head>
     <meta charset="utf-8" />
@@ -43,15 +44,17 @@
 </script>
 
 <div class="flex items-center justify-center min-h-screen">
-    <form id="uploadForm" action="/Images" method="post" enctype="multipart/form-data" class="w-full h-fit max-w-4xl bg-base-300 p-8 shadow-lg rounded-lg">
+    <form id="uploadForm" action="/Images"></form>
+    <form id="editForm" method="post" enctype="multipart/form-data" class="w-full h-fit max-w-4xl bg-base-300 p-8 shadow-lg rounded-lg">
         <div class="flex">
             <div class="hidden md:block items-center justify-center" style="padding-top: 3rem">
                 <div class="avatar" style="justify-content:center">
-                    <div class="w-3/4 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2" style="width:55%">
+                    <div class="w-[250px] rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                         <label id="upload-label">
-                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" id="image-preview" />
+                            <img  src="@Model.Input.Avatar" id="image-preview" />
                         </label>
-                        <input type="file" id="file-upload" style="display: none;" accept="image/*" />
+                        <input type="file" form="uploadForm" id="file-upload" style="display: none;" accept="image/*" />
+                        <input type="hidden" asp-for="Input.Avatar" id="avatar-url" />
                     </div>
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
@@ -82,7 +85,10 @@
 
                                 if (response.ok) {
                                     const imageUrl = await response.text();
-                                    alert('Image uploaded successfully! URL: ' + imageUrl);
+                                    document.getElementById("avatar-url").value = imageUrl;
+                                    document.getElementById("image-preview").src = imageUrl;
+                                    alert("Sucess")
+
                                 } else {
                                     alert('Image upload failed!');
                                 }
@@ -93,7 +99,7 @@
                 </div>
 
                 <div>
-                    <button style="margin-left: 150px" class="btn btn-success" type="submit">Upload Image</button>
+                    <button style="margin-left: 150px" class="btn btn-success" form="uploadForm" type="submit">Upload Image</button>
                     <a class="block text-sm font-bold mb-2 pt-4 flex" style="justify-content:center">
                         @User.Identity?.Name!
                     </a>
@@ -107,20 +113,20 @@
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
                         <label class="block text-sm font-bold mb-2">First Name</label>
-                        <input disabled value="Hao" autocomplete="username" aria-required="true" placeholder="Enter your first name"
+                        <input disabled asp-for="Input.FirstName" aria-required="true" placeholder="Enter your first name"
                                class="input input-bordered w-full" />
                         <span class="text-danger"></span>
                     </div>
                     <div class="relative w-1/2">
                         <label class="block text-sm font-bold mb-2">Last Name</label>
-                        <input disabled value="Qiong" autocomplete="username" aria-required="true" placeholder="Enter your last name"
+                        <input disabled asp-for="Input.LastName" aria-required="true" placeholder="Enter your last name"
                                class="input input-bordered w-full" />
                         <span class="text-danger"></span>
                     </div>
                 </div>
                 <div class="relative mb-2">
                     <label class="block text-sm font-bold mb-2">Phone</label>
-                    <input disabled value="0886677921" autocomplete="username" aria-required="true" placeholder="Enter your phone"
+                    <input disabled asp-for="Input.PhoneNumber" aria-required="true" placeholder="Enter your phone"
                            class="input input-bordered w-full" />
                     <span class="text-danger"></span>
 
@@ -128,7 +134,7 @@
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
                         <label class="block text-sm font-bold mb-2">City</label>
-                        <select disabled autocomplete="username" aria-required="true" placeholder="Select your city"
+                        <select disabled aria-required="true" placeholder="Select your city"
                                 class="input input-bordered w-full">
                             <option value="Can Tho">Can Tho</option>
                             <option value="Ho Chi Minh">Ho Chi Minh</option>
@@ -136,7 +142,7 @@
                     </div>
                     <div class="relative w-1/2">
                         <label class="block text-sm font-bold mb-2">State</label>
-                        <select disabled autocomplete="username" aria-required="true" placeholder="Select your state"
+                        <select disabled aria-required="true" placeholder="Select your state"
                                 class="input input-bordered w-full">
                             <option value="Vietnam">Vietnam</option>
                             <option value="Japan">Japan</option>
@@ -151,6 +157,7 @@
                 <div class="mb-6 relative">
                     <div class="flex gap-2">
                         <button class="btn btn-accent" type="button" onclick="enableInputs()">Edit Profile</button>
+                        <button class="btn btn-accent" type="submit">Save</button>
                         <a class="btn btn-success  @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Change Password</a>
                     </div>
                 </div>
