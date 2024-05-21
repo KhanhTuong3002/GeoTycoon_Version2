@@ -118,4 +118,31 @@ using (var scope = app.Services.CreateScope())
         }
     }
 }
+
+//add more pending users
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var configuration = app.Configuration;
+    string email = "mydieu@123.com";
+    string password = "chetconmenoroi";
+
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new IdentityUser
+        {
+            UserName = email,
+            Email = email,
+            EmailConfirmed = true,
+        };
+        var result = await userManager.CreateAsync(user, password);
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(user, "Pending");
+            var profileRepo = services.GetRequiredService<ProfileRepo>();
+            var profile = profileRepo.GetprofileFrommUser(user);
+        }
+    }
+}
 app.Run();

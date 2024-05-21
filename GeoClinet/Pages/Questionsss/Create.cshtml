@@ -4,8 +4,20 @@
 @{
     ViewData["Title"] = "Create New Question";
 }
-
+<head>
+    <!-- Include jQuery from CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include jQuery Validation Plugin from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <!-- Include other libraries from CDN if needed -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.0/dist/alpine.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+</head>
 <div class="container w-[60%] mx-auto py-8 mb-8 items-center justify-center">
+    <form id="uploadFormImageQs" action="/Images"></form>
     <form method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
         <h2 class="flex text-2xl font-bold items-center mb-6">Create New Question</h2>
@@ -29,11 +41,64 @@
                    class="input input-bordered w-full inline-block bg-base-200" />
             <span asp-validation-for="Question.Content" class="text-danger"></span>
         </div>
-        <div class="relative mb-2">
+@*         <div class="relative mb-2">
             <label asp-for="Question.Images" class="block text-sm font-bold mb-2">Images</label>
             <input asp-for="Question.Images" aria-required="true"
                    class="input input-bordered w-full inline-block bg-base-200" />
             <span asp-validation-for="Question.Images" class="text-danger"></span>
+        </div> *@
+        <div class="avatar">
+            <div class="w-[250px] rounded">
+                <label asp-for="Question.Images" class="block text-sm font-bold mb-2">Images (Optional) </label>
+                <label id="upload-label">
+                    <img src="https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg")" id="image-preview" />"
+                </label>
+                <input type="file" form="uploadFormImageQs" id="file-upload" style="display: none;" accept="image/*" />
+                <input type="hidden" asp-for="Question.Images" id="questionImage-url" />
+            </div>
+            <div class="flex flex-col items-center justify-center mt-4">
+                <button class="btn btn-outline btn-accent justify-center items-center" form="uploadFormImageQs" type="submit">save Image</button>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    console.log("upload");
+                    document.getElementById('upload-label').addEventListener('click', function () {
+                        document.getElementById('file-upload').click();
+                    });
+
+                    document.getElementById('file-upload').addEventListener('change', function (event) {
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                document.getElementById('image-preview').src = e.target.result;
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                    document.getElementById('uploadFormImageQs').addEventListener('submit', async function (event) {
+                        event.preventDefault();
+                        const formData = new FormData();
+                        formData.append('File', document.getElementById('file-upload').files[0]);
+
+                        const response = await fetch('/Images', {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (response.ok) {
+                            const imageUrl = await response.text();
+                            document.getElementById("questionImage-url").value = imageUrl;
+                            document.getElementById("image-preview").src = imageUrl;
+                            alert("Sucess")
+
+                        } else {
+                            alert('We have not found any change! Please choose another picture before save');
+                        }
+                    });
+                });
+            </script>
+
         </div>
         <div class="flex w-full space-x-4 mb-2">
             <div class="relative w-1/2 mr-2">
