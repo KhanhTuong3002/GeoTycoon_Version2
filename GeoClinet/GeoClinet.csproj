@@ -29,6 +29,7 @@
     <Folder Include="Areas\Identity\Data\" />
     <Folder Include="Data\" />
     <Folder Include="Pages\UserManagement\" />
+    <Folder Include="Storage\Images\" />
   </ItemGroup>
 
   <ItemGroup>
