@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    var defaultImageUrl = "https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg";
 }
 
 <h1>Details</h1>
@@ -33,7 +34,8 @@
             @Html.DisplayNameFor(model => model.Question.Images)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Question.Images)
+            <img src="@(!string.IsNullOrEmpty(Model.Question.Images) ? Model.Question.Images : defaultImageUrl)"
+                 alt="Question Image" class="img-fluid" style="max-width: 250px; border-radius: 8px;" />
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Question.Content)
