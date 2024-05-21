@@ -16,48 +16,31 @@
     <script src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 </head>
+
+<h2 class="text-2xl font-bold items-start mb-4 ml-48">Create New Question</h2>
+<hr class="border-base-300"/>
 <div class="container w-[60%] mx-auto py-8 mb-8 items-center justify-center">
+
     <form id="uploadFormImageQs" action="/Images"></form>
     <form method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-        <h2 class="flex text-2xl font-bold items-center mb-6">Create New Question</h2>
-        <div class="flex w-full space-x-4 mb-2">
-            <div class="relative w-1/2 mr-2">
-                <label asp-for="Question.Title" class="block text-sm font-bold mb-2">Title</label>
-                <input asp-for="Question.Title" aria-required="true"
-                       class="input input-bordered w-full bg-base-200" />
-                <span asp-validation-for="Question.Title" class="text-danger"></span>
-            </div>
-            <div class="relative w-1/2">
-                <label asp-for="Question.ProvinceId" class="block text-sm font-bold mb-2">Province</label>
-                <select asp-for="Question.ProvinceId" aria-required="true" asp-items="ViewBag.ProvinceId"
-                        class="input input-bordered w-full bg-base-200"></select>
-                <span asp-validation-for="Question.ProvinceId" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="relative mb-2">
-            <label asp-for="Question.Content" class="block text-sm font-bold mb-2">Content</label>
-            <input asp-for="Question.Content" aria-required="true"
-                   class="input input-bordered w-full inline-block bg-base-200" />
-            <span asp-validation-for="Question.Content" class="text-danger"></span>
-        </div>
-@*         <div class="relative mb-2">
-            <label asp-for="Question.Images" class="block text-sm font-bold mb-2">Images</label>
-            <input asp-for="Question.Images" aria-required="true"
-                   class="input input-bordered w-full inline-block bg-base-200" />
-            <span asp-validation-for="Question.Images" class="text-danger"></span>
-        </div> *@
-        <div class="avatar">
-            <div class="w-[250px] rounded">
+    <div class="flex">
+        <div class="hidden md:block items-center justify-center mr-8 mt-16">
+            <div class="flex flex-col items-start justify-center mt-4">
                 <label asp-for="Question.Images" class="block text-sm font-bold mb-2">Images (Optional) </label>
-                <label id="upload-label">
-                    <img src="https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg")" id="image-preview" />"
-                </label>
-                <input type="file" form="uploadFormImageQs" id="file-upload" style="display: none;" accept="image/*" />
-                <input type="hidden" asp-for="Question.Images" id="questionImage-url" />
             </div>
+            <div class="avatar">
+                <div class="w-[250px] rounded">
+                    
+                    <label id="upload-label">
+                        <img src="https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg" )" id="image-preview" />"
+                    </label>
+                    <input type="file" form="uploadFormImageQs" id="file-upload" style="display: none;" accept="image/*" />
+                    <input type="hidden" asp-for="Question.Images" id="questionImage-url" />
+                </div>
+        </div>
+
             <div class="flex flex-col items-center justify-center mt-4">
-                <button class="btn btn-outline btn-accent justify-center items-center" form="uploadFormImageQs" type="submit">save Image</button>
+                <button class="btn btn-outline btn-accent justify-center items-center" form="uploadFormImageQs" type="submit">Save Image</button>
             </div>
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
@@ -100,68 +83,101 @@
             </script>
 
         </div>
-        <div class="flex w-full space-x-4 mb-2">
-            <div class="relative w-1/2 mr-2">
-                <label asp-for="Question.Option1" class="block text-sm font-bold mb-2">Option 1</label>
-                <input id="option1Input" asp-for="Question.Option1" aria-required="true" oninput="updateAnswerDropdown()"
-                       class="input input-bordered w-full bg-base-200" />
-                <span asp-validation-for="Question.Option1" class="text-danger"></span>
-            </div>
-            <div class="relative w-1/2">
-                <label asp-for="Question.Option2" class="block text-sm font-bold mb-2">Option 2</label>
-                <input id="option2Input" asp-for="Question.Option2" aria-required="true" oninput="updateAnswerDropdown()"
-                       class="input input-bordered w-full bg-base-200" />
-                <span asp-validation-for="Question.Option2" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="flex w-full space-x-4 mb-2">
-            <div class="relative w-1/2 mr-2">
-                <label asp-for="Question.Option3" class="block text-sm font-bold mb-2">Option 3</label>
-                <input id="option3Input" asp-for="Question.Option3" aria-required="true" oninput="updateAnswerDropdown()"
-                       class="input input-bordered w-full bg-base-200" />
-                <span asp-validation-for="Question.Option3" class="text-danger"></span>
-            </div>
-            <div class="relative w-1/2">
-                <label asp-for="Question.Option4" class="block text-sm font-bold mb-2">Option 4</label>
-                <input id="option4Input" asp-for="Question.Option4" aria-required="true" oninput="updateAnswerDropdown()"
-                       class="input input-bordered w-full bg-base-200" />
-                <span asp-validation-for="Question.Option4" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="flex w-full space-x-4 mb-2">
-            <div class="relative w-1/2 mr-2">
-                <label asp-for="Question.Answer" class="block text-sm font-bold mb-2">Answer</label>
-                <select id="answerDropdown" asp-for="Question.Answer" aria-required="true"
-                        class="input input-bordered w-full bg-base-200">
-                    <option value="">Select option</option>
-                </select>
-                <span asp-validation-for="Question.Answer" class="text-danger"></span>
-            </div>
-            <div class="relative w-1/2">
-                <label asp-for="Question.Published" class="block text-sm font-bold mb-2">Published</label>
-                <input asp-for="Question.Published" aria-required="true"
-                       class="input input-bordered w-full bg-base-200" />
+        <div class="w-full">
+            
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
-                <span asp-validation-for="Question.Published" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="relative mb-6">
-            <label asp-for="Question.Description" class="block text-sm font-bold mb-2">Description</label>
-            <input asp-for="Question.Description" aria-required="true"
-                   class="input input-bordered w-full inline-block bg-base-200" />
-            <span asp-validation-for="Question.Description" class="text-danger"></span>
-        </div>
+                <div class="flex w-full space-x-4 mb-2">
+                    <div class="relative w-1/2 mr-2">
+                        <label asp-for="Question.Title" class="block text-sm font-bold mb-2">Title</label>
+                        <input asp-for="Question.Title" aria-required="true"
+                               class="input input-bordered w-full bg-base-200" />
+                        <span asp-validation-for="Question.Title" class="text-danger"></span>
+                    </div>
+                    <div class="relative w-1/2">
+                        <label asp-for="Question.ProvinceId" class="block text-sm font-bold mb-2">Province</label>
+                        <select asp-for="Question.ProvinceId" aria-required="true" asp-items="ViewBag.ProvinceId"
+                                class="input input-bordered w-full bg-base-200"></select>
+                        <span asp-validation-for="Question.ProvinceId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="relative mb-2">
+                    <label asp-for="Question.Content" class="block text-sm font-bold mb-2">Content</label>
+                    <input asp-for="Question.Content" aria-required="true"
+                           class="input input-bordered w-full inline-block bg-base-200" />
+                    <span asp-validation-for="Question.Content" class="text-danger"></span>
+                </div>
+                @*         <div class="relative mb-2">
+                <label asp-for="Question.Images" class="block text-sm font-bold mb-2">Images</label>
+                <input asp-for="Question.Images" aria-required="true"
+                class="input input-bordered w-full inline-block bg-base-200" />
+                <span asp-validation-for="Question.Images" class="text-danger"></span>
+                </div> *@
 
-        <div class="mb-6 relative">
-            <div class="flex gap-2 w-1/2">
-                <a asp-page="./Index" class="btn btn-error w-48 text-white" type="button">Cancel</a>
-                <input type="submit" value="Create" class="btn btn-success w-48 text-white" />
-            </div>
+                <div class="flex w-full space-x-4 mb-2">
+                    <div class="relative w-1/2 mr-2">
+                        <label asp-for="Question.Option1" class="block text-sm font-bold mb-2">Option 1</label>
+                        <input id="option1Input" asp-for="Question.Option1" aria-required="true" oninput="updateAnswerDropdown()"
+                               class="input input-bordered w-full bg-base-200" />
+                        <span asp-validation-for="Question.Option1" class="text-danger"></span>
+                    </div>
+                    <div class="relative w-1/2">
+                        <label asp-for="Question.Option2" class="block text-sm font-bold mb-2">Option 2</label>
+                        <input id="option2Input" asp-for="Question.Option2" aria-required="true" oninput="updateAnswerDropdown()"
+                               class="input input-bordered w-full bg-base-200" />
+                        <span asp-validation-for="Question.Option2" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="flex w-full space-x-4 mb-2">
+                    <div class="relative w-1/2 mr-2">
+                        <label asp-for="Question.Option3" class="block text-sm font-bold mb-2">Option 3</label>
+                        <input id="option3Input" asp-for="Question.Option3" aria-required="true" oninput="updateAnswerDropdown()"
+                               class="input input-bordered w-full bg-base-200" />
+                        <span asp-validation-for="Question.Option3" class="text-danger"></span>
+                    </div>
+                    <div class="relative w-1/2">
+                        <label asp-for="Question.Option4" class="block text-sm font-bold mb-2">Option 4</label>
+                        <input id="option4Input" asp-for="Question.Option4" aria-required="true" oninput="updateAnswerDropdown()"
+                               class="input input-bordered w-full bg-base-200" />
+                        <span asp-validation-for="Question.Option4" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="flex w-full space-x-4 mb-2">
+                    <div class="relative w-1/2 mr-2">
+                        <label asp-for="Question.Answer" class="block text-sm font-bold mb-2">Answer</label>
+                        <select id="answerDropdown" asp-for="Question.Answer" aria-required="true"
+                                class="input input-bordered w-full bg-base-200">
+                            <option value="">Select option</option>
+                        </select>
+                        <span asp-validation-for="Question.Answer" class="text-danger"></span>
+                    </div>
+                    <div class="relative w-1/2">
+                        <label asp-for="Question.Published" class="block text-sm font-bold mb-2">Published</label>
+                        <input asp-for="Question.Published" aria-required="true"
+                               class="input input-bordered w-full bg-base-200" />
+
+                        <span asp-validation-for="Question.Published" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="relative mb-6">
+                    <label asp-for="Question.Description" class="block text-sm font-bold mb-2">Description</label>
+                    <input asp-for="Question.Description" aria-required="true"
+                           class="input input-bordered w-full inline-block bg-base-200" />
+                    <span asp-validation-for="Question.Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-6 relative">
+                    <div class="flex gap-2 w-1/2">
+                        <a asp-page="./Index" class="btn btn-error w-48 text-white" type="button">Cancel</a>
+                        <input type="submit" value="Create" class="btn btn-success w-48 text-white" />
+                    </div>
+                </div>
+
+
+            </form>
         </div>
+        
 
-
-    </form>
-</div>
         
     
 @section Scripts {

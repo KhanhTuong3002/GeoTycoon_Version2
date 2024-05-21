@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-    [Migration("20240520132357_GeoTycoon")]
-    partial class GeoTycoon
+    [Migration("20240521060758_Mistu")]
+    partial class Mistu
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -486,7 +486,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(2500)");
 
                     b.Property<string>("Images")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset?>("LastUpdated")
@@ -654,25 +653,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "72a26a3c-321a-4777-b330-11028a471305",
+                            Id = "6ac67859-e4ed-451d-9817-da16e96011ea",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "c7f0375d-f390-4cd3-80af-cc179dd954f6",
+                            Id = "28b17554-4539-459c-8d4a-1edbe4c3663b",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "8e54e37f-67ef-4dff-a6dc-0fca6c190ee6",
+                            Id = "bdf1349a-de66-4efb-b5e7-abaa59822cd3",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "fbed3880-4840-4baf-b032-fc563eb2c805",
+                            Id = "6da19f47-1367-4146-ab88-a3352a6f6c32",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -796,10 +795,12 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -836,10 +837,12 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
