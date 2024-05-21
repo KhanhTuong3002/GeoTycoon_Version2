@@ -53,12 +53,10 @@
                         <form method="post" asp-page-handler="Ban" asp-route-id="@item.Id">
                             <button type="submit" class="btn btn-danger">Ban</button>
                         </form>
-                    }
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
-                </td>
-            
+                    }                   
+                </td>           
             <td>
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |               
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a>               
             </td>
         </tr>
 }
