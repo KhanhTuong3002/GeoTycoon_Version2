@@ -17,7 +17,7 @@ namespace DataAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.5")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -483,7 +483,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(2500)");
 
                     b.Property<string>("Images")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset?>("LastUpdated")
@@ -651,27 +650,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-
-                            Id = "8f6c5436-6ac8-4549-b69a-816868df6dad",
+                            Id = "ed38cd39-b371-461e-a761-c91a84ed0e72",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-
-                            Id = "35c1dc9f-1137-4d75-8f4b-5fc07d9f91fb",
+                            Id = "fbf24134-8235-4527-9ded-382638df78df",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "4444953c-96f1-4ed8-b6f0-ca43505e5a88",
+                            Id = "f8fcc1e3-f756-4369-b06f-0fe9db546ef9",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "a8ac224b-2320-42da-ba32-a15cf58adf2c",
+                            Id = "bc996169-42c5-4275-a4cf-ee382b214295",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -795,12 +792,10 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -837,12 +832,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initials : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -220,7 +220,7 @@ namespace DataAccess.Migrations
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ProvinceId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Images = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Images = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(600)", maxLength: 600, nullable: false),
                     Option1 = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Option2 = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
@@ -348,10 +348,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "086e7836-0b13-4c70-9365-c4baf762fbf3", null, "Administrator", "ADMINISTRATOR" },
-                    { "6f958bee-9ebb-40f7-bbb6-4f370d291cb5", null, "Pending", "PENDING" },
-                    { "d4c3b78b-9efc-4223-9c2e-323b0a975807", null, "Student", "STUDENT" },
-                    { "d7379324-a37d-490a-a75e-3820a80f9245", null, "Teacher", "TEACHER" }
+                    { "bc996169-42c5-4275-a4cf-ee382b214295", null, "Student", "STUDENT" },
+                    { "ed38cd39-b371-461e-a761-c91a84ed0e72", null, "Administrator", "ADMINISTRATOR" },
+                    { "f8fcc1e3-f756-4369-b06f-0fe9db546ef9", null, "Pending", "PENDING" },
+                    { "fbf24134-8235-4527-9ded-382638df78df", null, "Teacher", "TEACHER" }
                 });
 
             migrationBuilder.InsertData(
