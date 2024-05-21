@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-    partial class GeoTycoonDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240520132357_GeoTycoon")]
+    partial class GeoTycoon
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -483,6 +486,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(2500)");
 
                     b.Property<string>("Images")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset?>("LastUpdated")
@@ -650,26 +654,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-
-                            Id = "ed38cd39-b371-461e-a761-c91a84ed0e72",
+                            Id = "72a26a3c-321a-4777-b330-11028a471305",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "fbf24134-8235-4527-9ded-382638df78df",
+                            Id = "c7f0375d-f390-4cd3-80af-cc179dd954f6",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "f8fcc1e3-f756-4369-b06f-0fe9db546ef9",
+                            Id = "8e54e37f-67ef-4dff-a6dc-0fca6c190ee6",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "bc996169-42c5-4275-a4cf-ee382b214295",
+                            Id = "fbed3880-4840-4baf-b032-fc563eb2c805",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
