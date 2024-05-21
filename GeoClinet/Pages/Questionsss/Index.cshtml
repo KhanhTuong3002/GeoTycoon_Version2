@@ -16,12 +16,29 @@
             </a>
         </div>
 
-
 <form method="get" class="m-xl-auto">
-    <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search questions..." class="input input-bordered w-24 md:w-auto" />
-            <input type="checkbox" class="checkbox checkbox-success" name="SearchByTitle" value="true" @(Model.SearchByTitle ? "checked" : "") /> Search by Title
-            <input type="checkbox" class="checkbox checkbox-success" name="SearchByContent" value="true" @(Model.SearchByContent ? "checked" : "") /> Search by Content 
+    <div class="flex">
+                <div class="mr-8">
+                    <input id="searchInput" type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search Question   Ctrl + K" class="input input-bordered w-64 md:w-auto" />
+                </div>
+                <div class="pt-4">
+                    <input type="checkbox" class="checkbox checkbox-success" name="SearchByTitle" value="true" @(Model.SearchByTitle ? "checked" : "") /> Search by Title
+                    <input type="checkbox" class="checkbox checkbox-success" name="SearchByContent" value="true" @(Model.SearchByContent ? "checked" : "") /> Search by Content
+                </div>
+            </div>
+           
+            
     <input type="submit" value="Search" style="display:none;" />
+
+            <script>
+                document.addEventListener('keydown', function (event) {
+                    // Check if the 'Ctrl' key and 'K' key are pressed together
+                    if (event.ctrlKey && event.key === 'k') {
+                        event.preventDefault(); // Prevent the default browser action
+                        document.getElementById('searchInput').focus(); // Set focus to the search input
+                    }
+                });
+            </script>
 </form>
         <!-- Questions Table -->
         <div class="w-full mt-8">
