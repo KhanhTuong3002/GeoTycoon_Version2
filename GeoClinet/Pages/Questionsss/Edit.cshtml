@@ -74,13 +74,18 @@
             </div>
         </div>
         <div class="flex w-full space-x-4 mb-2">
-            <div class="relative mb-2">
+                <div class="relative w-1/2 mr-2">
                 <label asp-for="Question.Answer" class="block text-sm font-bold mb-2">Answer</label>
                 <select id="answerDropdown" asp-for="Question.Answer" class="input input-bordered w-full bg-base-200">
                     <option value="">Select option</option>
                 </select>
                 <span asp-validation-for="Question.Answer" class="text-danger"></span>
             </div>
+                <div class="relative w-1/2">
+                    <label asp-for="Question.Published" class="block text-sm font-bold mb-2">Published</label>
+                    <input asp-for="Question.Published" class="input input-bordered w-full bg-base-200" />
+                    <span asp-validation-for="Question.Published" class="text-danger"></span>
+                </div>
         </div>
         
         <div class="relative mb-2">
@@ -88,25 +93,22 @@
             <input asp-for="Question.Description" class="input input-bordered w-full bg-base-200" />
                 <span asp-validation-for="Question.Description" class="text-danger"></span>
             </div>
-        <div class="relative mb-2">
-            <label asp-for="Question.Published" class="block text-sm font-bold mb-2">Published</label>
-            <input asp-for="Question.Published" class="input input-bordered w-full bg-base-200" />
-                <span asp-validation-for="Question.Published" class="text-danger"></span>
-            </div>
-        <div class="relative mb-2">
+        
+        <div class="relative mb-6">
             <label asp-for="Question.CreatedAt" class="block text-sm font-bold mb-2">Created At</label>
             <input asp-for="Question.CreatedAt" class="input input-bordered w-full bg-base-200" />
                 <span asp-validation-for="Question.CreatedAt" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="mb-6 relative">
+                <div class="flex gap-2 w-1/2">
+                    <a asp-page="./Index" class="btn btn-error w-48 text-white" type="button">Cancel</a>
+                    <input type="submit" value="Save" class="btn btn-success w-48 text-white" />
+                </div>
             </div>
+
         </form>
     </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
 
 @section Scripts {
     <script>
