@@ -18,11 +18,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Profile[0].LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Profile[0].Isbanned)
-            </th>
-            
+            </th>           
             <th></th>
         </tr>
     </thead>
@@ -38,9 +34,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Isbanned)
-            </td>
                 <td>
                     @if (item.Isbanned)
                     {
@@ -51,12 +44,14 @@
                     else
                     {
                         <form method="post" asp-page-handler="Ban" asp-route-id="@item.Id">
-                            <button type="submit" class="btn btn-danger">Ban</button>
+                            <button type="submit" class="btn btn-error">Ban</button>
                         </form>
                     }                   
                 </td>           
             <td>
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a>               
+                    <a asp-page="./Details" asp-route-id="@item.Id" class="mr-2">
+                        <img src="css/info.svg" />
+                    </a>
             </td>
         </tr>
 }
