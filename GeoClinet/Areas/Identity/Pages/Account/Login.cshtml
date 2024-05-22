@@ -20,13 +20,13 @@
                 <div class="w-full mr-8">
                     <h2 class="flex text-2xl font-bold items-center mb-3">Login to GeoTycoon</h2>
                     <div class="relative mb-4">
-                        <label asp-for="Input.Email" class="block text-sm font-bold mb-2">Email Address</label>
+                        <label asp-for="Input.Email" class="block text-sm font-bold mb-2"><i data-feather="user" aria-hidden="true"></i> Email Address</label>
                         <input asp-for="Input.Email" autocomplete="username" aria-required="true" placeholder="Enter your email address"
                                class="input input-bordered w-full" />
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
                     <div class="relative mb-2">
-                        <label asp-for="Input.Password" class="block text-sm font-bold mb-2">Password</label>
+                        <label asp-for="Input.Password" class="block text-sm font-bold mb-2"> <i data-feather="lock" aria-hidden="true"></i> Password</label>
                         <input asp-for="Input.Password" autocomplete="current-password" aria-required="true" placeholder="Enter your password"
                                class="input input-bordered w-full" />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
