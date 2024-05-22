@@ -3,23 +3,24 @@
 @using Microsoft.AspNetCore.Identity
 
 <h2>User List</h2>
-
-<table class="table">
+<div class="w-full mt-8"> 
+<table class="table w-full rounded-box table-auto overflow-auto">
     <thead>
         <tr>
-            <th>Username</th>
-            <th>Email</th>
+                <th class="font-semibold p-4 relative pr-6 text-left">Username</th>
+                <th class="font-semibold p-4 relative pr-6 text-left">Email</th>
             <!-- Thêm các thông tin người dùng khác nếu cần -->
         </tr>
     </thead>
     <tbody>
         @foreach (var user in Model.Users)
         {
-            <tr>
-                <td>@user.UserName</td>
-                <td>@user.Email</td>
+                <tr class="bg-base-100 hover">
+                    <td class="font-semibold p-4 relative pr-6 break-words">@user.UserName</td>
+                    <td class="font-semibold p-4 relative pr-6 break-words">@user.Email</td>
                 <!-- Hiển thị các thông tin người dùng khác nếu cần -->
             </tr>
         }
     </tbody>
 </table>
+</div>

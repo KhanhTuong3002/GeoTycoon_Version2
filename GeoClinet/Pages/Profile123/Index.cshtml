@@ -7,31 +7,31 @@
 
 <h1>User Management</h1>
 
-<table class="table">
+<div class="w-full mt-8">
+    <table class="table w-full rounded-box table-auto overflow-auto">
     <thead>
         <tr>
-            <th>
+                <th class="font-semibold p-4 relative pr-6 text-left">
                 @Html.DisplayNameFor(model => model.Profile[0].User)
             </th>
-            <th>
+                <th class="font-semibold p-4 relative pr-6 text-left">
                 @Html.DisplayNameFor(model => model.Profile[0].FirstName)
             </th>
-            <th>
+                <th class ="font-semibold p-4 relative pr-6 text-left">
                 @Html.DisplayNameFor(model => model.Profile[0].LastName)
             </th>           
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Profile) {
-        <tr>
-            <td>
+                <tr class="bg-base-100 hover">
+                    <td class ="font-semibold p-4 relative pr-6 break-words">
                 @Html.DisplayFor(modelItem => item.User.Email)
             </td>
-            <td>
+                    <td class="font-semibold p-4 relative pr-6 break-words">
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
-            <td>
+                    <td class="font-semibold p-4 relative pr-6 break-words">
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
                 <td>
@@ -57,3 +57,4 @@
 }
     </tbody>
 </table>
+</div>
