@@ -19,11 +19,21 @@ namespace GeoClinet.Pages.set
             _context = context;
         }
 
-        public IList<SetQuestion> SetQuestion { get;set; } = default!;
+        public IList<SetQuestion> SetQuestion { get; set; } = default!;
+
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
 
         public async Task OnGetAsync()
         {
-            SetQuestion = await _context.SetQuestions.ToListAsync();
+            var query = _context.SetQuestions.AsQueryable();
+
+            if (!string.IsNullOrEmpty(SearchTerm))
+            {
+                query = query.Where(s => s.SetName.Contains(SearchTerm));
+            }
+
+            SetQuestion = await query.ToListAsync();
         }
     }
 }
