@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using BusinessObject.Entites;
 using DataAccess;
 
@@ -12,14 +13,16 @@ namespace GeoClinet.Pages.Profile123
 {
     public class IndexModel : PageModel
     {
-        private readonly DataAccess.GeoTycoonDbcontext _context;
+        private readonly GeoTycoonDbcontext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public IndexModel(DataAccess.GeoTycoonDbcontext context)
+        public IndexModel(GeoTycoonDbcontext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        public IList<Profile> Profile { get; set; } = default!;
+        public IList<ProfileWithRoles> Profile { get; set; } = default!;
 
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
@@ -35,6 +38,7 @@ namespace GeoClinet.Pages.Profile123
 
         public async Task OnGetAsync()
         {
+
             var profiles = from p in _context.Profiles
                            select p;
 
@@ -66,6 +70,23 @@ namespace GeoClinet.Pages.Profile123
             Profile = await profiles
                 .Include(p => p.User)
                 .ToListAsync();
+
+            var profiles = await _context.Profiles
+                .Include(p => p.User)
+                .ToListAsync();
+
+            Profile = new List<ProfileWithRoles>();
+
+            foreach (var profile in profiles)
+            {
+                var userRoles = await _userManager.GetRolesAsync(profile.User);
+                Profile.Add(new ProfileWithRoles
+                {
+                    Profile = profile,
+                    Roles = userRoles
+                });
+            }
+
         }
 
         public async Task<IActionResult> OnPostBanAsync(string id)
@@ -95,5 +116,11 @@ namespace GeoClinet.Pages.Profile123
 
             return RedirectToPage();
         }
+    }
+
+    public class ProfileWithRoles
+    {
+        public Profile Profile { get; set; }
+        public IList<string> Roles { get; set; }
     }
 }

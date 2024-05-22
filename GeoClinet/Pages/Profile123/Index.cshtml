@@ -24,36 +24,48 @@
     <table class="table w-full rounded-box table-auto overflow-auto">
         <thead>
             <tr>
-                <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Profile[0].User)</th>
-                <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Profile[0].FirstName)</th>
-                <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Profile[0].LastName)</th>
+                <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Profile[0].Profile.User.Email)</th>
+                <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Profile[0].Profile.FirstName)</th>
+                <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Profile[0].Profile.LastName)</th>
+                <th class="font-semibold p-4 relative pr-6 text-left">Roles</th>
                 <th class="font-semibold p-4 relative pr-6 text-left">Actions</th>
+                <th class="font-semibold p-4 relative pr-6 text-left">Details</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Profile)
-            {
-                <tr class="bg-base-100 hover">
-                    <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.User.Email)</td>
-                    <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.FirstName)</td>
-                    <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.LastName)</td>
-                    <td class="font-semibold p-4 relative pr-6 break-words">
-                        @if (item.Isbanned)
+        @foreach (var item in Model.Profile)
+        {
+            <tr class="bg-base-100 hover">
+                <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.Profile.User.Email)</td>
+                <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.Profile.FirstName)</td>
+                <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.Profile.LastName)</td>
+                <td class="font-semibold p-4 relative pr-6 break-words">
+                    @foreach (var role in item.Roles)
+                    {
+                        <span>@role</span><br />
+                    }
+                </td>
+                    <td>
+                        @if (item.Profile.Isbanned)
                         {
-                            <form method="post" asp-page-handler="Unban" asp-route-id="@item.Id">
-                                <button type="submit" class="btn btn-success">Unban</button>
+                            <form method="post" asp-page-handler="Unban" asp-route-id="@item.Profile.Id">
+                                <button type="submit" class="btn btn-success">
+                                    <i data-feather="unlock" aria-hidden="true"></i> Unban
+                                </button>
                             </form>
                         }
                         else
                         {
-                            <form method="post" asp-page-handler="Ban" asp-route-id="@item.Id">
-                                <button type="submit" class="btn btn-error">Ban</button>
+                            <form method="post" asp-page-handler="Ban" asp-route-id="@item.Profile.Id">
+                                <button type="submit" class="btn btn-error">
+                                    <i data-feather="lock" aria-hidden="true"></i> Ban
+                                </button>
                             </form>
                         }
                     </td>
                     <td>
-                        <a asp-page="./Details" asp-route-id="@item.Id" class="mr-2">
-                            <img src="css/info.svg" />
+                        <a asp-page="./Details" asp-route-id="@item.Profile.Id" class="mr-2">
+                            <i data-feather="info" aria-hidden="true"></i>
                         </a>
                     </td>
                 </tr>
@@ -61,3 +73,10 @@
         </tbody>
     </table>
 </div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
+    <script>
+        feather.replace();
+    </script>
+}

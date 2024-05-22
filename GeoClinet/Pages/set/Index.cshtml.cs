@@ -18,22 +18,72 @@ namespace GeoClinet.Pages.set
         {
             _context = context;
         }
+        public IList<SetQuestion> SetQuestions { get; set; } = new List<SetQuestion>();
 
-        public IList<SetQuestion> SetQuestion { get; set; } = default!;
-
-        [BindProperty(SupportsGet = true)]
+        [BindProperty]
+        public SetQuestion SetQuestion { get; set; }
         public string SearchTerm { get; set; }
 
         public async Task OnGetAsync()
         {
             var query = _context.SetQuestions.AsQueryable();
-
             if (!string.IsNullOrEmpty(SearchTerm))
             {
                 query = query.Where(s => s.SetName.Contains(SearchTerm));
             }
 
-            SetQuestion = await query.ToListAsync();
+            SetQuestions = await _context.SetQuestions.ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostAddAsync()
+        {
+
+
+            _context.SetQuestions.Add(SetQuestion);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostEditAsync(string id)
+        {
+            _context.Attach(SetQuestion).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SetQuestionExists(SetQuestion.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage();
+        }
+        private bool SetQuestionExists(string id)
+        {
+            return _context.SetQuestions.Any(e => e.Id == id);
+        }
+        public async Task<IActionResult> OnPostDeleteAsync(string id)
+        {
+            var questionToDelete = await _context.SetQuestions.FindAsync(id);
+
+            if (questionToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _context.SetQuestions.Remove(questionToDelete);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage();
         }
     }
 }

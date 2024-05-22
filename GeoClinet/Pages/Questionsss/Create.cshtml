@@ -26,7 +26,9 @@
     <div class="flex">
         <div class="hidden md:block items-center justify-center mr-8 mt-16">
             <div class="flex flex-col items-start justify-center mt-4">
-                <label asp-for="Question.Images" class="block text-sm font-bold mb-2">Images (Optional) </label>
+                <label asp-for="Question.Images" class="block text-sm font-bold mb-2">
+                        <i data-feather="image" aria-hidden="true"></i>
+                    Images (Optional) </label>
             </div>
             <div class="avatar">
                 <div class="w-[250px] rounded">
@@ -89,20 +91,26 @@
 
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
-                        <label asp-for="Question.Title" class="block text-sm font-bold mb-2">Title</label>
+                        <label asp-for="Question.Title" class="block text-sm font-bold mb-2">
+                            <i data-feather="book" aria-hidden="true"></i>
+                            Title</label>
                         <input asp-for="Question.Title" aria-required="true"
                                class="input input-bordered w-full bg-base-200" />
                         <span asp-validation-for="Question.Title" class="text-danger"></span>
                     </div>
                     <div class="relative w-1/2">
-                        <label asp-for="Question.ProvinceId" class="block text-sm font-bold mb-2">Province</label>
+                        <label asp-for="Question.ProvinceId" class="block text-sm font-bold mb-2">
+                            <i data-feather="globe" aria-hidden="true"></i>
+                            Province</label>
                         <select asp-for="Question.ProvinceId" aria-required="true" asp-items="ViewBag.ProvinceId"
                                 class="input input-bordered w-full bg-base-200"></select>
                         <span asp-validation-for="Question.ProvinceId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="relative mb-2">
-                    <label asp-for="Question.Content" class="block text-sm font-bold mb-2">Content</label>
+                    <label asp-for="Question.Content" class="block text-sm font-bold mb-2">
+                        <i data-feather="book-open" aria-hidden="true"></i>
+                        Content</label>
                     <input asp-for="Question.Content" aria-required="true"
                            class="input input-bordered w-full inline-block bg-base-200" />
                     <span asp-validation-for="Question.Content" class="text-danger"></span>
@@ -116,13 +124,17 @@
 
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
-                        <label asp-for="Question.Option1" class="block text-sm font-bold mb-2">Option 1</label>
+                        <label asp-for="Question.Option1" class="block text-sm font-bold mb-2">
+                            <i data-feather="bookmark" aria-hidden="true"></i>
+                            Option 1</label>
                         <input id="option1Input" asp-for="Question.Option1" aria-required="true" oninput="updateAnswerDropdown()"
                                class="input input-bordered w-full bg-base-200" />
                         <span asp-validation-for="Question.Option1" class="text-danger"></span>
                     </div>
                     <div class="relative w-1/2">
-                        <label asp-for="Question.Option2" class="block text-sm font-bold mb-2">Option 2</label>
+                        <label asp-for="Question.Option2" class="block text-sm font-bold mb-2">
+                            <i data-feather="bookmark" aria-hidden="true"></i>
+                            Option 2</label>
                         <input id="option2Input" asp-for="Question.Option2" aria-required="true" oninput="updateAnswerDropdown()"
                                class="input input-bordered w-full bg-base-200" />
                         <span asp-validation-for="Question.Option2" class="text-danger"></span>
@@ -130,13 +142,17 @@
                 </div>
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
-                        <label asp-for="Question.Option3" class="block text-sm font-bold mb-2">Option 3</label>
+                        <label asp-for="Question.Option3" class="block text-sm font-bold mb-2">
+                            <i data-feather="bookmark" aria-hidden="true"></i>
+                            Option 3</label>
                         <input id="option3Input" asp-for="Question.Option3" aria-required="true" oninput="updateAnswerDropdown()"
                                class="input input-bordered w-full bg-base-200" />
                         <span asp-validation-for="Question.Option3" class="text-danger"></span>
                     </div>
                     <div class="relative w-1/2">
-                        <label asp-for="Question.Option4" class="block text-sm font-bold mb-2">Option 4</label>
+                        <label asp-for="Question.Option4" class="block text-sm font-bold mb-2">
+                            <i data-feather="bookmark" aria-hidden="true"></i>
+                            Option 4</label>
                         <input id="option4Input" asp-for="Question.Option4" aria-required="true" oninput="updateAnswerDropdown()"
                                class="input input-bordered w-full bg-base-200" />
                         <span asp-validation-for="Question.Option4" class="text-danger"></span>
@@ -144,7 +160,9 @@
                 </div>
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
-                        <label asp-for="Question.Answer" class="block text-sm font-bold mb-2">Answer</label>
+                        <label asp-for="Question.Answer" class="block text-sm font-bold mb-2">
+                            <i data-feather="check-circle" aria-hidden="true"></i>
+                            Answer</label>
                         <select id="answerDropdown" asp-for="Question.Answer" aria-required="true"
                                 class="input input-bordered w-full bg-base-200">
                             <option value="">Select option</option>
@@ -152,7 +170,9 @@
                         <span asp-validation-for="Question.Answer" class="text-danger"></span>
                     </div>
                     <div class="relative w-1/2">
-                        <label asp-for="Question.Published" class="block text-sm font-bold mb-2">Published</label>
+                        <label asp-for="Question.Published" class="block text-sm font-bold mb-2">
+                            <i data-feather="clock" aria-hidden="true"></i>
+                            Published</label>
                         <input asp-for="Question.Published" aria-required="true"
                                class="input input-bordered w-full bg-base-200" />
 
@@ -160,7 +180,9 @@
                     </div>
                 </div>
                 <div class="relative mb-6">
-                    <label asp-for="Question.Description" class="block text-sm font-bold mb-2">Description</label>
+                    <label asp-for="Question.Description" class="block text-sm font-bold mb-2">
+                        <i data-feather="clipboard" aria-hidden="true"></i>
+                        Description</label>
                     <input asp-for="Question.Description" aria-required="true"
                            class="input input-bordered w-full inline-block bg-base-200" />
                     <span asp-validation-for="Question.Description" class="text-danger"></span>
@@ -256,4 +278,6 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
 }
+
