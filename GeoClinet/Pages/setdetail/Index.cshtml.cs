@@ -19,41 +19,13 @@ namespace GeoClinet.Pages.setdetail
             _context = context;
         }
 
-        public IList<SetQuestionDetail> SetQuestionDetail { get; set; } = default!;
-
-        [BindProperty(SupportsGet = true)]
-        public string SearchTerm { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public bool SearchByTitle { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public bool SearchBySetName { get; set; }
+        public IList<SetQuestionDetail> SetQuestionDetail { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            var query = _context.SetQuestionDetails
+            SetQuestionDetail = await _context.SetQuestionDetails
                 .Include(s => s.Question)
-                .Include(s => s.SetQuestion)
-                .AsQueryable();
-
-            if (!string.IsNullOrEmpty(SearchTerm))
-            {
-                if (SearchByTitle && SearchBySetName)
-                {
-                    query = query.Where(s => s.Question.Title.Contains(SearchTerm) || s.SetQuestion.SetName.Contains(SearchTerm));
-                }
-                else if (SearchByTitle)
-                {
-                    query = query.Where(s => s.Question.Title.Contains(SearchTerm));
-                }
-                else if (SearchBySetName)
-                {
-                    query = query.Where(s => s.SetQuestion.SetName.Contains(SearchTerm));
-                }
-            }
-
-            SetQuestionDetail = await query.ToListAsync();
+                .Include(s => s.SetQuestion).ToListAsync();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(string id)

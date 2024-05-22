@@ -15,17 +15,6 @@
                 <span class="text-white">Create New Question</span>
             </a>
         </div>
-        <!-- Search Form -->
-        <form method="get" class="mb-4">
-            <div class="flex items-center">
-                <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search" class="input input-bordered w-64 mr-4" />
-                <div>
-                    <input type="checkbox" name="SearchByTitle" value="true" @(Model.SearchByTitle ? "checked" : "") /> Search by Title
-                    <input type="checkbox" name="SearchBySetName" value="true" @(Model.SearchBySetName ? "checked" : "") /> Search by SetName
-                </div>
-                <button type="submit" class="btn btn-primary ml-4">Search</button>
-            </div>
-        </form>
         <!-- Questions Table -->
         <div class="w-full mt-8">
             <table class="table w-full rounded-box table-auto">
@@ -36,6 +25,7 @@
                         <th class="font-semibold p-4 relative pr-6 text-left">Actions</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @foreach (var item in Model.SetQuestionDetail)
                     {
@@ -50,6 +40,8 @@
                                 <a asp-page="./Delete" asp-route-id="@item.Id">
                                     <i data-feather="trash-2" aria-hidden="true"></i>
                                 </a>
+
+
                             </td>
                         </tr>
                     }

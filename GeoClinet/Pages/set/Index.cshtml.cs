@@ -18,20 +18,14 @@ namespace GeoClinet.Pages.set
         {
             _context = context;
         }
+
         public IList<SetQuestion> SetQuestions { get; set; } = new List<SetQuestion>();
 
         [BindProperty]
         public SetQuestion SetQuestion { get; set; }
-        public string SearchTerm { get; set; }
 
         public async Task OnGetAsync()
         {
-            var query = _context.SetQuestions.AsQueryable();
-            if (!string.IsNullOrEmpty(SearchTerm))
-            {
-                query = query.Where(s => s.SetName.Contains(SearchTerm));
-            }
-
             SetQuestions = await _context.SetQuestions.ToListAsync();
         }
 
