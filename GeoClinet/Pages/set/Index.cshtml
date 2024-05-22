@@ -14,17 +14,38 @@
                 <span class="text-white">Create New Set Question</span>
             </button>
         </div>
+        <!-- Search Form -->
+        <form method="get" class="mb-4">
+            <div class="flex items-center">
+                <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search by SetName" class="input input-bordered w-64 mr-4" />
+                <button type="submit" class="btn btn-primary ml-4">Search</button>
+            </div>
+        </form>
+        <!-- Questions Table -->
         <div class="w-full mt-8">
+            <table class="table w-full rounded-box table-auto">
+                <thead>
+                    <tr>
+                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.SetQuestion[0].SetName)</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.SetQuestion[0].QuestionNumber)</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Actions</th>
+                    </tr>
+                </thead>
 
-            @if (Model.SetQuestions != null && Model.SetQuestions.Any())
-            {
-                <table class="table w-full rounded-box table-auto">
-                    <thead>
-                        <tr>
-                            <th class="font-semibold p-4 relative pr-6 text-left">Set Name</th>
-                            <th class="font-semibold p-4 relative pr-6 text-left">Question Number</th>
-                            <th class="font-semibold p-4 relative pr-6 text-left">Actions</th>
-
+                <tbody>
+                    @foreach (var item in Model.SetQuestion)
+                    {
+                        <tr class="bg-base-100 hover">
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.SetName)</td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.QuestionNumber)</td>
+                            <td class="flex flex-grow font-semibold p-4 relative pr-6 break-words">
+                                <a asp-page="./Edit" asp-route-id="@item.Id" class="mr-2">
+                                    <img src="~/css/edit.svg" />
+                                </a>
+                                <a asp-page="./Delete" asp-route-id="@item.Id">
+                                    <img src="~/css/trash-2.svg" />
+                                </a>
+                            </td>
                         </tr>
                     </thead>
                     <tbody>

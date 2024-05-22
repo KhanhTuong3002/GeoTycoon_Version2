@@ -2,30 +2,35 @@
 @model GeoClinet.Pages.Pending.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pending Approval Teachers";
 }
 
-<h1>Pending to appoval Teacher</h1>
+<h1>Pending Approval Teachers</h1>
+
+<!-- Search Form -->
+<form method="get" class="mb-4">
+    <div class="flex items-center">
+        <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search Profile" class="input input-bordered w-64 mr-4" />
+        <div>
+            <input type="checkbox" name="SearchByEmail" value="true" @(Model.SearchByEmail ? "checked" : "") /> Search by Email
+            <input type="checkbox" name="SearchByUserName" value="true" @(Model.SearchByUserName ? "checked" : "") /> Search by Username
+        </div>
+        <button type="submit" class="btn btn-primary ml-4">Search</button>
+    </div>
+</form>
+
 <div class="w-full mt-8">
     <table class="table w-full rounded-box table-auto overflow-auto">
-    <thead>
-        <tr>
-                <th class="font-semibold p-4 relative pr-6 text-left">
-                @Html.DisplayNameFor(model => model.Profile[0].Id)
-            </th>
-                <th class="font-semibold p-4 relative pr-6 text-left">
-                @Html.DisplayNameFor(model => model.Profile[0].Email)
-            </th>
-                <th class="font-semibold p-4 relative pr-6 text-left">
-                @Html.DisplayNameFor(model => model.Profile[0].UserName)
-            </th>
-                <th class="font-semibold p-4 relative pr-6 text-left">
-                @Html.DisplayNameFor(model => model.Profile[0].PhoneNumber)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Profile) {
+        <thead>
+            <tr>
+                <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Profile[0].Id)</th>
+                <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Profile[0].Email)</th>
+                <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Profile[0].UserName)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Profile)
+            {
                 <tr class="bg-base-100 hover">
                     <td class="font-semibold p-4 relative pr-6 break-words">
                 @Html.DisplayFor(modelItem => item.Id)
