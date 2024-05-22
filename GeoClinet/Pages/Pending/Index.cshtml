@@ -6,38 +6,37 @@
 }
 
 <h1>Pending to appoval Teacher</h1>
-
-<table class="table">
+<div class="w-full mt-8">
+    <table class="table w-full rounded-box table-auto overflow-auto">
     <thead>
         <tr>
-            <th>
+                <th class="font-semibold p-4 relative pr-6 text-left">
                 @Html.DisplayNameFor(model => model.Profile[0].Id)
             </th>
-            <th>
+                <th class="font-semibold p-4 relative pr-6 text-left">
                 @Html.DisplayNameFor(model => model.Profile[0].Email)
             </th>
-            <th>
+                <th class="font-semibold p-4 relative pr-6 text-left">
                 @Html.DisplayNameFor(model => model.Profile[0].UserName)
             </th>
-            <th>
+                <th class="font-semibold p-4 relative pr-6 text-left">
                 @Html.DisplayNameFor(model => model.Profile[0].PhoneNumber)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Profile) {
-        <tr>
-            <td>
+                <tr class="bg-base-100 hover">
+                    <td class="font-semibold p-4 relative pr-6 break-words">
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
-            <td>
+                    <td class="font-semibold p-4 relative pr-6 break-words">
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            <td>
+                    <td class="font-semibold p-4 relative pr-6 break-words">
                 @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
+            </td >
+                    <td class="font-semibold p-4 relative pr-6 break-words">
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
@@ -51,3 +50,4 @@
 }
     </tbody>
 </table>
+</div>
