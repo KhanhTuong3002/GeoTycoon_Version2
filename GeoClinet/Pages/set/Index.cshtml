@@ -7,49 +7,134 @@
 
 <div class="content">
     <div class="container w-[90%] mx-auto py-8 mb-8 items-center justify-center">
-        <!-- Title and Create Button -->
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
-            <a class="btn btn-success" asp-page="Create">
+            <button class="btn btn-success" onclick="openAddModal()">
                 <img src="~/css/plus-circle.svg" class="mr-2" />
-                <span class="text-white">Create New Question</span>
-            </a>
+                <span class="text-white">Create New Set Question</span>
+            </button>
         </div>
-        <!-- Questions Table -->
         <div class="w-full mt-8">
-            <table class="table w-full rounded-box table-auto">
-                <thead>
-                    <tr>
-                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.SetQuestion[0].SetName)</th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.SetQuestion[0].QuestionNumber)</th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">Actions</th>
-                    </tr>
-                </thead>
 
-                <tbody>
-                    @foreach (var item in Model.SetQuestion)
-                    {
-                        <tr class="bg-base-100 hover">
-                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.SetName)</td>
-                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.QuestionNumber)</td>
-                            <td class="flex flex-grow font-semibold p-4 relative pr-6 break-words">
-                                <a asp-page="./Edit" asp-route-id="@item.Id" class="mr-2">
-                                    <i data-feather="edit" aria-hidden="true"></i>
-                                </a>
-                                <a asp-page="./Delete" asp-route-id="@item.Id">
-                                    <i data-feather="trash-2" aria-hidden="true"></i>
-                                </a>
+            @if (Model.SetQuestions != null && Model.SetQuestions.Any())
+            {
+                <table class="table w-full rounded-box table-auto">
+                    <thead>
+                        <tr>
+                            <th class="font-semibold p-4 relative pr-6 text-left">Set Name</th>
+                            <th class="font-semibold p-4 relative pr-6 text-left">Question Number</th>
+                            <th class="font-semibold p-4 relative pr-6 text-left">Actions</th>
 
-                            </td>
                         </tr>
-                    }
-                </tbody>
-            </table>
-            <!-- Pagination Partial -->
-            @* <div class="w-full mt-4 flex justify-end items-center gap-2">
-            @await Html.PartialAsync("_PaginationPartial")
-            </div> *@
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SetQuestions)
+                        {
+                            <tr class="bg-base-100 hover">
+                                <td class="font-semibold p-4 relative pr-6 break-words">@item.SetName</td>
+                                <td class="font-semibold p-4 relative pr-6 break-words">@item.QuestionNumber</td>
+                                <td class="flex flex-grow font-semibold p-4 relative pr-6 break-words">
+                                    <button onclick="openEditModal(this)" data-id="@item.Id" data-setname="@item.SetName" data-questionnumber="@item.QuestionNumber">
+                                        <img src="~/css/edit.svg" />
+                                    </button>
+                                    <button onclick="openDeleteModal('@item.Id')">
+                                        <img src="~/css/trash-2.svg" />
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No set questions found.</p>
+            }
         </div>
     </div>
 </div>
 
+<!-- Add Dialog -->
+<dialog id="addModal" class="modal">
+    <form method="post" asp-page-handler="Add" class="modal-box">
+        <h3 class="font-bold text-lg">Add New Set Question</h3>
+        <div class="form-control">
+            <label class="label">Set Name</label>
+            <input type="text" name="SetQuestion.SetName" class="input input-bordered" required>
+        </div>
+        <div class="form-control">
+            <label class="label">Question Number</label>
+            <input type="number" name="SetQuestion.QuestionNumber" class="input input-bordered" required>
+        </div>
+        <div class="modal-action">
+            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="button" class="btn" onclick="closeAddModal()">Cancel</button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Edit Dialog -->
+<dialog id="editModal" class="modal">
+    <form method="post" asp-page-handler="Edit" class="modal-box">
+        <h3 class="font-bold text-lg">Edit Set Question</h3>
+        <input type="hidden" name="SetQuestion.Id" id="edit-id">
+        <div class="form-control">
+            <label class="label">Set Name</label>
+            <input type="text" name="SetQuestion.SetName" id="edit-setname" class="input input-bordered" required>
+        </div>
+        <div class="form-control">
+            <label class="label">Question Number</label>
+            <input type="number" name="SetQuestion.QuestionNumber" id="edit-questionnumber" class="input input-bordered" required>
+        </div>
+        <div class="modal-action">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn" onclick="closeEditModal()">Cancel</button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Delete Confirmation Dialog -->
+<dialog id="deleteModal" class="modal">
+    <form method="post" asp-page-handler="Delete" class="modal-box">
+        <h3 class="font-bold text-lg">Are you sure you want to delete?</h3>
+        <input type="hidden" name="id" id="delete-id">
+        <div class="modal-action">
+            <button type="submit" class="btn btn-danger">Yes</button>
+            <button type="button" class="btn" onclick="closeDeleteModal()">No</button>
+        </div>
+    </form>
+</dialog>
+
+<script>
+    function openAddModal() {
+        document.getElementById('addModal').showModal();
+    }
+
+    function closeAddModal() {
+        document.getElementById('addModal').close();
+    }
+
+    function openEditModal(button) {
+        var id = button.getAttribute('data-id');
+        var setName = button.getAttribute('data-setname');
+        var questionNumber = button.getAttribute('data-questionnumber');
+
+        document.getElementById('edit-id').value = id;
+        document.getElementById('edit-setname').value = setName;
+        document.getElementById('edit-questionnumber').value = questionNumber;
+        document.getElementById('editModal').showModal();
+    }
+
+    function closeEditModal() {
+        document.getElementById('editModal').close();
+    }
+
+    function openDeleteModal(id) {
+        document.getElementById('delete-id').value = id;
+        document.getElementById('deleteModal').showModal();
+    }
+
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').close();
+    }
+</script>

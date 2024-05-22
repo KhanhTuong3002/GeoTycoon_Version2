@@ -27,5 +27,20 @@ namespace GeoClinet.Pages.setdetail
                 .Include(s => s.Question)
                 .Include(s => s.SetQuestion).ToListAsync();
         }
+
+        public async Task<IActionResult> OnPostDeleteAsync(string id)
+        {
+            var questionToDelete = await _context.SetQuestionDetails.FindAsync(id);
+
+            if (questionToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _context.SetQuestionDetails.Remove(questionToDelete);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage();
+        }
     }
 }
