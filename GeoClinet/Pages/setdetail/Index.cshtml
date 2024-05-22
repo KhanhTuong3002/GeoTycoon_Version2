@@ -35,10 +35,10 @@
                                 <td class="font-semibold p-4 relative pr-6 break-words">@item.Question.Title</td>
                                 <td class="flex flex-grow font-semibold p-4 relative pr-6 break-words">
                                     <button class="mr-2" onclick="openEditDetailModal(this)" data-id="@item.Id" data-setquestionid="@item.SetQuestionId" data-questionid="@item.QuestionId">
-                                        <i data-feather="edit" aria-hidden="true" class="icon text-success"></i>
+                                        <i data-feather="edit" aria-hidden="true" class="text-success text-2xl"></i>
                                     </button>
                                     <button onclick="openDeleteDetailModal('@item.Id')">
-                                        <i data-feather="trash-2" aria-hidden="true" class="text-error"></i>
+                                        <i data-feather="trash-2" aria-hidden="true" class="text-error text-2xl"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -159,9 +159,3 @@
     }
 </script>
 
-@section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
-    <script>
-        feather.replace();
-    </script>
-}

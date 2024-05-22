@@ -43,7 +43,7 @@
                                 {
                                     <form method="post" asp-page-handler="Unban" asp-route-id="@item.Profile.Id">
                                         <button type="submit">
-                                            <i data-feather="unlock" class="text-success mr-2" aria-hidden="true"></i>
+                                            <i data-feather="unlock" class="text-success mr-2 text-2xl" aria-hidden="true"></i>
                                         </button>
                                     </form>
                                 }
@@ -51,12 +51,12 @@
                                 {
                                     <form method="post" asp-page-handler="Ban" asp-route-id="@item.Profile.Id">
                                         <button type="submit">
-                                            <i data-feather="lock" class="text-error mr-2" aria-hidden="true"></i>
+                                            <i data-feather="lock" class="text-error mr-2 text-2xl" aria-hidden="true"></i>
                                         </button>
                                     </form>
                                 }
                                 <a asp-page="./Details" asp-route-id="@item.Profile.Id" class="mr-2">
-                                    <i data-feather="info" class="text-info" aria-hidden="true"></i>
+                                    <i data-feather="info" class="text-info text-2xl" aria-hidden="true"></i>
                                 </a>
                             </td>
                         </tr>
@@ -69,9 +69,4 @@
 </div>
 
 
-@section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
-    <script>
-        feather.replace();
-    </script>
-}
+
