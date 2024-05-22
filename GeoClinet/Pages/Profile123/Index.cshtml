@@ -38,19 +38,19 @@
                     @if (item.Isbanned)
                     {
                         <form method="post" asp-page-handler="Unban" asp-route-id="@item.Id">
-                            <button type="submit" class="btn btn-success">Unban</button>
+                                <button type="submit" class="btn btn-success"> <i data-feather="unlock" aria-hidden="true"></i> Unban</button>
                         </form>
                     }
                     else
                     {
                         <form method="post" asp-page-handler="Ban" asp-route-id="@item.Id">
-                            <button type="submit" class="btn btn-error">Ban</button>
+                                <button type="submit" class="btn btn-error"><i data-feather="lock" aria-hidden="true"></i>Ban</button>
                         </form>
                     }                   
                 </td>           
             <td>
                     <a asp-page="./Details" asp-route-id="@item.Id" class="mr-2">
-                        <img src="css/info.svg" />
+                            <i data-feather="info" aria-hidden="true"></i>
                     </a>
             </td>
         </tr>
