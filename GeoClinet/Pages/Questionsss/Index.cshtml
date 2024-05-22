@@ -68,9 +68,11 @@
                                 <a asp-page="./Edit" asp-route-id="@item.Id" class="mr-2">
                                     <img src="~/css/edit.svg" />
                                 </a>
-                                <a asp-page="./Delete" asp-route-id="@item.Id">
-                                    <img src="~/css/trash-2.svg" />
-                                </a>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" style="display:inline;">
+                                    <button type="submit">
+                                        <img src="~/css/trash-2.svg" />
+                                    </button>
+                                </form>
 
                             </td>
                         </tr>
