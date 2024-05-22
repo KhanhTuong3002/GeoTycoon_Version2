@@ -36,9 +36,11 @@
                                 <a asp-page="./Edit" asp-route-id="@item.Id" class="mr-2">
                                     <i data-feather="edit" aria-hidden="true"></i>
                                 </a>
+
                                 <a asp-page="./Delete" asp-route-id="@item.Id">
                                     <i data-feather="trash-2" aria-hidden="true"></i>
                                 </a>
+
 
                             </td>
                         </tr>
@@ -53,6 +55,30 @@
         </div>
     </div>
 </div>
+
+
+<!-- Delete Confirmation Dialog -->
+<dialog id="deleteModal" class="modal">
+    <form method="post" asp-page-handler="Delete" class="modal-box">
+        <h3 class="font-bold text-lg">Are you sure you want to delete?</h3>
+        <input type="hidden" name="id" id="delete-id">
+        <div class="modal-action">
+            <button type="submit" class="btn btn-danger">Yes</button>
+            <button type="button" class="btn" onclick="closeDeleteModal()">No</button>
+        </div>
+    </form>
+</dialog>
+
+<script>
+    function openDeleteModal(id) {
+        document.getElementById('delete-id').value = id;
+        document.getElementById('deleteModal').showModal();
+    }
+
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').close();
+    }
+</script>
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
     <script>

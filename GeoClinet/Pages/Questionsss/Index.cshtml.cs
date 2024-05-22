@@ -62,5 +62,19 @@ namespace GeoClinet.Pages.Questionsss
                 .Include(q => q.User)
                 .ToListAsync();
         }
+        public async Task<IActionResult> OnPostDeleteAsync(string id)
+        {
+            var questionToDelete = await _context.Questions.FindAsync(id);
+
+            if (questionToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _context.Questions.Remove(questionToDelete);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage();
+        }
     }
 }
