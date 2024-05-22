@@ -28,7 +28,9 @@ namespace GeoClinet.Pages.Questionsss
                 return NotFound();
             }
 
-            var question = await _context.Questions.FirstOrDefaultAsync(m => m.Id == id);
+            var question = await _context.Questions
+                                 .Include(q => q.Province)
+                                 .FirstOrDefaultAsync(m => m.Id == id);
             if (question == null)
             {
                 return NotFound();

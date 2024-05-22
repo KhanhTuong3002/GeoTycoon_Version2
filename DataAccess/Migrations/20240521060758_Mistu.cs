@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Mitsu : Migration
+    public partial class Mistu : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -220,7 +220,7 @@ namespace DataAccess.Migrations
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ProvinceId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Images = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Images = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(600)", maxLength: 600, nullable: false),
                     Option1 = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Option2 = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
@@ -348,10 +348,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "35c1dc9f-1137-4d75-8f4b-5fc07d9f91fb", null, "Teacher", "TEACHER" },
-                    { "4444953c-96f1-4ed8-b6f0-ca43505e5a88", null, "Pending", "PENDING" },
-                    { "8f6c5436-6ac8-4549-b69a-816868df6dad", null, "Administrator", "ADMINISTRATOR" },
-                    { "a8ac224b-2320-42da-ba32-a15cf58adf2c", null, "Student", "STUDENT" }
+                    { "28b17554-4539-459c-8d4a-1edbe4c3663b", null, "Teacher", "TEACHER" },
+                    { "6ac67859-e4ed-451d-9817-da16e96011ea", null, "Administrator", "ADMINISTRATOR" },
+                    { "6da19f47-1367-4146-ab88-a3352a6f6c32", null, "Student", "STUDENT" },
+                    { "bdf1349a-de66-4efb-b5e7-abaa59822cd3", null, "Pending", "PENDING" }
                 });
 
             migrationBuilder.InsertData(

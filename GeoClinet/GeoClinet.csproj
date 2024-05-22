@@ -29,10 +29,29 @@
     <Folder Include="Areas\Identity\Data\" />
     <Folder Include="Data\" />
     <Folder Include="Pages\UserManagement\" />
+    <Folder Include="Storage\Images\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\alpinejs\cdn.js" />
+    <None Include="wwwroot\alpinejs\cdn.min.js" />
+    <None Include="wwwroot\alpinejs\module.cjs.js" />
+    <None Include="wwwroot\alpinejs\module.esm.js" />
+    <None Include="wwwroot\alpinejs\module.esm.min.js" />
+    <None Include="wwwroot\alpinejs\persist\builds\cdn.js" />
+    <None Include="wwwroot\alpinejs\persist\builds\cdn.min.js" />
+    <None Include="wwwroot\alpinejs\persist\builds\module.min.js" />
+    <None Include="wwwroot\alpinejs\persist\dist\cdn.js" />
+    <None Include="wwwroot\alpinejs\persist\dist\cdn.min.js" />
+    <None Include="wwwroot\alpinejs\persist\dist\module.cjs.js" />
+    <None Include="wwwroot\alpinejs\persist\dist\module.cjs.min.js" />
+    <None Include="wwwroot\alpinejs\persist\dist\module.esm.js" />
+    <None Include="wwwroot\alpinejs\persist\dist\module.esm.min.js" />
+    <None Include="wwwroot\alpinejs\persist\src\index.js" />
+    <None Include="wwwroot\alpinejs\persist\src\index.min.js" />
     <None Include="wwwroot\css\c675ccbd-5946-4623-afd0-97e4dfb5b25f.jpg" />
+    <None Include="wwwroot\lib\feather\js\feather.min.js" />
+    <None Include="wwwroot\lib\feather\js\feather.min.js.map" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,112 +3,228 @@
 
 @{
     ViewData["Title"] = "Edit";
+    var defaultImageUrl = "https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg";
 }
 
+<head>
+    <!-- Include jQuery from CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include jQuery Validation Plugin from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <!-- Include other libraries from CDN if needed -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.0/dist/alpine.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+</head>
 
+<h2 class="text-2xl font-bold items-start mb-4 ml-48">Edit Question</h2>
+<hr class="border-base-300" />
 
 <div class="container w-[60%] mx-auto py-8 mb-8 items-center justify-center">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <h2 class="flex text-2xl font-bold items-center mb-3">Edit Question</h2>
-            <input type="hidden" asp-for="Question.Id" />
-        <div class="flex w-full space-x-4 mb-2">
-            <div class="relative w-1/2 mr-2">
-                <label asp-for="Question.Title" class="block text-sm font-bold mb-2">Title</label>
-                <input asp-for="Question.Title" class="input input-bordered w-full bg-base-200" />
-                <span asp-validation-for="Question.Title" class="text-danger"></span>
-            </div>
-            <div class="relative w-1/2">
-                <label asp-for="Question.ProvinceId" class="block text-sm font-bold mb-2">Province</label>
-                <select asp-for="Question.ProvinceId" class="input input-bordered w-full bg-base-200" asp-items="ViewBag.ProvinceId"></select>
-                <span asp-validation-for="Question.ProvinceId" class="text-danger"></span>
-            </div>
-
-        </div>
-
-        <div class="relative mb-2">
-            <label asp-for="Question.UserId" class="block text-sm font-bold mb-2">User ID</label>
-            <input asp-for="Question.UserId" class="input input-bordered w-full bg-base-200" asp-items="ViewBag.FirstName" readonly></input>
-            </div>
-        <div class="relative mb-2">
-            <label asp-for="Question.Images" class="block text-sm font-bold mb-2">Image</label>
-            <input asp-for="Question.Images" class="input input-bordered w-full bg-base-200" />
-
-           @*  <div class="form-group">
-                <label asp-for="Question.UserId" class="control-label"></label>
-                <input asp-for="Question.UserId" class="form-control" asp-items="ViewBag.FirstName" readonly></input>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="Question.Images" class="control-label"></label>
-
-                <span asp-validation-for="Question.Images" class="text-danger"></span>
-            </div>
-        <div class="relative mb-2">
-            <label asp-for="Question.Content" class="block text-sm font-bold mb-2">Content</label>
-            <input asp-for="Question.Content" class="input input-bordered w-full bg-base-200" />
-                <span asp-validation-for="Question.Content" class="text-danger"></span>
-            </div>
-
-        <div class="flex w-full space-x-4 mb-2">
-            <div class="relative w-1/2 mr-2">
-                <label asp-for="Question.Option1" class="block text-sm font-bold mb-2">Option 1</label>
-                <input id="option1Input" asp-for="Question.Option1" class="input input-bordered w-full bg-base-200" oninput="updateAnswerDropdown()" />
-                <span asp-validation-for="Question.Option1" class="text-danger"></span>
-            </div>
-            <div class="relative w-1/2">
-                <label asp-for="Question.Option2" class="block text-sm font-bold mb-2">Option 2</label>
-                <input id="option2Input" asp-for="Question.Option2" class="input input-bordered w-full bg-base-200" oninput="updateAnswerDropdown()" />
-                <span asp-validation-for="Question.Option2" class="text-danger"></span>
-            </div>
-            </div>
-        <div class="flex w-full space-x-4 mb-2">
-            <div class="relative w-1/2 mr-2">
-                <label asp-for="Question.Option3" class="block text-sm font-bold mb-2">Option 3</label>
-                <input id="option3Input" asp-for="Question.Option3" class="input input-bordered w-full bg-base-200" oninput="updateAnswerDropdown()" />
-                <span asp-validation-for="Question.Option3" class="text-danger"></span>
-            </div>
-            <div class="relative w-1/2">
-                <label asp-for="Question.Option4" class="block text-sm font-bold mb-2">Option 4</label>
-                <input id="option4Input" asp-for="Question.Option4" class="input input-bordered w-full bg-base-200" oninput="updateAnswerDropdown()" />
-                <span asp-validation-for="Question.Option4" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="flex w-full space-x-4 mb-2">
-                <div class="relative w-1/2 mr-2">
-                <label asp-for="Question.Answer" class="block text-sm font-bold mb-2">Answer</label>
-                <select id="answerDropdown" asp-for="Question.Answer" class="input input-bordered w-full bg-base-200">
-                    <option value="">Select option</option>
-                </select>
-                <span asp-validation-for="Question.Answer" class="text-danger"></span>
-            </div>
-                <div class="relative w-1/2">
-                    <label asp-for="Question.Published" class="block text-sm font-bold mb-2">Published</label>
-                    <input asp-for="Question.Published" class="input input-bordered w-full bg-base-200" />
-                    <span asp-validation-for="Question.Published" class="text-danger"></span>
+    <form id="uploadFormImageQs" action="/Images"></form>
+    <form method="post">
+        <input type="hidden" asp-for="Question.Id" />
+        <div class="flex">
+            <div class="hidden md:block items-center justify-center mr-8 mt-16">
+                <div class="flex flex-col items-start justify-center mt-4">
+                    <label asp-for="Question.Images" class="block text-sm font-bold mb-2">
+                        <i data-feather="image" aria-hidden="true"></i>
+                        Images (Optional) </label>
                 </div>
-        </div>
-        
-        <div class="relative mb-2">
-            <label asp-for="Question.Description" class="block text-sm font-bold mb-2">Description</label>
-            <input asp-for="Question.Description" class="input input-bordered w-full bg-base-200" />
-                <span asp-validation-for="Question.Description" class="text-danger"></span>
-            </div>
-        
-        <div class="relative mb-6">
-            <label asp-for="Question.CreatedAt" class="block text-sm font-bold mb-2">Created At</label>
-            <input asp-for="Question.CreatedAt" class="input input-bordered w-full bg-base-200" />
-                <span asp-validation-for="Question.CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="mb-6 relative">
-                <div class="flex gap-2 w-1/2">
-                    <a asp-page="./Index" class="btn btn-error w-48 text-white" type="button">Cancel</a>
-                    <input type="submit" value="Save" class="btn btn-success w-48 text-white" />
+                <div class="avatar">
+                    <div class="w-[250px] rounded">
+
+                        <label id="upload-label">
+                            <img src="@(!string.IsNullOrEmpty(Model.Question.Images) ? Model.Question.Images : defaultImageUrl)" id="image-preview" />"
+                        </label>
+                        <input type="file" form="uploadFormImageQs" id="file-upload" style="display: none;" accept="image/*" />
+                        <input type="hidden" asp-for="Question.Images" id="questionImage-url" />
+                    </div>
                 </div>
+
+                <div class="flex flex-col items-center justify-center mt-4">
+                    <button class="btn btn-outline btn-accent justify-center items-center" form="uploadFormImageQs" type="submit">Save Image</button>
+                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        console.log("upload");
+                        document.getElementById('upload-label').addEventListener('click', function () {
+                            document.getElementById('file-upload').click();
+                        });
+
+                        document.getElementById('file-upload').addEventListener('change', function (event) {
+                            const file = event.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = function (e) {
+                                    document.getElementById('image-preview').src = e.target.result;
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        });
+                        document.getElementById('uploadFormImageQs').addEventListener('submit', async function (event) {
+                            event.preventDefault();
+                            const formData = new FormData();
+                            formData.append('File', document.getElementById('file-upload').files[0]);
+
+                            const response = await fetch('/Images', {
+                                method: 'POST',
+                                body: formData
+                            });
+
+                            if (response.ok) {
+                                const imageUrl = await response.text();
+                                document.getElementById("questionImage-url").value = imageUrl;
+                                document.getElementById("image-preview").src = imageUrl;
+                                document.getElementById('my_modal_1').showModal();
+
+                            } else {
+                                document.getElementById('my_modal_2').showModal();
+                            }
+                        });
+                    });
+                </script>              
             </div>
 
-        </form>
+            <div class="w-full">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="flex w-full space-x-4 mb-2">
+                    <div class="relative w-1/2 mr-2">
+                        <label asp-for="Question.Title" class="block text-sm font-bold mb-2">
+                            <i data-feather="book" aria-hidden="true"></i>
+                            Title</label>
+                        <input asp-for="Question.Title" class="input input-bordered w-full bg-base-200" />
+                        <span asp-validation-for="Question.Title" class="text-danger"></span>
+                    </div>
+                    <div class="relative w-1/2">
+                        <label asp-for="Question.ProvinceId" class="block text-sm font-bold mb-2">
+                            <i data-feather="globe" aria-hidden="true"></i>
+                            Province</label>
+                        <select asp-for="Question.ProvinceId" class="input input-bordered w-full bg-base-200" asp-items="ViewBag.ProvinceId"></select>
+                        <span asp-validation-for="Question.ProvinceId" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+@*                 <div class="relative mb-2">
+                    <label asp-for="Question.UserId" class="block text-sm font-bold mb-2">User ID</label>
+                    <input asp-for="Question.UserId" class="input input-bordered w-full bg-base-200" asp-items="ViewBag.FirstName" readonly></input>
+                </div> *@
+
+                <div class="relative mb-2">
+                    <label asp-for="Question.Content" class="block text-sm font-bold mb-2">
+                        <i data-feather="book-open" aria-hidden="true"></i>
+                        Content</label>
+                    <input asp-for="Question.Content" class="input input-bordered w-full bg-base-200" />
+                    <span asp-validation-for="Question.Content" class="text-danger"></span>
+                </div>
+
+                <div class="flex w-full space-x-4 mb-2">
+                    <div class="relative w-1/2 mr-2">
+                        <label asp-for="Question.Option1" class="block text-sm font-bold mb-2">
+                            <i data-feather="bookmark" aria-hidden="true"></i>
+                            Option 1</label>
+                        <input id="option1Input" asp-for="Question.Option1" class="input input-bordered w-full bg-base-200" oninput="updateAnswerDropdown()" />
+                        <span asp-validation-for="Question.Option1" class="text-danger"></span>
+                    </div>
+                    <div class="relative w-1/2">
+                        <label asp-for="Question.Option2" class="block text-sm font-bold mb-2">
+                            <i data-feather="bookmark" aria-hidden="true"></i>
+                            Option 2
+                        </label>
+                        <input id="option2Input" asp-for="Question.Option2" class="input input-bordered w-full bg-base-200" oninput="updateAnswerDropdown()" />
+                        <span asp-validation-for="Question.Option2" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="flex w-full space-x-4 mb-2">
+                    <div class="relative w-1/2 mr-2">
+                        <label asp-for="Question.Option3" class="block text-sm font-bold mb-2">
+                            <i data-feather="bookmark" aria-hidden="true"></i>
+                            Option 3</label>
+                        <input id="option3Input" asp-for="Question.Option3" class="input input-bordered w-full bg-base-200" oninput="updateAnswerDropdown()" />
+                        <span asp-validation-for="Question.Option3" class="text-danger"></span>
+                    </div>
+                    <div class="relative w-1/2">
+                        <label asp-for="Question.Option4" class="block text-sm font-bold mb-2">
+                            <i data-feather="bookmark" aria-hidden="true"></i>
+                            Option 4</label>
+                        <input id="option4Input" asp-for="Question.Option4" class="input input-bordered w-full bg-base-200" oninput="updateAnswerDropdown()" />
+                        <span asp-validation-for="Question.Option4" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="flex w-full space-x-4 mb-2">
+                    <div class="relative w-1/2 mr-2">
+                        <label asp-for="Question.Answer" class="block text-sm font-bold mb-2">
+                            <i data-feather="check-circle" aria-hidden="true"></i>
+                            Answer</label>
+                        <select id="answerDropdown" asp-for="Question.Answer" class="input input-bordered w-full bg-base-200">
+                            <option value="">Select option</option>
+                        </select>
+                        <span asp-validation-for="Question.Answer" class="text-danger"></span>
+                    </div>
+                    <div class="relative w-1/2">
+                        <label asp-for="Question.Published" class="block text-sm font-bold mb-2">
+                            <i data-feather="clock" aria-hidden="true"></i>
+                            Published</label>
+                        <input asp-for="Question.Published" class="input input-bordered w-full bg-base-200" />
+                        <span asp-validation-for="Question.Published" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="relative mb-2">
+                    <label asp-for="Question.Description" class="block text-sm font-bold mb-2">
+                        <i data-feather="clipboard" aria-hidden="true"></i>
+                        Description</label>
+                    <input asp-for="Question.Description" class="input input-bordered w-full bg-base-200" />
+                    <span asp-validation-for="Question.Description" class="text-danger"></span>
+                </div>
+
+                <div class="relative mb-6">
+                    <label asp-for="Question.CreatedAt" class="block text-sm font-bold mb-2">
+                        <i data-feather="clock" aria-hidden="true"></i>
+                        Created At</label>
+                    <input asp-for="Question.CreatedAt" class="input input-bordered w-full bg-base-200" />
+                    <span asp-validation-for="Question.CreatedAt" class="text-danger"></span>
+                </div>
+                <div class="mb-6 relative">
+                    <div class="flex gap-2 w-1/2">
+                        <a asp-page="./Index" class="btn btn-error w-48 text-white" type="button">Cancel</a>
+                        <input type="submit" value="Save" class="btn btn-success w-48 text-white" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<dialog id="my_modal_1" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">Images Save SuscessFull !</h3>
+        <p class="py-4">Press ESC key or click the button below to close</p>
+        <div class="modal-action">
+            <form method="dialog">
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn">Close</button>
+            </form>
+        </div>
     </div>
-
+</dialog>
+<dialog id="my_modal_2" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">We have not found any change!</h3>
+        <p class="py-4">
+            Please choose another picture before save your Images
+            Press ESC key or click the button below to close
+        </p>
+        <div class="modal-action">
+            <form method="dialog">
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn">Close</button>
+            </form>
+        </div>
+    </div>
+</dialog>
 
 @section Scripts {
     <script>
@@ -157,5 +273,7 @@
             }
         }
     </script>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

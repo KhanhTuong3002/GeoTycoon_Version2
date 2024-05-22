@@ -42,6 +42,14 @@
         });
     }
 </script>
+<script>
+    function enableInput() {
+        // Ẩn nút "Edit Profile"
+        document.getElementById("editProfileButton").style.display = "none";
+        // Hiển thị nút "Save"
+        document.getElementById("saveButton").style.display = "inline-block";
+    }
+</script>
 
 <div class="flex items-center justify-center min-h-screen">
     <form id="uploadForm" action="/Images"></form>
@@ -51,7 +59,7 @@
                 <div class="avatar" style="justify-content:center">
                     <div class="w-[250px] rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                         <label id="upload-label">
-                            <img  src="@Model.Input.Avatar" id="image-preview" />
+                            <img src="@(!string.IsNullOrEmpty(Model.Input.Avatar) ? Model.Input.Avatar : "https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg")" id="image-preview" />
                         </label>
                         <input type="file" form="uploadForm" id="file-upload" style="display: none;" accept="image/*" />
                         <input type="hidden" asp-for="Input.Avatar" id="avatar-url" />
@@ -87,19 +95,18 @@
                                     const imageUrl = await response.text();
                                     document.getElementById("avatar-url").value = imageUrl;
                                     document.getElementById("image-preview").src = imageUrl;
-                                    alert("Sucess")
+                                    document.getElementById('my_modal_1').showModal();
 
                                 } else {
-                                    alert('Image upload failed!');
+                                    document.getElementById('my_modal_2').showModal();
                                 }
                             });
                         });
                     </script>
-
                 </div>
 
                 <div class="flex flex-col items-center justify-center mt-4">
-                    <button class="btn btn-outline btn-accent justify-center items-center" form="uploadForm" type="submit">Upload Image</button>
+                    <button class="btn btn-outline btn-accent justify-center items-center" form="uploadForm" type="submit">Save Avatar</button>
                     <a class="block text-sm font-bold mb-2 pt-4 flex">
                         @User.Identity?.Name!
                     </a>
@@ -109,20 +116,20 @@
                 <h2 class="flex text-2xl font-bold items-center mb-3">Your Profile</h2>
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
-                        <label class="block text-sm font-bold mb-2">First Name</label>
+                        <label class="block text-sm font-bold mb-2"> <i data-feather="user" aria-hidden="true"></i> First Name</label>
                         <input disabled asp-for="Input.FirstName" aria-required="true" placeholder="Enter your first name"
                                class="input input-bordered w-full" />
                         <span class="text-danger"></span>
                     </div>
                     <div class="relative w-1/2">
-                        <label class="block text-sm font-bold mb-2">Last Name</label>
+                        <label class="block text-sm font-bold mb-2"> <i data-feather="user" aria-hidden="true"></i> Last Name</label>
                         <input disabled asp-for="Input.LastName" aria-required="true" placeholder="Enter your last name"
                                class="input input-bordered w-full" />
                         <span class="text-danger"></span>
                     </div>
                 </div>
                 <div class="relative mb-2">
-                    <label class="block text-sm font-bold mb-2">Phone</label>
+                    <label class="block text-sm font-bold mb-2"><i data-feather="phone" aria-hidden="true"></i> Phone</label>
                     <input disabled asp-for="Input.PhoneNumber" aria-required="true" placeholder="Enter your phone"
                            class="input input-bordered w-full" />
                     <span class="text-danger"></span>
@@ -130,7 +137,7 @@
                 </div>
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
-                        <label class="block text-sm font-bold mb-2">City</label>
+                        <label class="block text-sm font-bold mb-2"><i data-feather="home" aria-hidden="true"></i> City</label>
                         <select disabled   asp-for="Input.City" aria-required="true" placeholder="Select your city"
                                 class="input input-bordered w-full">
                             <option value="Can Tho">Can Tho</option>
@@ -138,7 +145,7 @@
                         </select>
                     </div>
                     <div class="relative w-1/2">
-                        <label class="block text-sm font-bold mb-2">State</label>
+                        <label class="block text-sm font-bold mb-2"><i data-feather="globe" aria-hidden="true"></i> State</label>
                         <select disabled asp-for="Input.State" aria-required="true" placeholder="Select your state"
                                 class="input input-bordered w-full">
                             <option value="Vietnam">Vietnam</option>
@@ -147,14 +154,14 @@
                     </div>
                 </div>
                 <div class="relative mb-6">
-                    <label class="block text-sm font-bold mb-2">Description</label>
+                    <label class="block text-sm font-bold mb-2"><i data-feather="clipboard" aria-hidden="true"></i> Description</label>
                     <textarea disabled asp-for="Input.Description" type class="textarea textarea-bordered h-24 w-full" placeholder="Description"></textarea>
                 </div>
 
                 <div class="mb-6 relative">
                     <div class="flex gap-2">
-                        <button class="btn btn-accent" type="button" onclick="enableInputs()">Edit Profile</button>
-                        <button class="btn btn-accent" type="submit">Save</button>
+                        <button id="editProfileButton" class="btn btn-accent" type="button" onclick="enableInputs();enableInput()">Edit Profile</button>
+                        <button id="saveButton" class="btn btn-outline btn-success" type="submit" >Save</button>
                         <a class="btn btn-success  @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Change Password</a>
                     </div>
                 </div>
@@ -162,9 +169,34 @@
     </form>
 
 
+    <dialog id="my_modal_1" class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg">Avatar Save SuscessFull !</h3>
+            <p class="py-4">Press ESC key or click the button below to close</p>
+            <div class="modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+    <dialog id="my_modal_2" class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg">We have not found any change!</h3>
+            <p class="py-4">
+                Please choose another picture before save your avatar
+                Press ESC key or click the button below to close
+            </p>
+            <div class="modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
 </div>
-
-
 
 @* <body class="w-full" data-theme="retro">
   <div class="flex items-center justify-center min-h-screen">

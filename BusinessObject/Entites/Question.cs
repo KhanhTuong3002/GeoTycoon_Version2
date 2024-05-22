@@ -26,7 +26,7 @@ namespace BusinessObject.Entites
         [MaxLength(450)]
         [ForeignKey(nameof(IdentityUser))] public string UserId { get; set; }
         public virtual IdentityUser User { get; set; } = default!;
-        public string Images { get; set; }
+        public string? Images { get; set; }
         [Required]
         [StringLength(600)]
         public string Content { get; set; }
@@ -39,10 +39,10 @@ namespace BusinessObject.Entites
         public string Option2 { get; set; }       
         [Required]
         [StringLength(200)]
-        public string Option3 { get; set; }        
+        public string? Option3 { get; set; }        
         [Required]
         [StringLength(200)]
-        public string Option4 { get; set; }
+        public string? Option4 { get; set; }
         [Required]
         [StringLength(200)]
         public string Answer { get; set; }

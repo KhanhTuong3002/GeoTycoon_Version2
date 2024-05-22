@@ -483,7 +483,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(2500)");
 
                     b.Property<string>("Images")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset?>("LastUpdated")
@@ -651,25 +650,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8f6c5436-6ac8-4549-b69a-816868df6dad",
+                            Id = "6ac67859-e4ed-451d-9817-da16e96011ea",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "35c1dc9f-1137-4d75-8f4b-5fc07d9f91fb",
+                            Id = "28b17554-4539-459c-8d4a-1edbe4c3663b",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "4444953c-96f1-4ed8-b6f0-ca43505e5a88",
+                            Id = "bdf1349a-de66-4efb-b5e7-abaa59822cd3",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "a8ac224b-2320-42da-ba32-a15cf58adf2c",
+                            Id = "6da19f47-1367-4146-ab88-a3352a6f6c32",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
