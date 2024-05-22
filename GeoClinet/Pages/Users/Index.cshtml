@@ -3,24 +3,37 @@
 @using Microsoft.AspNetCore.Identity
 
 <h2>User List</h2>
-<div class="w-full mt-8"> 
-<table class="table w-full rounded-box table-auto overflow-auto">
-    <thead>
-        <tr>
+<div class="w-full mt-8">
+    <table class="table w-full rounded-box table-auto overflow-auto">
+        <thead>
+            <tr>
                 <th class="font-semibold p-4 relative pr-6 text-left">Username</th>
                 <th class="font-semibold p-4 relative pr-6 text-left">Email</th>
-            <!-- Thêm các thông tin người dùng khác nếu cần -->
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model.Users)
-        {
-                <tr class="bg-base-100 hover">
-                    <td class="font-semibold p-4 relative pr-6 break-words">@user.UserName</td>
-                    <td class="font-semibold p-4 relative pr-6 break-words">@user.Email</td>
-                <!-- Hiển thị các thông tin người dùng khác nếu cần -->
+                <th class="font-semibold p-4 relative pr-6 text-left">Roles</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var userWithRoles in Model.Users)
+            {
+                <tr class="bg-base-100 hover">
+                    <td class="font-semibold p-4 relative pr-6 break-words">@userWithRoles.User.UserName</td>
+                    <td class="font-semibold p-4 relative pr-6 break-words">@userWithRoles.User.Email</td>
+                    <td class="font-semibold p-4 relative pr-6 break-words">
+                        @foreach (var role in userWithRoles.Roles)
+                        {
+                            <span>@role</span>
+
+                            <br />
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
+    <script>
+        feather.replace();
+    </script>
+}
