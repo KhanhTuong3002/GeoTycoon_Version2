@@ -34,11 +34,11 @@
                                 <td class="font-semibold p-4 relative pr-6 break-words">@item.SetName</td>
                                 <td class="font-semibold p-4 relative pr-6 break-words">@item.QuestionNumber</td>
                                 <td class="flex flex-grow font-semibold p-4 relative pr-6 break-words">
-                                    <button onclick="openEditModal(this)" data-id="@item.Id" data-setname="@item.SetName" data-questionnumber="@item.QuestionNumber">
-                                        <img src="~/css/edit.svg" />
+                                    <button class="mr-2" onclick="openEditModal(this)" data-id="@item.Id" data-setname="@item.SetName" data-questionnumber="@item.QuestionNumber">
+                                        <i data-feather="edit" aria-hidden="true" class="icon text-success"></i>
                                     </button>
                                     <button onclick="openDeleteModal('@item.Id')">
-                                        <img src="~/css/trash-2.svg" />
+                                        <i data-feather="trash-2" aria-hidden="true" class="text-error"></i>
                                     </button>
                                 </td>
                             </tr>
