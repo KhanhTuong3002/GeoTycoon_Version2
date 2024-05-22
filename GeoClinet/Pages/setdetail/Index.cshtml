@@ -56,6 +56,7 @@
     </div>
 </div>
 
+
 <!-- Delete Confirmation Dialog -->
 <dialog id="deleteModal" class="modal">
     <form method="post" asp-page-handler="Delete" class="modal-box">
@@ -78,3 +79,9 @@
         document.getElementById('deleteModal').close();
     }
 </script>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
+    <script>
+        feather.replace();
+    </script>
+}
