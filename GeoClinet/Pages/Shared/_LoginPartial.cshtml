@@ -47,8 +47,8 @@
                         </li>
                         <li><a>Settings</a></li>
                         <li>
-                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                <button type="submit" class="no-underline text-dark">Sign out your account</button>
+                            <button form="logout-form" type="submit" class="no-underline text-dark">Sign out</button>
+                            <form id="logout-form" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                             </form>
                         </li>
                     </ul>
