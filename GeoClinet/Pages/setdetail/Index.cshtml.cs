@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DataAccess;
 using BusinessObject.Entites;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GeoClient.Pages.setdetail
 {
+    [Authorize(Policy = "Teacher")]
     public class IndexModel : PageModel
     {
         private readonly DataAccess.GeoTycoonDbcontext _context;

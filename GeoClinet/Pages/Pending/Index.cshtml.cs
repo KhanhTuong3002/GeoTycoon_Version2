@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObject.Entites;
 using DataAccess;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GeoClinet.Pages.Pending
 {
+    [Authorize(Policy = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly DataAccess.GeoTycoonDbcontext _context;

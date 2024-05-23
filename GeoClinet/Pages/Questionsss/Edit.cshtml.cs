@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObject.Entites;
 using DataAccess;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GeoClinet.Pages.Questionsss
 {
+    [Authorize(Policy = "Teacher")]
     public class EditModel : PageModel
     {
         private readonly DataAccess.GeoTycoonDbcontext _context;
