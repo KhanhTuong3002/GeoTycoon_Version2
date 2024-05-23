@@ -5,46 +5,85 @@
     ViewData["Title"] = "Tracking Question";
 }
 
-<h1>Tracking Question</h1>
+<div class="content items-center justify-center">
+    <div class="container w-[90%] mx-auto py-8 mb-8 items-center justify-center">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
+        </div>
+        <div class="w-full mt-8">
+            <table class="table w-full rounded-box table-auto">
+                <thead>
+                    <tr>
+                        <th>
+                            Question
+                        </th>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                        <th>
+                            Create At
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Tracking)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Question.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Action)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedAt)
+                            </td>
+                            <td>
+                                <a asp-page="./Details" asp-route-id="@item.Id" class="mr-2">
+                                    <i data-feather="info" class="text-info text-2xl" aria-hidden="true"></i>
+                                </a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Tracking[0].Question)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tracking[0].UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tracking[0].Action)
-            </th>  
-            <th>
-                @Html.DisplayNameFor(model => model.Tracking[0].CreatedAt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Tracking) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Action)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                                <button onclick="openDeleteModal('@item.Id')">
+                                    <i data-feather="trash-2" aria-hidden="true" class="text-error text-2xl"></i>
+                                </button>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Delete Confirmation Dialog -->
+<dialog id="deleteModal" class="modal">
+    <form method="post" asp-page-handler="Delete" class="modal-box">
+        <h3 class="font-bold text-lg">Are you sure you want to delete?</h3>
+        <input type="hidden" name="id" id="delete-id">
+        <div class="modal-action">
+            <button type="submit" class="btn btn-danger">Yes</button>
+            <button type="button" class="btn" onclick="closeDeleteModal()">No</button>
+        </div>
+    </form>
+</dialog>
+
+<script>
+    function openDeleteModal(id) {
+        document.getElementById('delete-id').value = id;
+        document.getElementById('deleteModal').showModal();
+    }
+
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').close();
+    }
+</script>
+

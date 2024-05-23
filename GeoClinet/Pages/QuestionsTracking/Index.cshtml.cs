@@ -38,5 +38,20 @@ namespace GeoClinet.Pages.QuestionsTracking
             Tracking = trackingEntries;
 
         }
+
+        public async Task<IActionResult> OnPostDeleteAsync(string id)
+        {
+            var questionToDelete = await _context.Trackings.FindAsync(id);
+
+            if (questionToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _context.Trackings.Remove(questionToDelete);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage();
+        }
     }
 }
