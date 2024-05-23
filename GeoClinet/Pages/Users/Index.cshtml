@@ -17,6 +17,7 @@
                     <tr>
                         <th class="font-semibold p-4 relative pr-6 text-left">Username</th>
                         <th class="font-semibold p-4 relative pr-6 text-left">Email</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Phone</th>
                         <th class="font-semibold p-4 relative pr-6 text-left">Roles</th>
                     </tr>
                 </thead>
@@ -26,6 +27,7 @@
                         <tr class="bg-base-100 hover">
                             <td class="font-semibold p-4 relative pr-6 break-words">@userWithRoles.User.UserName</td>
                             <td class="font-semibold p-4 relative pr-6 break-words">@userWithRoles.User.Email</td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">@userWithRoles.User.PhoneNumber</td>
                             <td class="font-semibold p-4 relative pr-6 break-words">
                                 @foreach (var role in userWithRoles.Roles)
                                 {
