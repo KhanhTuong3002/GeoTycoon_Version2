@@ -21,15 +21,14 @@ namespace BusinessObject.Entites
         [ForeignKey(nameof(QuestionId))]
         public virtual Question Question { get; set; }
 
-        [Required]
-        public string UserId { get; set; }
-        [ForeignKey(nameof(UserId))]
-        public virtual IdentityUser User { get; set; }
+        public string? UserName { get; set; }
 
-        public DateTime Timestamp { get; set; }
+        [Required]
+        public string? UserId { get; set; }
+
         public string Action { get; set; } // e.g., "Added", "Updated", "Deleted"
 
-        public string OldValues { get; set; }
-        public string NewValues { get; set; }
+        public string? OldValues { get; set; }
+        public string? NewValues { get; set; }
     }
 }
