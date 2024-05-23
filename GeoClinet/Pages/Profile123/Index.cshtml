@@ -28,7 +28,7 @@
                         <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Profile[0].Profile.FirstName)</th>
                         <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Profile[0].Profile.LastName)</th>
                         <th class="font-semibold p-4 relative pr-6 text-left">Roles</th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">Actions</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,23 +42,22 @@
                                 @foreach (var role in item.Roles)
                                 {
                                     <span>@role</span>
-
                                     <br />
                                 }
                             </td>
                             <td class="flex flex-grow font-semibold p-4 relative pr-6 break-words">
                                 @if (item.Profile.Isbanned)
                                 {
-                                    <form method="post" asp-page-handler="Unban" asp-route-id="@item.Profile.Id">
-                                        <button type="submit">
+                                    <form method="post" asp-page-handler="Unban" asp-route-id="@item.Profile.Id" class="action-form">
+                                        <button type="button" class="btn-unban" data-id="@item.Profile.Id">
                                             <i data-feather="unlock" class="text-success mr-2 text-2xl" aria-hidden="true"></i>
                                         </button>
                                     </form>
                                 }
                                 else
                                 {
-                                    <form method="post" asp-page-handler="Ban" asp-route-id="@item.Profile.Id">
-                                        <button type="submit">
+                                    <form method="post" asp-page-handler="Ban" asp-route-id="@item.Profile.Id" class="action-form">
+                                        <button type="button" class="btn-ban" data-id="@item.Profile.Id">
                                             <i data-feather="lock" class="text-error mr-2 text-2xl" aria-hidden="true"></i>
                                         </button>
                                     </form>
@@ -73,8 +72,56 @@
             </table>
         </div>
     </div>
-    
 </div>
+
+<dialog id="actionModal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg" id="modalTitle"></h3>
+        <div class="modal-action">
+            <button type="button" class="btn btn-danger" id="confirmButton">Yes</button>
+            <button type="button" class="btn" onclick="closeActionModal()">No</button>
+        </div>
+    </div>
+</dialog>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.btn-unban').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    showModal('Are you sure you want to unban this account?', this.dataset.id, 'Unban');
+                });
+            });
+
+            document.querySelectorAll('.btn-ban').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    showModal('Are you sure you want to ban this account?', this.dataset.id, 'Ban');
+                });
+            });
+        });
+
+        function showModal(message, id, action) {
+            document.getElementById('modalTitle').innerText = message;
+            const confirmButton = document.getElementById('confirmButton');
+            confirmButton.onclick = function () {
+                performAction(id, action);
+            };
+            document.getElementById('actionModal').showModal();
+        }
+
+        function closeActionModal() {
+            document.getElementById('actionModal').close();
+        }
+
+        function performAction(id, action) {
+            const form = document.querySelector(`.action-form [data-id="${id}"]`).closest('form');
+            form.submit();
+        }
+    </script>
+}
+
+
+
 
 
 

@@ -22,41 +22,27 @@
             <table class="table w-full rounded-box table-auto overflow-auto">
                 <thead>
                     <tr>
-                        <th class="font-semibold p-4 relative pr-6 text-left">
-                            @Html.DisplayNameFor(model => model.Profile[0].Id)
-                        </th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">
-                            @Html.DisplayNameFor(model => model.Profile[0].Email)
-                        </th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">
-                            @Html.DisplayNameFor(model => model.Profile[0].UserName)
-                        </th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">
-                            @Html.DisplayNameFor(model => model.Profile[0].PhoneNumber)
-                        </th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">ID</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Email</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Username</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Phone</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model.Profile)
                     {
                         <tr class="bg-base-100 hover">
-                            <td class="font-semibold p-4 relative pr-6 break-words">
-                                @Html.DisplayFor(modelItem => item.Id)
-                            </td>
-                            <td class="font-semibold p-4 relative pr-6 break-words">
-                                @Html.DisplayFor(modelItem => item.Email)
-                            </td>
-                            <td class="font-semibold p-4 relative pr-6 break-words">
-                                @Html.DisplayFor(modelItem => item.UserName)
-                            </td>
-                            <td class="font-semibold p-4 relative pr-6 break-words">
-                                @Html.DisplayFor(modelItem => item.PhoneNumber)
-                            </td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.Id)</td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.UserName)</td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
                             <td>
-                                <form method="post">
-                                    @* <a asp-page="./Delete" asp-route-id="@item.Id">Approve</a> *@
+                                <form method="post" class="action-form">
                                     <input type="hidden" asp-for="@item.Id" value="@item.Id" name="Id" />
-                                    <button type="submit" value="Approve" class="btn btn-success"> <i data-feather="check-circle" aria-hidden="true"> Approve</i></button>
+                                    <button type="button" class="btn-accept" data-id="@item.Id">
+                                        <i data-feather="check-circle" aria-hidden="true" class="text-success text-2xl"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -66,4 +52,45 @@
         </div>
     </div>
 </div>
+
+<dialog id="actionModal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg" id="modalTitle">Are you sure you want to accept this account?</h3>
+        <div class="modal-action">
+            <button type="button" class="btn btn-danger" id="confirmButton">Yes</button>
+            <button type="button" class="btn" onclick="closeActionModal()">No</button>
+        </div>
+    </div>
+</dialog>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.btn-accept').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    showModal(this.dataset.id);
+                });
+            });
+        });
+
+        function showModal(id) {
+            document.getElementById('modalTitle').innerText = 'Are you sure you want to accept this account?';
+            const confirmButton = document.getElementById('confirmButton');
+            confirmButton.onclick = function () {
+                performAction(id);
+            };
+            document.getElementById('actionModal').showModal();
+        }
+
+        function closeActionModal() {
+            document.getElementById('actionModal').close();
+        }
+
+        function performAction(id) {
+            const form = document.querySelector(`.btn-accept[data-id="${id}"]`).closest('form');
+            form.submit();
+        }
+    </script>
+}
+
 
