@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
@@ -23,6 +24,34 @@ namespace DataAccess
         public virtual DbSet<Game> Games { get; init; } = default!;
         public virtual DbSet<GameSession> GameSessions { get; init; } = default!;
 
+        public override int SaveChanges()
+        {
+            var entries = ChangeTracker.Entries<Question>();
+            foreach (var entry in entries)
+            {
+                if (entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.State == EntityState.Deleted)
+                {
+                    var tracking = new Tracking
+                    {
+                        Id = Guid.NewGuid().ToString(), // Ensure a new GUID is assigned
+                        QuestionId = entry.Entity.Id,
+                        UserId = entry.Entity.UserId,
+                        Timestamp = DateTime.UtcNow,
+                        Action = entry.State == EntityState.Added ? "Added" :
+                                 entry.State == EntityState.Modified ? "Updated" :
+                                 "Deleted",
+                        OldValues = entry.State == EntityState.Modified || entry.State == EntityState.Deleted
+                                    ? JsonConvert.SerializeObject(entry.OriginalValues.ToObject())
+                                    : null,
+                        NewValues = entry.State == EntityState.Added || entry.State == EntityState.Modified
+                                    ? JsonConvert.SerializeObject(entry.CurrentValues.ToObject())
+                                    : null
+                    };
+                    Trackings.Add(tracking);
+                }
+            }
+            return base.SaveChanges();
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (optionsBuilder.IsConfigured)

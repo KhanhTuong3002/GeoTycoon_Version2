@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GeoClinet.Pages
 {
+    [Authorize(Policy = "Admin")]
     public class UserListModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;

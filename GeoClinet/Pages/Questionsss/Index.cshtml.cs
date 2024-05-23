@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject.Entites;
 using DataAccess;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GeoClinet.Pages.Questionsss
 {
+    [Authorize(Policy = "Teacher")]
+    //[Authorize(Policy = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly DataAccess.GeoTycoonDbcontext _context;
