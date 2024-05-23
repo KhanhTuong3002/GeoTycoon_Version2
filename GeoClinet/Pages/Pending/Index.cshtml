@@ -2,52 +2,68 @@
 @model GeoClinet.Pages.Pending.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "User Management";
 }
 
-<h1>Pending to appoval Teacher</h1>
-<div class="w-full mt-8">
-    <table class="table w-full rounded-box table-auto overflow-auto">
-    <thead>
-        <tr>
-                <th class="font-semibold p-4 relative pr-6 text-left">
-                @Html.DisplayNameFor(model => model.Profile[0].Id)
-            </th>
-                <th class="font-semibold p-4 relative pr-6 text-left">
-                @Html.DisplayNameFor(model => model.Profile[0].Email)
-            </th>
-                <th class="font-semibold p-4 relative pr-6 text-left">
-                @Html.DisplayNameFor(model => model.Profile[0].UserName)
-            </th>
-                <th class="font-semibold p-4 relative pr-6 text-left">
-                @Html.DisplayNameFor(model => model.Profile[0].PhoneNumber)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Profile) {
-                <tr class="bg-base-100 hover">
-                    <td class="font-semibold p-4 relative pr-6 break-words">
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-                    <td class="font-semibold p-4 relative pr-6 break-words">
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-                    <td class="font-semibold p-4 relative pr-6 break-words">
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td >
-                    <td class="font-semibold p-4 relative pr-6 break-words">
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                <form method="post">
-                        @* <a asp-page="./Delete" asp-route-id="@item.Id">Approve</a> *@
-                        <input type="hidden" asp-for="@item.Id" value ="@item.Id" name="Id" />
-                            <button type="submit" value="Approve" class="btn btn-success"> <i data-feather="check-circle" aria-hidden="true"> Approve</i></button>
-                </form>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="content items-center justify-center">
+    <div class="container w-[90%] mx-auto py-8 mb-8 items-center justify-center">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
+            <div>
+                <a class="btn btn-base-200 mr-2" asp-page="/Profile123/Index">
+                    <span class="text-base-content">Completed</span>
+                </a>
+                <a class="btn btn-base-200" asp-page="/Pending/Index">
+                    <span class="text-base-content">Pending</span>
+                </a>
+            </div>
+        </div>
+        <div class="w-full mt-8">
+            <table class="table w-full rounded-box table-auto overflow-auto">
+                <thead>
+                    <tr>
+                        <th class="font-semibold p-4 relative pr-6 text-left">
+                            @Html.DisplayNameFor(model => model.Profile[0].Id)
+                        </th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">
+                            @Html.DisplayNameFor(model => model.Profile[0].Email)
+                        </th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">
+                            @Html.DisplayNameFor(model => model.Profile[0].UserName)
+                        </th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">
+                            @Html.DisplayNameFor(model => model.Profile[0].PhoneNumber)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Profile)
+                    {
+                        <tr class="bg-base-100 hover">
+                            <td class="font-semibold p-4 relative pr-6 break-words">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">
+                                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                            </td>
+                            <td>
+                                <form method="post">
+                                    @* <a asp-page="./Delete" asp-route-id="@item.Id">Approve</a> *@
+                                    <input type="hidden" asp-for="@item.Id" value="@item.Id" name="Id" />
+                                    <button type="submit" value="Approve" class="btn btn-success"> <i data-feather="check-circle" aria-hidden="true"> Approve</i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+

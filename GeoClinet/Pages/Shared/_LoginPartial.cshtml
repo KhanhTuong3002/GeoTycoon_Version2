@@ -9,7 +9,7 @@
     var userId = currentUser?.Id;
 }
 <head>
-    <script defer src="~/lib/alpinejs/cdn.min.js"></script> 
+    <script defer src="~/lib/alpinejs/cdn.min.js"></script>
     <link rel="stylesheet" href="~/lib/feather/css/feather.min.css" />
     <!-- Preload fonts -->
     <link rel="preload" href="~/lib/feather/font/feather.woff" as="font" type="font/woff" crossorigin>
@@ -22,9 +22,6 @@
         var profile = ProfileRepo.GetprofileFrommUser(currentUser);
 
         <div class="navbar bg-base-200">
-            <div class="">
-                <div class="dropdown dropdown-end">
-                </div>
                 <div class="dropdown dropdown-end">
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                         <div class="w-10 rounded-full">
@@ -36,23 +33,84 @@
                             }
                             else
                             {
-                                Console.WriteLine("------------------start "+currentUser + "-------------------------NULL------------------------------");
+                                Console.WriteLine("------------------start " + currentUser + "-------------------------NULL------------------------------");
                                 <img alt="Default Avatar" src="https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg" />
                             }
 
                         </div>
                     </div>
-                    <ul tabindex="0" class="menu menu-sm text-base-content dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box inline-block">
+                    <ul tabindex="0" class="dropdown-content menu menu-compact p-2 mt-4 z-50 w-52 shadow-lg bg-base-100 rounded-box">
                         <li>
-                            <a title="Manage">@User.Identity?.Name!</a>
+                            <a class="text-base-content text-bold" title="Manage">@User.Identity?.Name!</a>
                         </li>
+                        <li class="menu-title">
+                            <span>Account</span>
+                        </li>
+
                         <li>
-                            <a class="justify-between" asp-area="Identity" asp-page="/Account/Manage/Index">
+                            <a class="text-base-content" asp-area="Identity" asp-page="/Account/Manage/Index">
                                 <i data-feather="user" aria-hidden="true"></i> Profile
                                 <span class="badge">New</span>
                             </a>
                         </li>
-                        <li><a> <i data-feather="settings" aria-hidden="true"></i>  Settings</a></li>
+                        <li></li>
+                        <li class="menu-title">
+                            <span>Manage</span>
+                        </li>
+                        <li>
+                            <details>
+                                <summary>
+                                    <a asp-page="/Questionsss/Index">
+                                        <i aria-hidden="true" class=" text-base-content" data-feather="help-circle"></i>
+                                        <span class="text-base-content">Question</span>
+                                    </a>
+                                </summary>
+                                <ul>
+                                <li>
+                                    <a asp-page="/set/Index">
+                                        <i aria-hidden="true" class="text-base-content" data-feather="list"></i>
+                                        <span class="text-base-content">Set Question</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a asp-page="/setdetail/Index">
+                                        <i aria-hidden="true" class="text-base-content" data-feather="tag"></i>
+                                        <span class="text-base-content">Set Question Detail</span>
+                                    </a>
+                                </li>
+                                </ul>
+                            </details>
+
+                        </li>
+                    <li>
+                        <details>
+                            <summary>
+                                <a asp-page="/Users/Index">
+                                    <i aria-hidden="true" class=" text-base-content" data-feather="help-circle"></i>
+                                    <span class="text-base-content">User</span>
+                                </a>
+                            </summary>
+                            <ul>
+                                <li>
+                                    <a asp-page="/Profile123/Index">
+                                        <i aria-hidden="true" class="text-base-content" data-feather="list"></i>
+                                        <span class="text-base-content">Completed</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a asp-page="/Pending/Index">
+                                        <i aria-hidden="true" class="text-base-content" data-feather="tag"></i>
+                                        <span class="text-base-content">Pending</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </details>
+
+                    </li>
+ 
+                            <li><a> <i data-feather="settings" aria-hidden="true"></i>  Settings</a></li>
                         <li></li>
                         <li>
 
@@ -64,7 +122,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+
         @*     <li class="nav-item">
     <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>
