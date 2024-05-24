@@ -54,10 +54,10 @@ namespace DataAccess
                         Action = entry.State == EntityState.Added ? "Added" :
                                  entry.State == EntityState.Modified ? "Updated" :
                                  "Deleted",
-                        OldValues = entry.State == EntityState.Modified || entry.State == EntityState.Deleted
+                        OldValues = entry.State == EntityState.Added
                                     ? JsonConvert.SerializeObject(entry.OriginalValues.ToObject())
                                     : null,
-                        NewValues = entry.State == EntityState.Added || entry.State == EntityState.Modified
+                        NewValues = entry.State == EntityState.Modified || entry.State == EntityState.Added
                                     ? JsonConvert.SerializeObject(entry.CurrentValues.ToObject())
                                     : null
                     };

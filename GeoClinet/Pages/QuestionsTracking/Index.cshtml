@@ -15,6 +15,9 @@
                 <thead>
                     <tr>
                         <th>
+                            ID
+                        </th>
+                        <th>
                             Question
                         </th>
                         <th>
@@ -33,6 +36,9 @@
                     @foreach (var item in Model.Tracking)
                     {
                         <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Question.Id)
+                            </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Question.Title)
                             </td>
