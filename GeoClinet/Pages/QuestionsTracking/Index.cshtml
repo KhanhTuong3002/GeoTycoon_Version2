@@ -2,7 +2,7 @@
 @model GeoClinet.Pages.QuestionsTracking.IndexModel
 
 @{
-    ViewData["Title"] = "Tracking Question";
+    ViewData["Title"] = "Questions Tracking";
 }
 
 <div class="content items-center justify-center">
@@ -11,47 +11,39 @@
             <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
         </div>
 
-        <form method="get" class="mb-4">
-            <div class="flex items-center">
-                <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search" class="input input-bordered w-64 mr-4" />
-                <div class="mr-4">
-                    <input type="checkbox" id="searchByUsername" name="searchByUsername" @(Model.SearchByUsername ? "checked" : "") class="mr-2" />
-                    <label for="searchByUsername">Search by Username</label>
+        <form method="get" class="m-xl-auto">
+            <div class="flex">
+                <div class="mr-8">
+                    <input id="searchInput" type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search question title Ctrl + K" class="input input-bordered w-64 md:w-auto" />
                 </div>
-                <div>
-                    <input type="checkbox" id="searchByTitle" name="searchByTitle" @(Model.SearchByTitle ? "checked" : "") class="mr-2" />
-                    <label for="searchByTitle">Search by Title</label>
+                <div class="pt-4">
                 </div>
-                <button type="submit" class="btn btn-primary ml-4">Search</button>
             </div>
+            <input type="submit" value="Search" style="display:none;" />
         </form>
 
         <div class="w-full mt-8">
-            <table class="table w-full rounded-box table-auto">
+            <table class="table w-full rounded-box table-auto overflow-auto">
                 <thead>
                     <tr>
-                        <th>Question</th>
-                        <th>Username</th>
-                        <th>Action</th>
-                        <th>Created At</th>
-                        <th></th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Username</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Question Title</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model.Tracking)
                     {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Question.Title)</td>
-                            <td>@Html.DisplayFor(modelItem => item.UserName)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Action)</td>
-                            <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                        <tr class="bg-base-100 hover">
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.UserName)</td>
+                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.Question.Title)</td>
                             <td>
-                                <a asp-page="./Details" asp-route-id="@item.Id" class="mr-2">
-                                    <i data-feather="info" class="text-info text-2xl" aria-hidden="true"></i>
-                                </a>
-                                <button onclick="openDeleteModal('@item.Id')">
-                                    <i data-feather="trash-2" aria-hidden="true" class="text-error text-2xl"></i>
-                                </button>
+                                <form method="post" class="action-form">
+                                    <input type="hidden" asp-for="@item.Id" value="@item.Id" name="Id" />
+                                    <button type="button" class="btn-delete" data-id="@item.Id">
+                                        <i data-feather="trash-2" aria-hidden="true" class="text-error text-2xl"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     }
@@ -62,23 +54,41 @@
 </div>
 
 <dialog id="deleteModal" class="modal">
-    <form method="post" asp-page-handler="Delete" class="modal-box">
-        <h3 class="font-bold text-lg">Are you sure you want to delete?</h3>
-        <input type="hidden" name="id" id="delete-id">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg" id="modalTitle">Are you sure you want to delete this entry?</h3>
         <div class="modal-action">
-            <button type="submit" class="btn btn-danger">Yes</button>
+            <button type="button" class="btn btn-danger" id="confirmButton">Yes</button>
             <button type="button" class="btn" onclick="closeDeleteModal()">No</button>
         </div>
-    </form>
+    </div>
 </dialog>
 
-<script>
-    function openDeleteModal(id) {
-        document.getElementById('delete-id').value = id;
-        document.getElementById('deleteModal').showModal();
-    }
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.btn-delete').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    showDeleteModal(this.dataset.id);
+                });
+            });
+        });
 
-    function closeDeleteModal() {
-        document.getElementById('deleteModal').close();
-    }
-</script>
+        function showDeleteModal(id) {
+            document.getElementById('modalTitle').innerText = 'Are you sure you want to delete this entry?';
+            const confirmButton = document.getElementById('confirmButton');
+            confirmButton.onclick = function () {
+                performDeleteAction(id);
+            };
+            document.getElementById('deleteModal').showModal();
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').close();
+        }
+
+        function performDeleteAction(id) {
+            const form = document.querySelector(`.btn-delete[data-id="${id}"]`).closest('form');
+            form.submit();
+        }
+    </script>
+}

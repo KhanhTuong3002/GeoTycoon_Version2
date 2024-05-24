@@ -37,16 +37,33 @@ namespace GeoClinet.Pages.set
 
         public async Task OnGetAsync()
         {
-            var query = _context.SetQuestions.AsQueryable();
+            // Default to SearchBySetName if no search type is selected
+            if (!SearchBySetName && !SearchByQuestionNumber)
+            {
+                SearchBySetName = true;
+            }
+
+            var query = from s in _context.SetQuestions
+                        select s;
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {
-                if (SearchBySetName)
+                if (SearchBySetName && SearchByQuestionNumber)
+                {
+                    if (int.TryParse(SearchTerm, out int number))
+                    {
+                        query = query.Where(s => s.SetName.Contains(SearchTerm) || s.QuestionNumber == number);
+                    }
+                    else
+                    {
+                        query = query.Where(s => s.SetName.Contains(SearchTerm));
+                    }
+                }
+                else if (SearchBySetName)
                 {
                     query = query.Where(s => s.SetName.Contains(SearchTerm));
                 }
-
-                if (SearchByQuestionNumber)
+                else if (SearchByQuestionNumber)
                 {
                     if (int.TryParse(SearchTerm, out int number))
                     {

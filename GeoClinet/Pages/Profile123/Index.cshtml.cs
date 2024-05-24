@@ -42,6 +42,10 @@ namespace GeoClinet.Pages.Profile123
         {
             var profiles = from p in _context.Profiles.Include(p => p.User)
                            select p;
+            if (!SearchByLastName && !SearchByFirstName)
+            {
+                SearchByEmail = true;
+            }
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {

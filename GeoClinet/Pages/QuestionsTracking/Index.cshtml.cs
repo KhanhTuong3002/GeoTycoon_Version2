@@ -32,24 +32,36 @@ namespace GeoClinet.Pages.QuestionsTracking
 
         public async Task OnGetAsync()
         {
-            var query = _context.Trackings.Include(t => t.Question).AsQueryable();
+            // Default to SearchByUsername if no search type is selected
+            if (!SearchByUsername && !SearchByTitle)
+            {
+                SearchByTitle = true;
+            }
+
+            var query = _context.Trackings
+                        .Include(t => t.Question)
+                        .AsQueryable();
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {
-                if (SearchByUsername)
+                if (SearchByUsername && SearchByTitle)
+                {
+                    query = query.Where(t => t.UserName.Contains(SearchTerm) || t.Question.Title.Contains(SearchTerm));
+                }
+                else if (SearchByUsername)
                 {
                     query = query.Where(t => t.UserName.Contains(SearchTerm));
                 }
-
-                if (SearchByTitle)
+                else if (SearchByTitle)
                 {
                     query = query.Where(t => t.Question.Title.Contains(SearchTerm));
                 }
             }
 
-            var trackingEntries = await query.ToListAsync();
+            Tracking = await query.ToListAsync();
 
-            foreach (var tracking in trackingEntries)
+            // Populate UserName for each Tracking entry
+            foreach (var tracking in Tracking)
             {
                 var user = await _context.Users.FindAsync(tracking.UserId);
                 if (user != null)
@@ -57,8 +69,6 @@ namespace GeoClinet.Pages.QuestionsTracking
                     tracking.UserName = user.UserName;
                 }
             }
-
-            Tracking = trackingEntries;
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(string id)

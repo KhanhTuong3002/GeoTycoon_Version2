@@ -37,16 +37,26 @@ namespace GeoClinet.Pages.Pending
 
         public async Task OnGetAsync()
         {
+            // Default to SearchByUsername if no search type is selected
+            if (!SearchByUsername && !SearchByEmail)
+            {
+                SearchByUsername = true;
+            }
+
             var usersInRole = await _userManager.GetUsersInRoleAsync("Pending");
             var profiles = usersInRole.AsQueryable();
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {
-                if (SearchByUsername)
+                if (SearchByUsername && SearchByEmail)
+                {
+                    profiles = profiles.Where(u => u.UserName.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) || u.Email.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase));
+                }
+                else if (SearchByUsername)
                 {
                     profiles = profiles.Where(u => u.UserName.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase));
                 }
-                if (SearchByEmail)
+                else if (SearchByEmail)
                 {
                     profiles = profiles.Where(u => u.Email.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase));
                 }

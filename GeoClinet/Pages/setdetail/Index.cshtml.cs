@@ -39,11 +39,24 @@ namespace GeoClient.Pages.setdetail
 
         public async Task OnGetAsync()
         {
-            var query = _context.SetQuestionDetails.Include(d => d.SetQuestion).Include(d => d.Question).AsQueryable();
+            // Default to SearchBySetName if no search type is selected
+            if (!SearchBySetName && !SearchByTitle)
+            {
+                SearchBySetName = true;
+            }
+
+            var query = _context.SetQuestionDetails
+                        .Include(d => d.SetQuestion)
+                        .Include(d => d.Question)
+                        .AsQueryable();
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {
-                if (SearchBySetName)
+                if (SearchBySetName && SearchByTitle)
+                {
+                    query = query.Where(d => d.SetQuestion.SetName.Contains(SearchTerm) || d.Question.Title.Contains(SearchTerm));
+                }
+                else if (SearchBySetName)
                 {
                     query = query.Where(d => d.SetQuestion.SetName.Contains(SearchTerm));
                 }
