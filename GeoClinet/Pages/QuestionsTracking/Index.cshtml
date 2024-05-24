@@ -14,12 +14,21 @@
         <form method="get" class="m-xl-auto">
             <div class="flex">
                 <div class="mr-8">
-                    <input id="searchInput" type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search question title Ctrl + K" class="input input-bordered w-64 md:w-auto" />
+                    <input id="searchInput" type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search title Ctrl + K" class="input input-bordered w-64 md:w-auto" />
                 </div>
                 <div class="pt-4">
                 </div>
             </div>
             <input type="submit" value="Search" style="display:none;" />
+            <script>
+                document.addEventListener('keydown', function (event) {
+                    // Check if the 'Ctrl' key and 'K' key are pressed together
+                    if (event.ctrlKey && event.key === 'k') {
+                        event.preventDefault(); // Prevent the default browser action
+                        document.getElementById('searchInput').focus(); // Set focus to the search input
+                    }
+                });
+            </script>
         </form>
 
         <div class="w-full mt-8">
