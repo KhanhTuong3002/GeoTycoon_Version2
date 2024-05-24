@@ -23,27 +23,49 @@
         </form>
 
         <div class="w-full mt-8">
-            <table class="table w-full rounded-box table-auto overflow-auto">
+            <table class="table w-full rounded-box table-auto">
                 <thead>
                     <tr>
-                        <th class="font-semibold p-4 relative pr-6 text-left">Username</th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">Question Title</th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">Action</th>
+                        <th>
+                            Question
+                        </th>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                        <th>
+                            Create At
+                        </th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model.Tracking)
                     {
-                        <tr class="bg-base-100 hover">
-                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.UserName)</td>
-                            <td class="font-semibold p-4 relative pr-6 break-words">@Html.DisplayFor(modelItem => item.Question.Title)</td>
+                        <tr>
                             <td>
-                                <form method="post" class="action-form">
-                                    <input type="hidden" asp-for="@item.Id" value="@item.Id" name="Id" />
-                                    <button type="button" class="btn-delete" data-id="@item.Id">
-                                        <i data-feather="trash-2" aria-hidden="true" class="text-error text-2xl"></i>
-                                    </button>
-                                </form>
+                                @Html.DisplayFor(modelItem => item.Question.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Action)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedAt)
+                            </td>
+                            <td>
+                                <a asp-page="./Details" asp-route-id="@item.Id" class="mr-2">
+                                    <i data-feather="info" class="text-info text-2xl" aria-hidden="true"></i>
+                                </a>
+
+                                <button onclick="openDeleteModal('@item.Id')">
+                                    <i data-feather="trash-2" aria-hidden="true" class="text-error text-2xl"></i>
+                                </button>
+
                             </td>
                         </tr>
                     }
@@ -51,44 +73,30 @@
             </table>
         </div>
     </div>
+
 </div>
 
+<!-- Delete Confirmation Dialog -->
 <dialog id="deleteModal" class="modal">
-    <div class="modal-box">
-        <h3 class="font-bold text-lg" id="modalTitle">Are you sure you want to delete this entry?</h3>
+    <form method="post" asp-page-handler="Delete" class="modal-box">
+        <h3 class="font-bold text-lg">Are you sure you want to delete?</h3>
+        <input type="hidden" name="id" id="delete-id">
         <div class="modal-action">
-            <button type="button" class="btn btn-danger" id="confirmButton">Yes</button>
+            <button type="submit" class="btn btn-danger">Yes</button>
             <button type="button" class="btn" onclick="closeDeleteModal()">No</button>
         </div>
-    </div>
+    </form>
 </dialog>
 
-@section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.btn-delete').forEach(function (button) {
-                button.addEventListener('click', function () {
-                    showDeleteModal(this.dataset.id);
-                });
-            });
-        });
+<script>
+    function openDeleteModal(id) {
+        document.getElementById('delete-id').value = id;
+        document.getElementById('deleteModal').showModal();
+    }
 
-        function showDeleteModal(id) {
-            document.getElementById('modalTitle').innerText = 'Are you sure you want to delete this entry?';
-            const confirmButton = document.getElementById('confirmButton');
-            confirmButton.onclick = function () {
-                performDeleteAction(id);
-            };
-            document.getElementById('deleteModal').showModal();
-        }
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').close();
+    }
+</script>
 
-        function closeDeleteModal() {
-            document.getElementById('deleteModal').close();
-        }
-
-        function performDeleteAction(id) {
-            const form = document.querySelector(`.btn-delete[data-id="${id}"]`).closest('form');
-            form.submit();
-        }
-    </script>
 }
