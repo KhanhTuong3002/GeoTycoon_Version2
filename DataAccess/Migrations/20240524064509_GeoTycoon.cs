@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Mistusria : Migration
+    public partial class GeoTycoon : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -348,10 +348,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4c21b58a-cf4e-4718-93a0-e5c3cebb745f", null, "Teacher", "TEACHER" },
-                    { "543fd243-a5ca-42cd-8c19-6ac9aff558d2", null, "Administrator", "ADMINISTRATOR" },
-                    { "df4b83ef-8d4f-4716-83a1-8b5bbf515a5f", null, "Pending", "PENDING" },
-                    { "f6b11724-650a-40d4-aa51-9b8fef6590bd", null, "Student", "STUDENT" }
+                    { "64dc9190-4a88-426b-95f2-72d00f51a166", null, "Administrator", "ADMINISTRATOR" },
+                    { "a3fa061f-8af8-4cb3-8546-75fe955146c6", null, "Student", "STUDENT" },
+                    { "f02a51f7-78e8-4305-b47b-7bb6f868bbc7", null, "Pending", "PENDING" },
+                    { "f9d56cef-f5c5-4374-b739-2d06467d26e8", null, "Teacher", "TEACHER" }
                 });
 
             migrationBuilder.InsertData(

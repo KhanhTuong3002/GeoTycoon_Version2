@@ -2,7 +2,7 @@
 @model GeoClinet.Pages.QuestionsTracking.IndexModel
 
 @{
-    ViewData["Title"] = "Tracking Question";
+    ViewData["Title"] = "Questions Tracking";
 }
 
 <div class="content items-center justify-center">
@@ -10,6 +10,18 @@
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
         </div>
+
+        <form method="get" class="m-xl-auto">
+            <div class="flex">
+                <div class="mr-8">
+                    <input id="searchInput" type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search question title Ctrl + K" class="input input-bordered w-64 md:w-auto" />
+                </div>
+                <div class="pt-4">
+                </div>
+            </div>
+            <input type="submit" value="Search" style="display:none;" />
+        </form>
+
         <div class="w-full mt-8">
             <table class="table w-full rounded-box table-auto">
                 <thead>
@@ -67,7 +79,7 @@
             </table>
         </div>
     </div>
-    
+
 </div>
 
 <!-- Delete Confirmation Dialog -->
@@ -93,3 +105,4 @@
     }
 </script>
 
+}
