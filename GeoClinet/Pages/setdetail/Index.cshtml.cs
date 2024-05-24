@@ -14,9 +14,9 @@ namespace GeoClient.Pages.setdetail
     [Authorize(Policy = "Teacher")]
     public class IndexModel : PageModel
     {
-        private readonly DataAccess.GeoTycoonDbcontext _context;
+        private readonly GeoTycoonDbcontext _context;
 
-        public IndexModel(DataAccess.GeoTycoonDbcontext context)
+        public IndexModel(GeoTycoonDbcontext context)
         {
             _context = context;
         }
@@ -28,9 +28,27 @@ namespace GeoClient.Pages.setdetail
         [BindProperty]
         public SetQuestionDetail SetQuestionDetail { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchSetName { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SearchTitle { get; set; }
+
         public async Task OnGetAsync()
         {
-            SetQuestionDetails = await _context.SetQuestionDetails.Include(d => d.SetQuestion).Include(d => d.Question).ToListAsync();
+            var query = _context.SetQuestionDetails.Include(d => d.SetQuestion).Include(d => d.Question).AsQueryable();
+
+            if (!string.IsNullOrEmpty(SearchSetName))
+            {
+                query = query.Where(d => d.SetQuestion.SetName.Contains(SearchSetName));
+            }
+
+            if (!string.IsNullOrEmpty(SearchTitle))
+            {
+                query = query.Where(d => d.Question.Title.Contains(SearchTitle));
+            }
+
+            SetQuestionDetails = await query.ToListAsync();
             SetQuestions = await _context.SetQuestions.ToListAsync();
             Questions = await _context.Questions.ToListAsync();
         }

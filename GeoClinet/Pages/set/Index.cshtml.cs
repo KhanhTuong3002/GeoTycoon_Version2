@@ -14,9 +14,9 @@ namespace GeoClinet.Pages.set
     [Authorize(Policy = "Teacher")]
     public class IndexModel : PageModel
     {
-        private readonly DataAccess.GeoTycoonDbcontext _context;
+        private readonly GeoTycoonDbcontext _context;
 
-        public IndexModel(DataAccess.GeoTycoonDbcontext context)
+        public IndexModel(GeoTycoonDbcontext context)
         {
             _context = context;
         }
@@ -26,18 +26,33 @@ namespace GeoClinet.Pages.set
         [BindProperty]
         public SetQuestion SetQuestion { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchSetName { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int? SearchQuestionNumber { get; set; }
+
         public async Task OnGetAsync()
         {
-            SetQuestions = await _context.SetQuestions.ToListAsync();
+            var query = _context.SetQuestions.AsQueryable();
+
+            if (!string.IsNullOrEmpty(SearchSetName))
+            {
+                query = query.Where(s => s.SetName.Contains(SearchSetName));
+            }
+
+            if (SearchQuestionNumber.HasValue)
+            {
+                query = query.Where(s => s.QuestionNumber == SearchQuestionNumber);
+            }
+
+            SetQuestions = await query.ToListAsync();
         }
 
         public async Task<IActionResult> OnPostAddAsync()
         {
-
-
             _context.SetQuestions.Add(SetQuestion);
             await _context.SaveChangesAsync();
-
             return RedirectToPage();
         }
 
@@ -63,10 +78,7 @@ namespace GeoClinet.Pages.set
 
             return RedirectToPage();
         }
-        private bool SetQuestionExists(string id)
-        {
-            return _context.SetQuestions.Any(e => e.Id == id);
-        }
+
         public async Task<IActionResult> OnPostDeleteAsync(string id)
         {
             var questionToDelete = await _context.SetQuestions.FindAsync(id);
@@ -80,6 +92,11 @@ namespace GeoClinet.Pages.set
             await _context.SaveChangesAsync();
 
             return RedirectToPage();
+        }
+
+        private bool SetQuestionExists(string id)
+        {
+            return _context.SetQuestions.Any(e => e.Id == id);
         }
     }
 }
