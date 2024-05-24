@@ -22,23 +22,29 @@ namespace GeoClinet.Pages.QuestionsTracking
         public IList<Tracking> Tracking { get; set; } = default!;
 
         [BindProperty(SupportsGet = true)]
-        public string Username { get; set; }
+        public string SearchTerm { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public string Title { get; set; }
+        public bool SearchByUsername { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public bool SearchByTitle { get; set; }
 
         public async Task OnGetAsync()
         {
             var query = _context.Trackings.Include(t => t.Question).AsQueryable();
 
-            if (!string.IsNullOrEmpty(Username))
+            if (!string.IsNullOrEmpty(SearchTerm))
             {
-                query = query.Where(t => t.UserName.Contains(Username));
-            }
+                if (SearchByUsername)
+                {
+                    query = query.Where(t => t.UserName.Contains(SearchTerm));
+                }
 
-            if (!string.IsNullOrEmpty(Title))
-            {
-                query = query.Where(t => t.Question.Title.Contains(Title));
+                if (SearchByTitle)
+                {
+                    query = query.Where(t => t.Question.Title.Contains(SearchTerm));
+                }
             }
 
             var trackingEntries = await query.ToListAsync();

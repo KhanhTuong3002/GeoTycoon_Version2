@@ -27,23 +27,32 @@ namespace GeoClinet.Pages.set
         public SetQuestion SetQuestion { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public string SearchSetName { get; set; }
+        public string SearchTerm { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public int? SearchQuestionNumber { get; set; }
+        public bool SearchBySetName { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public bool SearchByQuestionNumber { get; set; }
 
         public async Task OnGetAsync()
         {
             var query = _context.SetQuestions.AsQueryable();
 
-            if (!string.IsNullOrEmpty(SearchSetName))
+            if (!string.IsNullOrEmpty(SearchTerm))
             {
-                query = query.Where(s => s.SetName.Contains(SearchSetName));
-            }
+                if (SearchBySetName)
+                {
+                    query = query.Where(s => s.SetName.Contains(SearchTerm));
+                }
 
-            if (SearchQuestionNumber.HasValue)
-            {
-                query = query.Where(s => s.QuestionNumber == SearchQuestionNumber);
+                if (SearchByQuestionNumber)
+                {
+                    if (int.TryParse(SearchTerm, out int number))
+                    {
+                        query = query.Where(s => s.QuestionNumber == number);
+                    }
+                }
             }
 
             SetQuestions = await query.ToListAsync();

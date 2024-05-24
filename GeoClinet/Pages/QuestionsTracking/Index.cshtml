@@ -13,8 +13,15 @@
 
         <form method="get" class="mb-4">
             <div class="flex items-center">
-                <input type="text" name="username" value="@Model.Username" placeholder="Search by Username" class="input input-bordered w-64 mr-4" />
-                <input type="text" name="title" value="@Model.Title" placeholder="Search by Title" class="input input-bordered w-64 mr-4" />
+                <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search" class="input input-bordered w-64 mr-4" />
+                <div class="mr-4">
+                    <input type="checkbox" id="searchByUsername" name="searchByUsername" @(Model.SearchByUsername ? "checked" : "") class="mr-2" />
+                    <label for="searchByUsername">Search by Username</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="searchByTitle" name="searchByTitle" @(Model.SearchByTitle ? "checked" : "") class="mr-2" />
+                    <label for="searchByTitle">Search by Title</label>
+                </div>
                 <button type="submit" class="btn btn-primary ml-4">Search</button>
             </div>
         </form>
