@@ -24,23 +24,33 @@ namespace GeoClinet.Pages
         public IList<UserWithRoles> Users { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public string SearchUserName { get; set; }
+        public string SearchTerm { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public string SearchEmail { get; set; }
+        public bool SearchByUserName { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public bool SearchByEmail { get; set; }
+
 
         public async Task OnGetAsync()
         {
             var usersQuery = _userManager.Users.AsQueryable();
-
-            if (!string.IsNullOrEmpty(SearchUserName))
+            if (!SearchByUserName && !SearchByEmail)
             {
-                usersQuery = usersQuery.Where(u => u.UserName.Contains(SearchUserName));
+                SearchByUserName = true;
             }
-
-            if (!string.IsNullOrEmpty(SearchEmail))
+            if (!string.IsNullOrEmpty(SearchTerm))
             {
-                usersQuery = usersQuery.Where(u => u.Email.Contains(SearchEmail));
+                if (SearchByUserName)
+                {
+                    usersQuery = usersQuery.Where(u => u.UserName.Contains(SearchTerm));
+                }
+
+                if (SearchByEmail)
+                {
+                    usersQuery = usersQuery.Where(u => u.Email.Contains(SearchTerm));
+                }
             }
 
             var users = await usersQuery.ToListAsync();
