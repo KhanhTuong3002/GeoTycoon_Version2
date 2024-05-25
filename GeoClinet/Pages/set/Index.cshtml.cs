@@ -19,18 +19,28 @@ namespace GeoClinet.Pages.set
             _context = context;
         }
 
-        public IList<SetQuestion> SetQuestions { get; set; } = new List<SetQuestion>();
+        public IList<SetQuestion> SetQuestionss { get; set; } = new List<SetQuestion>();
 
         [BindProperty]
         public SetQuestion SetQuestion { get; set; }
 
         public async Task OnGetAsync()
         {
-            SetQuestions = await _context.SetQuestions.ToListAsync();
+            SetQuestionss = await _context.SetQuestions.ToListAsync();
         }
 
         public async Task<IActionResult> OnPostAddAsync()
         {
+            if (SetQuestion.QuestionNumber < 30)
+            {
+                ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber không được nhỏ hơn 30.");
+                return Page();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
 
             _context.SetQuestions.Add(SetQuestion);
@@ -41,6 +51,17 @@ namespace GeoClinet.Pages.set
 
         public async Task<IActionResult> OnPostEditAsync(string id)
         {
+            if (SetQuestion.QuestionNumber < 30)
+            {
+                ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber không được nhỏ hơn 30.");
+                return Page();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             _context.Attach(SetQuestion).State = EntityState.Modified;
 
             try

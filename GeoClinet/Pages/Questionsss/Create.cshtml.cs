@@ -41,7 +41,17 @@ namespace GeoClinet.Pages.Questionsss
 
             if (existingSetQuestion != null)
             {
-                ModelState.AddModelError("Question.Title", "Title đã tồn tại.");
+                ModelState.AddModelError("Question.Title", "Title already exists.");
+                return Page();
+            }
+            if (Question.Option1 == Question.Option2 ||
+                Question.Option1 == Question.Option3 ||
+                Question.Option1 == Question.Option4 ||
+                Question.Option2 == Question.Option3 ||
+                Question.Option2 == Question.Option4 ||
+               (Question.Option3 != null && Question.Option3 == Question.Option4))
+            {
+                ModelState.AddModelError("Question.Option3", "Options cannot be duplicated.");
                 return Page();
             }
             Question.UserId = currentUser?.Id;

@@ -48,8 +48,25 @@ namespace GeoClinet.Pages.Questionsss
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-
             var currentUser = await _userManager.GetUserAsync(User);
+            var existingSetQuestion = await _context.Questions
+            .FirstOrDefaultAsync(sq => sq.Title == Question.Title);
+
+            if (existingSetQuestion != null)
+            {
+                ModelState.AddModelError("Question.Title", "Title already exists.");
+                return Page();
+            }
+            if (Question.Option1 == Question.Option2 ||
+                Question.Option1 == Question.Option3 ||
+                Question.Option1 == Question.Option4 ||
+                Question.Option2 == Question.Option3 ||
+                Question.Option2 == Question.Option4 ||
+               (Question.Option3 != null && Question.Option3 == Question.Option4))
+            {
+                ModelState.AddModelError("Question.Option3", "Options cannot be duplicated.");
+                return Page();
+            }
             _context.Attach(Question).State = EntityState.Modified;
             Question.UserId = currentUser?.Id;
 

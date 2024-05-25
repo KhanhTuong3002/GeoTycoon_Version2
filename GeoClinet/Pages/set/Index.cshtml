@@ -16,7 +16,7 @@
         </div>
         <div class="w-full mt-8">
 
-            @if (Model.SetQuestions != null && Model.SetQuestions.Any())
+            @if (Model.SetQuestionss != null && Model.SetQuestionss.Any())
             {
                 <table class="table w-full rounded-box table-auto">
                     <thead>
@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.SetQuestions)
+                        @foreach (var item in Model.SetQuestionss)
                         {
                             <tr class="bg-base-100 hover">
                                 <td class="font-semibold p-4 relative pr-6 break-words">@item.SetName</td>
@@ -62,10 +62,12 @@
         <div class="form-control">
             <label class="label">Set Name</label>
             <input type="text" name="SetQuestion.SetName" class="input input-bordered" required>
+            <span asp-validation-for="SetQuestion.SetName" class="text-danger"></span>
         </div>
         <div class="form-control">
             <label class="label">Question Number</label>
             <input type="number" name="SetQuestion.QuestionNumber" class="input input-bordered" required>
+            <span asp-validation-for="SetQuestion.QuestionNumber" class="text-danger"></span>
         </div>
         <div class="modal-action">
             <button type="submit" class="btn btn-primary">Add</button>
@@ -82,10 +84,12 @@
         <div class="form-control">
             <label class="label">Set Name</label>
             <input type="text" name="SetQuestion.SetName" id="edit-setname" class="input input-bordered" required>
+            <span asp-validation-for="SetQuestion.SetName" class="text-danger"></span>
         </div>
         <div class="form-control">
             <label class="label">Question Number</label>
             <input type="number" name="SetQuestion.QuestionNumber" id="edit-questionnumber" class="input input-bordered" required>
+            <span asp-validation-for="SetQuestion.QuestionNumber" class="text-danger"></span>
         </div>
         <div class="modal-action">
             <button type="submit" class="btn btn-primary">Save</button>
