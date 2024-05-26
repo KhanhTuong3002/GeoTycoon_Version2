@@ -31,6 +31,15 @@ namespace GeoClinet.Pages.set
 
         public async Task<IActionResult> OnPostAddAsync()
         {
+            var existingSetQuestion = await _context.SetQuestions
+            .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
+
+            if (existingSetQuestion != null)
+            {
+                ModelState.AddModelError("SetQuestion.SetName", "SetName đã tồn tại.");
+                return Page();
+            }
+
             if (SetQuestion.QuestionNumber < 30)
             {
                 ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber không được nhỏ hơn 30.");
@@ -51,6 +60,14 @@ namespace GeoClinet.Pages.set
 
         public async Task<IActionResult> OnPostEditAsync(string id)
         {
+            var existingSetQuestion = await _context.SetQuestions
+            .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
+
+            if (existingSetQuestion != null)
+            {
+                ModelState.AddModelError("SetQuestion.SetName", "SetName đã tồn tại.");
+                return Page();
+            }
             if (SetQuestion.QuestionNumber < 30)
             {
                 ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber không được nhỏ hơn 30.");
