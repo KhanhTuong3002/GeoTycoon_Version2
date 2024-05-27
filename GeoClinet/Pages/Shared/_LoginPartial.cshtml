@@ -5,11 +5,24 @@
 @inject UserManager<IdentityUser> UserManager
 @inject ProfileRepo ProfileRepo
 @{
-    var currentUser = await UserManager.GetUserAsync(User);
-    var userId = currentUser?.Id;
+    IdentityUser currentUser = null;
+    IList<string> userRoles = new List<string>();
+    bool isAdmin = false;
+    bool isTeacher = false;
+
+    if (SignInManager.IsSignedIn(User))
+    {
+        currentUser = await UserManager.GetUserAsync(User);
+        if (currentUser != null)
+        {
+            userRoles = await UserManager.GetRolesAsync(currentUser);
+            isAdmin = userRoles.Contains("Administrator"); // Kiểm tra nếu người dùng thuộc vai trò Admin
+            isTeacher = userRoles.Contains("Teacher"); // Kiểm tra nếu người dùng thuộc vai trò Teacher
+        }
+    }
 }
 <head>
-    <script defer src="~/lib/alpinejs/cdn.min.js"></script> 
+    <script defer src="~/lib/alpinejs/cdn.min.js"></script>
     <link rel="stylesheet" href="~/lib/feather/css/feather.min.css" />
     <!-- Preload fonts -->
     <link rel="preload" href="~/lib/feather/font/feather.woff" as="font" type="font/woff" crossorigin>
@@ -22,58 +35,111 @@
         var profile = ProfileRepo.GetprofileFrommUser(currentUser);
 
         <div class="navbar bg-base-200">
-            <div class="">
-                <div class="dropdown dropdown-end">
-                </div>
-                <div class="dropdown dropdown-end">
-                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                        <div class="w-10 rounded-full">
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
 
-                            @if (!string.IsNullOrEmpty(profile.Avatar))
-                            {
-                                <img alt="Tailwind CSS Navbar component" src="@profile.Avatar" />
-
-                            }
-                            else
-                            {
-                                Console.WriteLine("------------------start "+currentUser + "-------------------------NULL------------------------------");
-                                <img alt="Default Avatar" src="https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg" />
-                            }
-
-                        </div>
+                        @if (!string.IsNullOrEmpty(profile.Avatar))
+                        {
+                            <img alt="Tailwind CSS Navbar component" src="@profile.Avatar" />
+                        }
+                        else
+                        {
+                            Console.WriteLine("------------------start " + currentUser + "-------------------------NULL------------------------------");
+                            <img alt="Default Avatar" src="https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg" />
+                        }
                     </div>
-                    <ul tabindex="0" class="menu menu-sm text-base-content dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box inline-block">
-                        <li>
-                            <a title="Manage">@User.Identity?.Name!</a>
-                        </li>
-                        <li>
-                            <a class="justify-between" asp-area="Identity" asp-page="/Account/Manage/Index">
-                                <i data-feather="user" aria-hidden="true"></i> Profile
-                                <span class="badge">New</span>
-                            </a>
-                        </li>
-                        <li><a> <i data-feather="settings" aria-hidden="true"></i>  Settings</a></li>
-                        <li></li>
-                        <li>
-
-
-                            <button class="text-error hover:bg-error hover:text-error-content" form="logout-form" type="submit"> <i data-feather="log-out" aria-hidden="true"></i> Sign out</button>
-                        </li>
-                    </ul>
-                    <form id="logout-form" class="d-none" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    </form>
                 </div>
+                <ul tabindex="0" class="dropdown-content menu menu-compact p-2 mt-12 z-50 w-60 shadow-lg bg-base-100 rounded-box inline-block">
+                    <li>
+                        <a class="text-base-content text-bold" title="Manage">@User.Identity?.Name!</a>
+                    </li>
+                    <li class="menu-title">
+                        <span>Account</span>
+                    </li>
+
+                    <li>
+                        <a class="text-base-content" asp-area="Identity" asp-page="/Account/Manage/Index">
+                            <i data-feather="user" aria-hidden="true"></i> Profile
+                            <span class="badge">New</span>
+                        </a>
+                    </li>
+                    <li></li>
+                    @if (isAdmin || isTeacher)
+                    {
+                        <li class="menu-title">
+                            <span>Manage</span>
+                        </li>
+                        <li>
+                            <details>
+                                <summary>
+                                    <a asp-page="/Questionsss/Index">
+                                        <i aria-hidden="true" class=" text-base-content" data-feather="package"></i>
+                                        <span class="text-base-content">Question</span>
+                                    </a>
+                                </summary>
+                                <ul>
+                                    <li>
+                                        <a asp-page="/set/Index">
+                                            <i aria-hidden="true" class="text-base-content" data-feather="list"></i>
+                                            <span class="text-base-content">Set Question</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a asp-page="/setdetail/Index">
+                                            <i aria-hidden="true" class="text-base-content" data-feather="tag"></i>
+                                            <span class="text-base-content">Set Question Detail</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </details>
+                        </li>
+                    }
+                    @if (isAdmin)
+                    {
+                        <li>
+                            <details>
+                                <summary>
+                                    <a asp-page="/Users/Index">
+                                        <i aria-hidden="true" class=" text-base-content" data-feather="users"></i>
+                                        <span class="text-base-content">User</span>
+                                    </a>
+                                </summary>
+                                <ul>
+                                    <li>
+                                        <a asp-page="/Profile123/Index">
+                                            <i aria-hidden="true" class="text-base-content" data-feather="user-check"></i>
+                                            <span class="text-base-content">Completed</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a asp-page="/Pending/Index">
+                                            <i aria-hidden="true" class="text-base-content" data-feather="user-plus"></i>
+                                            <span class="text-base-content">Pending</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-page="/QuestionsTracking/Index">
+                                            <i aria-hidden="true" class="text-base-content" data-feather="eye"></i>
+                                            <span class="text-base-content">Question Tracking</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </details>
+                        </li>
+                    }
+                    <li><a> <i data-feather="settings" aria-hidden="true"></i>  Settings</a></li>
+                    <li></li>
+                    <li>
+                        <button class="text-error hover:bg-error hover:text-error-content" form="logout-form" type="submit"> <i data-feather="log-out" aria-hidden="true"></i> Sign out</button>
+                    </li>
+                </ul>
+                <form id="logout-form" class="d-none" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                </form>
             </div>
         </div>
-        @*     <li class="nav-item">
-    <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-    <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-    <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-    </form>
-    </li>     *@
-        //xam
     }
     else
     {
