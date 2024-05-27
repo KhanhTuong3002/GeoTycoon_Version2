@@ -1,0 +1,117 @@
+﻿@page
+@model GeoClinet.Pages.QuestionsTracking.IndexModel
+
+@{
+    ViewData["Title"] = "Questions Tracking";
+}
+
+<div class="content items-center justify-center">
+    <div class="container w-[90%] mx-auto py-8 mb-8 items-center justify-center">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
+        </div>
+
+        <form method="get" class="m-xl-auto">
+            <div class="flex">
+                <div class="mr-8">
+                    <input id="searchInput" type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search title Ctrl + K" class="input input-bordered w-64 md:w-auto" />
+                </div>
+                <div class="pt-4">
+                </div>
+            </div>
+            <input type="submit" value="Search" style="display:none;" />
+            <script>
+                document.addEventListener('keydown', function (event) {
+                    // Check if the 'Ctrl' key and 'K' key are pressed together
+                    if (event.ctrlKey && event.key === 'k') {
+                        event.preventDefault(); // Prevent the default browser action
+                        document.getElementById('searchInput').focus(); // Set focus to the search input
+                    }
+                });
+            </script>
+        </form>
+
+        <div class="w-full mt-8">
+            <table class="table w-full rounded-box table-auto">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Question
+                        </th>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                        <th>
+                            Create At
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Tracking)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Question.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Question.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Action)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedAt)
+                            </td>
+                            <td>
+                                <a asp-page="./Details" asp-route-id="@item.Id" class="mr-2">
+                                    <i data-feather="info" class="text-info text-2xl" aria-hidden="true"></i>
+                                </a>
+
+                                <button onclick="openDeleteModal('@item.Id')">
+                                    <i data-feather="trash-2" aria-hidden="true" class="text-error text-2xl"></i>
+                                </button>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- Delete Confirmation Dialog -->
+<dialog id="deleteModal" class="modal">
+    <form method="post" asp-page-handler="Delete" class="modal-box">
+        <h3 class="font-bold text-lg">Are you sure you want to delete?</h3>
+        <input type="hidden" name="id" id="delete-id">
+        <div class="modal-action">
+            <button type="submit" class="btn btn-danger">Yes</button>
+            <button type="button" class="btn" onclick="closeDeleteModal()">No</button>
+        </div>
+    </form>
+</dialog>
+
+<script>
+    function openDeleteModal(id) {
+        document.getElementById('delete-id').value = id;
+        document.getElementById('deleteModal').showModal();
+    }
+
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').close();
+    }
+</script>
+
+}

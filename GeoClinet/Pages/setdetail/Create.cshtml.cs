@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObject.Entites;
 using DataAccess;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GeoClinet.Pages.setdetail
 {
+    [Authorize(Policy = "Teacher")]
     public class CreateModel : PageModel
     {
         private readonly DataAccess.GeoTycoonDbcontext _context;

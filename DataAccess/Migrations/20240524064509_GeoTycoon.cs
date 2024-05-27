@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Mistu : Migration
+    public partial class GeoTycoon : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -152,8 +152,8 @@ namespace DataAccess.Migrations
                 name: "UserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -197,8 +197,8 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -300,11 +300,11 @@ namespace DataAccess.Migrations
                 {
                     tracking_id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     QuestionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AuthorId = table.Column<int>(type: "int", nullable: false),
-                    UpdContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UpdAnswers = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UpdDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Action = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OldValues = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NewValues = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
@@ -348,10 +348,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "28b17554-4539-459c-8d4a-1edbe4c3663b", null, "Teacher", "TEACHER" },
-                    { "6ac67859-e4ed-451d-9817-da16e96011ea", null, "Administrator", "ADMINISTRATOR" },
-                    { "6da19f47-1367-4146-ab88-a3352a6f6c32", null, "Student", "STUDENT" },
-                    { "bdf1349a-de66-4efb-b5e7-abaa59822cd3", null, "Pending", "PENDING" }
+                    { "64dc9190-4a88-426b-95f2-72d00f51a166", null, "Administrator", "ADMINISTRATOR" },
+                    { "a3fa061f-8af8-4cb3-8546-75fe955146c6", null, "Student", "STUDENT" },
+                    { "f02a51f7-78e8-4305-b47b-7bb6f868bbc7", null, "Pending", "PENDING" },
+                    { "f9d56cef-f5c5-4374-b739-2d06467d26e8", null, "Teacher", "TEACHER" }
                 });
 
             migrationBuilder.InsertData(

@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject.Entites;
 using DataAccess;
-using Microsoft.AspNetCore.Authorization;
 
-namespace GeoClinet.Pages.Profile123
+namespace GeoClinet.Pages.QuestionsTracking
 {
-    [Authorize(Policy = "Admin")]
     public class DetailsModel : PageModel
     {
         private readonly DataAccess.GeoTycoonDbcontext _context;
@@ -21,7 +19,7 @@ namespace GeoClinet.Pages.Profile123
             _context = context;
         }
 
-        public Profile Profile { get; set; } = default!;
+        public Tracking Tracking { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -30,14 +28,14 @@ namespace GeoClinet.Pages.Profile123
                 return NotFound();
             }
 
-            var profile = await _context.Profiles.FirstOrDefaultAsync(m => m.Id == id);
-            if (profile == null)
+            var tracking = await _context.Trackings.FirstOrDefaultAsync(m => m.Id == id);
+            if (tracking == null)
             {
                 return NotFound();
             }
             else
             {
-                Profile = profile;
+                Tracking = tracking;
             }
             return Page();
         }

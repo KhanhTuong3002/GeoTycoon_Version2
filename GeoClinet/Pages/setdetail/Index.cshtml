@@ -15,6 +15,28 @@
             </button>
         </div>
 
+        <!-- Search Form -->
+        <form method="get" class="m-xl-auto">
+            <div class="flex">
+                <div class="mr-8">
+                    <input id="searchInput" type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search Set Name Ctrl + K" class="input input-bordered w-64 md:w-auto" />
+                </div>
+                <div class="pt-4">
+
+                </div>
+            </div>
+            <input type="submit" value="Search" style="display:none;" />
+            <script>
+                document.addEventListener('keydown', function (event) {
+                    if (event.ctrlKey && event.key === 'k') {
+                        event.preventDefault();
+                        document.getElementById('searchInput').focus();
+                    }
+                });
+            </script>
+        </form>
+
+
         <!-- Set Question Details Table -->
         <div class="w-full mt-8">
             @if (Model.SetQuestionDetails != null && Model.SetQuestionDetails.Any())
@@ -24,7 +46,7 @@
                         <tr>
                             <th class="font-semibold p-4 relative pr-6 text-left">Set Name</th>
                             <th class="font-semibold p-4 relative pr-6 text-left">Title</th>
-                            <th class="font-semibold p-4 relative pr-6 text-left">Actions</th>
+                            <th class="font-semibold p-4 relative pr-6 text-left">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -158,4 +180,3 @@
         document.getElementById('deleteDetailModal').close();
     }
 </script>
-

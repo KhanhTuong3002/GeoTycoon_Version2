@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObject.Entites;
 using DataAccess;
-using Microsoft.AspNetCore.Authorization;
 
-namespace GeoClinet.Pages.Questionsss
+namespace GeoClinet.Pages.QuestionsTracking
 {
-    [Authorize(Policy = "Teacher")]
     public class DeleteModel : PageModel
     {
         private readonly DataAccess.GeoTycoonDbcontext _context;
@@ -22,7 +20,7 @@ namespace GeoClinet.Pages.Questionsss
         }
 
         [BindProperty]
-        public Question Question { get; set; } = default!;
+        public Tracking Tracking { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -31,15 +29,15 @@ namespace GeoClinet.Pages.Questionsss
                 return NotFound();
             }
 
-            var question = await _context.Questions.FirstOrDefaultAsync(m => m.Id == id);
+            var tracking = await _context.Trackings.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (question == null)
+            if (tracking == null)
             {
                 return NotFound();
             }
             else
             {
-                Question = question;
+                Tracking = tracking;
             }
             return Page();
         }
@@ -51,11 +49,11 @@ namespace GeoClinet.Pages.Questionsss
                 return NotFound();
             }
 
-            var question = await _context.Questions.FindAsync(id);
-            if (question != null)
+            var tracking = await _context.Trackings.FindAsync(id);
+            if (tracking != null)
             {
-                Question = question;
-                _context.Questions.Remove(Question);
+                Tracking = tracking;
+                _context.Trackings.Remove(Tracking);
                 await _context.SaveChangesAsync();
             }
 

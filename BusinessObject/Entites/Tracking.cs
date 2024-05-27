@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,12 +15,20 @@ namespace BusinessObject.Entites
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
-        [ForeignKey(nameof(Question))] public string QuestionId { get; set; }
+
+        [Required]
+        public string QuestionId { get; set; }
+        [ForeignKey(nameof(QuestionId))]
         public virtual Question Question { get; set; }
-        public int AuthorId { get; set; }
-        public string UpdContent { get; set; }
-        public string UpdAnswers { get; set; }
-        public string UpdDescription { get; set; }
-        public String Status { get; set; }
+
+        public string? UserName { get; set; }
+
+        [Required]
+        public string? UserId { get; set; }
+
+        public string Action { get; set; } // e.g., "Added", "Updated", "Deleted"
+
+        public string? OldValues { get; set; }
+        public string? NewValues { get; set; }
     }
 }

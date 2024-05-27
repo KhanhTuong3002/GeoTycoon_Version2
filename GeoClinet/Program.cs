@@ -42,7 +42,7 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Teacher", policy =>
     {
-        policy.RequireClaim(ClaimTypes.Role, "Teacher");
+        policy.RequireClaim(ClaimTypes.Role, "Teacher", "Administrator");
     });
     options.AddPolicy("Student", policy =>
     {

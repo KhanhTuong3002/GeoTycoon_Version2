@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using BusinessObject.Entites;
 using DataAccess;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GeoClinet.Pages.Profile123
 {
+    [Authorize(Policy = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly GeoTycoonDbcontext _context;
@@ -24,15 +26,48 @@ namespace GeoClinet.Pages.Profile123
 
         public IList<ProfileWithRoles> Profile { get; set; } = default!;
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public bool SearchByEmail { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public bool SearchByFirstName { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public bool SearchByLastName { get; set; }
+
         public async Task OnGetAsync()
         {
-            var profiles = await _context.Profiles
-                .Include(p => p.User)
-                .ToListAsync();
+            var profiles = from p in _context.Profiles.Include(p => p.User)
+                           select p;
+            if (!SearchByLastName && !SearchByFirstName)
+            {
+                SearchByEmail = true;
+            }
+
+            if (!string.IsNullOrEmpty(SearchTerm))
+            {
+                if (SearchByEmail)
+                {
+                    profiles = profiles.Where(p => p.User.Email.Contains(SearchTerm));
+                }
+                if (SearchByFirstName)
+                {
+                    profiles = profiles.Where(p => p.FirstName.Contains(SearchTerm));
+                }
+                if (SearchByLastName)
+                {
+                    profiles = profiles.Where(p => p.LastName.Contains(SearchTerm));
+                }
+            }
+
+            var profileList = await profiles.ToListAsync();
 
             Profile = new List<ProfileWithRoles>();
 
-            foreach (var profile in profiles)
+            foreach (var profile in profileList)
             {
                 var userRoles = await _userManager.GetRolesAsync(profile.User);
                 Profile.Add(new ProfileWithRoles
