@@ -72,7 +72,7 @@ namespace GeoClinet.Pages.set
                 }
             }
 
-            SetQuestionss = await query.ToListAsync();
+            SetQuestions = await query.ToListAsync();
         }
 
         public async Task<IActionResult> OnPostAddAsync()
