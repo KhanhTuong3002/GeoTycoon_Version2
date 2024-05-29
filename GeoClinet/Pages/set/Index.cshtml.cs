@@ -21,7 +21,7 @@ namespace GeoClinet.Pages.set
             _context = context;
         }
 
-        public IList<SetQuestion> SetQuestionss { get; set; } = new List<SetQuestion>();
+        public IList<SetQuestion> SetQuestions { get; set; } = new List<SetQuestion>();
 
         [BindProperty]
         public SetQuestion SetQuestion { get; set; }
@@ -83,12 +83,12 @@ namespace GeoClinet.Pages.set
             if (existingSetQuestion != null)
             {
                 ModelState.AddModelError("SetQuestion.SetName", "SetName already exists.");
-                return Page();
+                return RedirectToPage();
             }
             if (SetQuestion.QuestionNumber < 30)
             {
                 ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber must not be less than 30.");
-                return Page();
+                return RedirectToPage();
             }
             _context.SetQuestions.Add(SetQuestion);
             await _context.SaveChangesAsync();
