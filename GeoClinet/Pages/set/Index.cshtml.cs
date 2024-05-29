@@ -72,11 +72,24 @@ namespace GeoClinet.Pages.set
                 }
             }
 
-            SetQuestions = await query.ToListAsync();
+            SetQuestionss = await query.ToListAsync();
         }
 
         public async Task<IActionResult> OnPostAddAsync()
         {
+            var existingSetQuestion = await _context.SetQuestions
+            .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
+
+            if (existingSetQuestion != null)
+            {
+                ModelState.AddModelError("SetQuestion.SetName", "SetName already exists.");
+                return Page();
+            }
+            if (SetQuestion.QuestionNumber < 30)
+            {
+                ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber must not be less than 30.");
+                return Page();
+            }
             _context.SetQuestions.Add(SetQuestion);
             await _context.SaveChangesAsync();
             return RedirectToPage();
@@ -84,20 +97,11 @@ namespace GeoClinet.Pages.set
 
         public async Task<IActionResult> OnPostEditAsync(string id)
         {
-            var existingSetQuestion = await _context.SetQuestions
-            .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
-
-            if (existingSetQuestion != null)
-            {
-                ModelState.AddModelError("SetQuestion.SetName", "SetName đã tồn tại.");
-                return Page();
-            }
             if (SetQuestion.QuestionNumber < 30)
             {
-                ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber không được nhỏ hơn 30.");
+                ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber must not be less than 30.");
                 return Page();
             }
-
             if (!ModelState.IsValid)
             {
                 return Page();

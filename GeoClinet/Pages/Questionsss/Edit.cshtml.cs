@@ -51,14 +51,6 @@ namespace GeoClinet.Pages.Questionsss
         public async Task<IActionResult> OnPostAsync()
         {
             var currentUser = await _userManager.GetUserAsync(User);
-            var existingSetQuestion = await _context.Questions
-            .FirstOrDefaultAsync(sq => sq.Title == Question.Title);
-
-            if (existingSetQuestion != null)
-            {
-                ModelState.AddModelError("Question.Title", "Title already exists.");
-                return Page();
-            }
             if (Question.Option1 == Question.Option2 ||
                 Question.Option1 == Question.Option3 ||
                 Question.Option1 == Question.Option4 ||

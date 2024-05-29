@@ -73,6 +73,15 @@ namespace GeoClient.Pages.setdetail
 
         public async Task<IActionResult> OnPostAddDetailAsync()
         {
+            var setQuestion = await _context.SetQuestions.FindAsync(SetQuestionDetail.SetQuestionId);
+            var existingQuestionsCount = _context.SetQuestionDetails
+                                                 .Count(sqd => sqd.SetQuestionId == SetQuestionDetail.SetQuestionId);
+
+            if (existingQuestionsCount >= setQuestion.QuestionNumber)
+            {
+                ModelState.AddModelError("SetQuestionDetail.QuestionId", "The number of questions has exceeded the allowed number.");
+                return Page();
+            }
             _context.SetQuestionDetails.Add(SetQuestionDetail);
             await _context.SaveChangesAsync();
             return RedirectToPage();
