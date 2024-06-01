@@ -35,14 +35,14 @@ namespace GeoClinet.Pages.Questionsss
                 return NotFound();
             }
 
-            var question =  await _context.Questions.FirstOrDefaultAsync(m => m.Id == id);
+            var question = await _context.Questions.FirstOrDefaultAsync(m => m.Id == id);
             if (question == null)
             {
                 return NotFound();
             }
             Question = question;
-           ViewData["ProvinceId"] = new SelectList(_context.Set<Province>(), "Id", "ProvinceName");
-           //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["ProvinceId"] = new SelectList(_context.Set<Province>(), "Id", "ProvinceName");
+            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
@@ -50,8 +50,17 @@ namespace GeoClinet.Pages.Questionsss
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-
             var currentUser = await _userManager.GetUserAsync(User);
+            if (Question.Option1 == Question.Option2 ||
+                Question.Option1 == Question.Option3 ||
+                Question.Option1 == Question.Option4 ||
+                Question.Option2 == Question.Option3 ||
+                Question.Option2 == Question.Option4 ||
+               (Question.Option3 != null && Question.Option3 == Question.Option4))
+            {
+                ModelState.AddModelError("Question.Option3", "Options cannot be duplicated.");
+                return Page();
+            }
             _context.Attach(Question).State = EntityState.Modified;
             Question.UserId = currentUser?.Id;
 

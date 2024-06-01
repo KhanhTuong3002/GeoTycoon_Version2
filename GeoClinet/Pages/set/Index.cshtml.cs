@@ -77,6 +77,19 @@ namespace GeoClinet.Pages.set
 
         public async Task<IActionResult> OnPostAddAsync()
         {
+            var existingSetQuestion = await _context.SetQuestions
+            .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
+
+            if (existingSetQuestion != null)
+            {
+                ModelState.AddModelError("SetQuestion.SetName", "SetName already exists.");
+                return RedirectToPage();
+            }
+            if (SetQuestion.QuestionNumber < 30)
+            {
+                ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber must not be less than 30.");
+                return RedirectToPage();
+            }
             _context.SetQuestions.Add(SetQuestion);
             await _context.SaveChangesAsync();
             return RedirectToPage();
@@ -84,6 +97,16 @@ namespace GeoClinet.Pages.set
 
         public async Task<IActionResult> OnPostEditAsync(string id)
         {
+            if (SetQuestion.QuestionNumber < 30)
+            {
+                ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber must not be less than 30.");
+                return Page();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             _context.Attach(SetQuestion).State = EntityState.Modified;
 
             try

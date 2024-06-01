@@ -22,7 +22,6 @@
                     <input id="searchInput" type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search Set Name Ctrl + K" class="input input-bordered w-64 md:w-auto" />
                 </div>
                 <div class="pt-4">
-
                 </div>
             </div>
             <input type="submit" value="Search" style="display:none;" />
@@ -98,6 +97,7 @@
                 }
             </select>
         </div>
+        <span asp-validation-for="SetQuestionDetail.QuestionId" class="text-danger"></span>
         <div class="modal-action">
             <button type="submit" class="btn btn-primary">Add</button>
             <button type="button" class="btn" onclick="closeAddDetailModal()">Cancel</button>
