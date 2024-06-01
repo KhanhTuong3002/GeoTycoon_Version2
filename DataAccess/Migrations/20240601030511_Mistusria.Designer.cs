@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-    [Migration("20240524064509_GeoTycoon")]
-    partial class GeoTycoon
+    [Migration("20240601030511_Mistusria")]
+    partial class Mistusria
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,10 +30,6 @@ namespace DataAccess.Migrations
                     b.Property<string>("GameId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CreatBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GameName")
                         .IsRequired()
@@ -77,10 +73,6 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SessionID");
 
@@ -543,6 +535,14 @@ namespace DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("LastUpdated")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<int>("QuestionNumber")
                         .HasColumnType("int");
 
@@ -651,25 +651,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "64dc9190-4a88-426b-95f2-72d00f51a166",
+                            Id = "6dd9f908-c051-4fdb-8f22-76a6eb605689",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "f9d56cef-f5c5-4374-b739-2d06467d26e8",
+                            Id = "1acb23c6-b493-4801-b0b0-a34fd7bd8cdf",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "f02a51f7-78e8-4305-b47b-7bb6f868bbc7",
+                            Id = "2eedab2a-81c3-4e94-b0f5-61d7c89034ae",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "a3fa061f-8af8-4cb3-8546-75fe955146c6",
+                            Id = "9d16a571-050a-4fbe-a5f5-0a9c9f2a211f",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });

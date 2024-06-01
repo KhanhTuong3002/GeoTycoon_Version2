@@ -14,7 +14,6 @@ namespace BusinessObject.Entites
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string GameId { get; set; }
         public string GameName { get; set; }
-        public string CreatBy { get; set; }
         [ForeignKey(nameof(SetQuestion))] public string SetQuestionId { get; set; }
         public virtual SetQuestion SetQuestion { get; set; }    
 

@@ -15,7 +15,6 @@ namespace BusinessObject.Entites
         public string SessionID { get; set; }
         [ForeignKey(nameof(Game))] public string GameId { get; set; }
         public virtual Game Games { get; set; }
-        public string UserId { get; set; }
         [ForeignKey(nameof(SetQuestion))] public string SetQuestionId { get; set; }
         public string AccessCode { get; set; }
         public DateTime StartTime { get; set; }

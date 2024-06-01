@@ -45,6 +45,7 @@
                 <table class="table w-full rounded-box table-auto">
                     <thead>
                         <tr>
+                            <th class="font-semibold p-4 relative pr-6 text-left">Set ID</th>
                             <th class="font-semibold p-4 relative pr-6 text-left">Set Name</th>
                             <th class="font-semibold p-4 relative pr-6 text-left">Question Number</th>
                             <th class="font-semibold p-4 relative pr-6 text-left">Action</th>
@@ -54,6 +55,7 @@
                         @foreach (var item in Model.SetQuestions)
                         {
                             <tr class="bg-base-100 hover">
+                                <td class="font-semibold p-4 relative pr-6 break-words">@item.Id</td>
                                 <td class="font-semibold p-4 relative pr-6 break-words">@item.SetName</td>
                                 <td class="font-semibold p-4 relative pr-6 break-words">@item.QuestionNumber</td>
                                 <td class="flex flex-grow font-semibold p-4 relative pr-6 break-words">
