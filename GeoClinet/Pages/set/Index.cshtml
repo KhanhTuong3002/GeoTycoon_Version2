@@ -87,10 +87,12 @@
         <div class="form-control">
             <label class="label">Set Name</label>
             <input type="text" name="SetQuestion.SetName" class="input input-bordered" required>
+            <span asp-validation-for="SetQuestion.SetName" class="text-danger"></span>
         </div>
         <div class="form-control">
             <label class="label">Question Number</label>
             <input type="number" name="SetQuestion.QuestionNumber" class="input input-bordered" required>
+            <span asp-validation-for="SetQuestion.QuestionNumber" class="text-danger"></span>
         </div>
         <div class="modal-action">
             <button type="submit" class="btn btn-primary">Add</button>
@@ -98,7 +100,7 @@
         </div>
     </form>
 </dialog>
-
+fo
 <!-- Edit Dialog -->
 <dialog id="editModal" class="modal">
     <form method="post" asp-page-handler="Edit" class="modal-box">
@@ -107,10 +109,12 @@
         <div class="form-control">
             <label class="label">Set Name</label>
             <input type="text" name="SetQuestion.SetName" id="edit-setname" class="input input-bordered" required>
+            <span asp-validation-for="SetQuestion.SetName" class="text-danger"></span>
         </div>
         <div class="form-control">
             <label class="label">Question Number</label>
             <input type="number" name="SetQuestion.QuestionNumber" id="edit-questionnumber" class="input input-bordered" required>
+            <span asp-validation-for="SetQuestion.QuestionNumber" class="text-danger"></span>
         </div>
         <div class="modal-action">
             <button type="submit" class="btn btn-primary">Save</button>

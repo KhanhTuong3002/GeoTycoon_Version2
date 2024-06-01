@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-    partial class GeoTycoonDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240529064550_mistu")]
+    partial class mistu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,6 +30,10 @@ namespace DataAccess.Migrations
                     b.Property<string>("GameId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GameName")
                         .IsRequired()
@@ -70,6 +77,10 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SessionID");
 
@@ -532,14 +543,6 @@ namespace DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTimeOffset?>("LastUpdated")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetimeoffset");
-
                     b.Property<int>("QuestionNumber")
                         .HasColumnType("int");
 
@@ -648,29 +651,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-
-                            Id = "6dd9f908-c051-4fdb-8f22-76a6eb605689",
+                            Id = "c84e941c-d1e3-4fbe-9440-df33e16ed997",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-
-                            Id = "1acb23c6-b493-4801-b0b0-a34fd7bd8cdf",
+                            Id = "b0433de7-024c-46d0-b978-64f835c75518",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-
-                            Id = "2eedab2a-81c3-4e94-b0f5-61d7c89034ae",
+                            Id = "161b71b7-5d43-45b0-ae9b-ab2024f283e4",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-
-                            Id = "9d16a571-050a-4fbe-a5f5-0a9c9f2a211f",
+                            Id = "774580fa-18d1-4dbc-80bf-25cd0bf465a2",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
