@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BusinessObject.Entites
 {
-    public class SetQuestion
+    public class SetQuestion : BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

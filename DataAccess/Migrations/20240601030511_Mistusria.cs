@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class GeoTycoon : Migration
+    public partial class Mistusria : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,7 +71,9 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     SetName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    QuestionNumber = table.Column<int>(type: "int", nullable: false)
+                    QuestionNumber = table.Column<int>(type: "int", nullable: false),
+                    LastUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -255,7 +257,6 @@ namespace DataAccess.Migrations
                 {
                     GameId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     GameName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SetQuestionId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -325,7 +326,6 @@ namespace DataAccess.Migrations
                 {
                     SessionID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     GameId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SetQuestionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AccessCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -348,10 +348,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "64dc9190-4a88-426b-95f2-72d00f51a166", null, "Administrator", "ADMINISTRATOR" },
-                    { "a3fa061f-8af8-4cb3-8546-75fe955146c6", null, "Student", "STUDENT" },
-                    { "f02a51f7-78e8-4305-b47b-7bb6f868bbc7", null, "Pending", "PENDING" },
-                    { "f9d56cef-f5c5-4374-b739-2d06467d26e8", null, "Teacher", "TEACHER" }
+                    { "1acb23c6-b493-4801-b0b0-a34fd7bd8cdf", null, "Teacher", "TEACHER" },
+                    { "2eedab2a-81c3-4e94-b0f5-61d7c89034ae", null, "Pending", "PENDING" },
+                    { "6dd9f908-c051-4fdb-8f22-76a6eb605689", null, "Administrator", "ADMINISTRATOR" },
+                    { "9d16a571-050a-4fbe-a5f5-0a9c9f2a211f", null, "Student", "STUDENT" }
                 });
 
             migrationBuilder.InsertData(
