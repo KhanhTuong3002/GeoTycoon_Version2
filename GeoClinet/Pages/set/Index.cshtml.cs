@@ -77,22 +77,30 @@ namespace GeoClinet.Pages.set
 
         public async Task<IActionResult> OnPostAddAsync()
         {
+            var errors = new List<string>();
+
             var existingSetQuestion = await _context.SetQuestions
-            .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
+                .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
 
             if (existingSetQuestion != null)
             {
-                ModelState.AddModelError("SetQuestion.SetName", "SetName already exists.");
-                return RedirectToPage();
+                errors.Add("SetName already exists.");
             }
+
             if (SetQuestion.QuestionNumber < 30)
             {
-                ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber must not be less than 30.");
-                return RedirectToPage();
+                errors.Add("QuestionNumber must not be less than 30.");
             }
+
+            if (errors.Any())
+            {
+                return BadRequest(errors);
+            }
+
             _context.SetQuestions.Add(SetQuestion);
             await _context.SaveChangesAsync();
-            return RedirectToPage();
+
+            return new PageResult();
         }
 
         public async Task<IActionResult> OnPostEditAsync(string id)

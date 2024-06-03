@@ -82,8 +82,9 @@
 
 <!-- Add Dialog -->
 <dialog id="addModal" class="modal">
-    <form method="post" asp-page-handler="Add" class="modal-box">
+    <form method="post" asp-page-handler="Add" class="modal-box" id="addForm">
         <h3 class="font-bold text-lg">Add New Set Question</h3>
+        <div id="add-error" class="text-danger"></div>
         <div class="form-control">
             <label class="label">Set Name</label>
             <input type="text" name="SetQuestion.SetName" class="input input-bordered" required>
@@ -99,10 +100,11 @@
             <button type="button" class="btn" onclick="closeAddModal()">Cancel</button>
         </div>
     </form>
+    
 </dialog>
 <!-- Edit Dialog -->
 <dialog id="editModal" class="modal">
-    <form method="post" asp-page-handler="Edit" class="modal-box">
+    <form method="post" asp-page-handler="Edit" class="modal-box" >
         <h3 class="font-bold text-lg">Edit Set Question</h3>
         <input type="hidden" name="SetQuestion.Id" id="edit-id">
         <div class="form-control">
@@ -140,6 +142,8 @@
     }
 
     function closeAddModal() {
+        document.getElementById('add-error').innerText = '';
+        document.getElementById('addForm').reset();
         document.getElementById('addModal').close();
     }
 
@@ -166,4 +170,34 @@
     function closeDeleteModal() {
         document.getElementById('deleteModal').close();
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('addForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Ngăn chặn gửi yêu cầu mặc định của form
+
+            var form = event.target;
+            var formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errors => Promise.reject(errors));
+                    }
+                    return response;
+                })
+                .then(() => {
+                    closeAddModal();
+                    location.reload();
+                })
+                .catch(errors => {
+                    var errorMessages = Object.values(errors).join('\n');
+                    document.getElementById('add-error').innerText = errorMessages;
+                });
+        });
+    });
+
+
 </script>
