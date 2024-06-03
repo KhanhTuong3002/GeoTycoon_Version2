@@ -108,24 +108,6 @@ namespace GeoClient.Pages.setdetail
 
         public async Task<IActionResult> OnPostEditDetailAsync(string id)
         {
-            var setQuestion = await _context.SetQuestions.FindAsync(SetQuestionDetail.SetQuestionId);
-            var isDuplicate = await _context.SetQuestionDetails
-                                            .AnyAsync(sqd => sqd.SetQuestionId == SetQuestionDetail.SetQuestionId &&
-                                                             sqd.QuestionId == SetQuestionDetail.QuestionId &&
-                                                             sqd.Id != SetQuestionDetail.Id);
-            if (isDuplicate)
-            {
-                ModelState.AddModelError("SetQuestionDetail.QuestionId", "This question has been added to the question set.");
-                return Page();
-            }
-
-            var existingQuestionsCount = _context.SetQuestionDetails
-                                                 .Count(sqd => sqd.SetQuestionId == SetQuestionDetail.SetQuestionId);
-            if (existingQuestionsCount >= setQuestion.QuestionNumber)
-            {
-                ModelState.AddModelError("SetQuestionDetail.QuestionId", "The number of questions has exceeded the allowed number.");
-                return Page();
-            }
             _context.Attach(SetQuestionDetail).State = EntityState.Modified;
 
             try
