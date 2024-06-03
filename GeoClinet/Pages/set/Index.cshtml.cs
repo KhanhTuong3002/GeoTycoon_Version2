@@ -106,14 +106,23 @@ namespace GeoClinet.Pages.set
         public async Task<IActionResult> OnPostEditAsync(string id)
         {
             var errors = new List<string>();
-/*            var duplicateSetName = await _context.SetQuestions
-        .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName && sq.Id != id);
+            /*            var duplicateSetName = await _context.SetQuestions
+                    .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName && sq.Id != id);
 
-            if (duplicateSetName != null)
+                        if (duplicateSetName != null)
+                        {
+                            errors.Add("SetName đã tồn tại.");
+                        }
+            */
+
+            var existingSetQuestion = _context.SetQuestions
+                .FirstOrDefault(sq => sq.SetName == SetQuestion.SetName && sq.Id != SetQuestion.Id);
+
+            if (existingSetQuestion != null)
             {
-                errors.Add("SetName đã tồn tại.");
+                errors.Add("SetName already exists.");
             }
-*/
+
             if (SetQuestion.QuestionNumber < 30)
             {
 
