@@ -105,25 +105,14 @@ namespace GeoClinet.Pages.set
 
         public async Task<IActionResult> OnPostEditAsync(string id)
         {
-            var errors = new List<string>();
-/*            var duplicateSetName = await _context.SetQuestions
-        .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName && sq.Id != id);
-
-            if (duplicateSetName != null)
-            {
-                errors.Add("SetName đã tồn tại.");
-            }
-*/
             if (SetQuestion.QuestionNumber < 30)
             {
-
-                errors.Add("QuestionNumber must not be less than 30.");
-
+                ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber must not be less than 30.");
+                return Page();
             }
-
-            if (errors.Any())
+            if (!ModelState.IsValid)
             {
-                return BadRequest(errors);
+                return Page();
             }
 
             _context.Attach(SetQuestion).State = EntityState.Modified;
@@ -144,7 +133,7 @@ namespace GeoClinet.Pages.set
                 }
             }
 
-            return new PageResult();
+            return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(string id)
