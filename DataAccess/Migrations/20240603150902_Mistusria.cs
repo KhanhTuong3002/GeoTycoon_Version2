@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class mitsu : Migration
+    public partial class Mistusria : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,6 +71,7 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     SetName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     QuestionNumber = table.Column<int>(type: "int", nullable: false),
                     LastUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
@@ -154,8 +155,8 @@ namespace DataAccess.Migrations
                 name: "UserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -199,8 +200,8 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -348,10 +349,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0489f5a4-85dd-40c6-9b87-efad0c10db8d", null, "Student", "STUDENT" },
-                    { "189e5fac-9187-450c-92a8-56cf1068964a", null, "Pending", "PENDING" },
-                    { "5b2b0df2-51c0-40ca-a510-85d33acb9a6e", null, "Teacher", "TEACHER" },
-                    { "5db782a7-9aab-4cc4-8aa6-7befcd5360cd", null, "Administrator", "ADMINISTRATOR" }
+                    { "1f291a40-a0c4-42e1-8330-8ba28d903fe8", null, "Administrator", "ADMINISTRATOR" },
+                    { "325ee40d-48c2-497a-b5d4-da881c4b6dc6", null, "Pending", "PENDING" },
+                    { "74ea5d6e-e4c7-4608-8add-45fb9291879f", null, "Teacher", "TEACHER" },
+                    { "9a975385-7433-4751-ab59-fc9963c9260a", null, "Student", "STUDENT" }
                 });
 
             migrationBuilder.InsertData(
