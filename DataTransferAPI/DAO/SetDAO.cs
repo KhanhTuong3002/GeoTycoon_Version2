@@ -1,5 +1,6 @@
 ﻿using BusinessObject.Entites;
 using DataAccess;
+using DataTransferAPI.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -12,7 +13,6 @@ namespace DataTransferAPI.DAO
         private readonly UserManager<IdentityUser> _userManager;
         private static SetDAO? instance = null;
         private static readonly object instanceLock = new object();
-        //public SetDAO(UserManager<IdentityUser> userManager) {  _userManager = userManager; }
         public static SetDAO Instance
         {
             get
@@ -27,47 +27,47 @@ namespace DataTransferAPI.DAO
                 }
             }
         }
-        public List<SetQuestionDetail> GetSetQuestions()
+        public List<SetDTO> GetSetQuestions()
         {
             var listSet = new List<SetQuestionDetail>();
             try
             {
                 using (var context = new GeoTycoonDbcontext())
                 {
-                    listSet = context.SetQuestionDetails.Include(s => s.SetQuestion).Include(s =>  s.Question).ToList();
+                    listSet = context.SetQuestionDetails.Include(s => s.SetQuestion).Include(s =>  s.Question).OrderBy(s => s.SetQuestionId).ToList();
                 }
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return listSet;
+            return JSonCoverter(listSet);
         }
-        public List<SetQuestionDetail> GetSetById(string setId)
+        public List<SetDTO> GetSetById(string setId)
         {
             var set = new List<SetQuestionDetail>();
             try
             {
                 using (var context = new GeoTycoonDbcontext())
                 {
-                    set = context.SetQuestionDetails.Where(s => s.Id.ToString().Equals(setId)).Include(s => s.SetQuestion).Include(s => s.Question).ToList();
+                    set = context.SetQuestionDetails.Where(s => s.Id.ToString().Equals(setId)).Include(s => s.SetQuestion).Include(s => s.Question).OrderBy(s => s.SetQuestionId).ToList();
                 }
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-            return set;
+            return JSonCoverter(set);
         }
 
-        public List<SetQuestionDetail> GetDefaultSet()
+        public List<SetDTO> GetDefaultSet()
         {
             var set = new List<SetQuestionDetail>();
             try
             {
                 using (var context = new GeoTycoonDbcontext())
                 {
-                    set = context.SetQuestionDetails.Include(s => s.SetQuestion).Include(s => s.Question).ToList();
+                    set = context.SetQuestionDetails.Include(s => s.SetQuestion).Include(s => s.Question).OrderBy(s => s.SetQuestionId).ToList();
                     foreach (var item in set)
                     {
                         if (GetRoleUser(item.Question.UserId)!="ADMINISTRATOR")
@@ -81,19 +81,8 @@ namespace DataTransferAPI.DAO
             {
                 throw new Exception(ex.Message);
             }
-            return set;
+            return JSonCoverter(set);
         }
-        //public string GetUsersAdminAsync(string userId)
-        //{
-        //    var user = new IdentityUser();
-        //    string role = "";
-        //    using (var context = new GeoTycoonDbcontext())
-        //    {
-        //        user = context.Users.SingleOrDefault(u => u.Id.ToString().Equals(userId));
-        //        role = _userManager.GetRolesAsync(user).ToString();
-        //        return role;
-        //    }
-        //}
 
         public string GetRoleUser(string userId) 
         {
@@ -108,6 +97,50 @@ namespace DataTransferAPI.DAO
                 }
                 return "other";
             }
+        }
+
+        public List<SetDTO> JSonCoverter(List<SetQuestionDetail> list)
+        {
+            var listQ = new List<QuestionDTO>();
+            var listS = new List<SetDTO>();
+
+            var questions = new List<SetQuestionDetail>();
+            var set = new List<SetQuestionDetail>();
+            questions = list.DistinctBy(l => l.QuestionId).ToList();
+            set = list.DistinctBy(l => l.SetQuestionId).ToList();
+
+            foreach (var item in questions)
+            {
+                QuestionDTO q = new QuestionDTO()
+                {
+                    Id = item.QuestionId,
+                    Title = item.Question.Title,
+                    Content = item.Question.Content,
+                    Images = item.Question.Images,  
+                    Option1 = item.Question.Option1,
+                    Option2 = item.Question.Option2,
+                    Option3 = item.Question.Option3,
+                    Option4 = item.Question.Option4,
+                    //Province = item.Question.Province.ProvinceName,
+                    Answer = item.Question.Answer,
+                    Description = item.Question.Description,
+                    Published = item.Question.Published,
+                    setId = item.SetQuestionId,
+                };
+                listQ.Add(q);
+            }
+            foreach (var item in set)
+            {
+                SetDTO s = new SetDTO()
+                {
+                    Id = item.SetQuestionId,
+                    QuestionNumber = item.SetQuestion.QuestionNumber,
+                    SetName = item.SetQuestion.SetName,
+                    questionDTOs = listQ.Where(q => q.setId == item.SetQuestionId).ToList()
+                };
+                listS.Add(s);
+            }
+            return listS;
         }
     }
 }

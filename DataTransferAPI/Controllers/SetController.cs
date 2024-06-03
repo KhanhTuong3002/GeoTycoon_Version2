@@ -3,6 +3,7 @@ using DataTransferAPI.Repository.Interface;
 using DataTransferAPI.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using DataTransferAPI.DTO;
 
 namespace DataTransferAPI.Controllers
 {
@@ -13,12 +14,12 @@ namespace DataTransferAPI.Controllers
         private ISetRepository repository = new SetRepository();
 
         [HttpGet]
-        public ActionResult<IEnumerable<SetQuestionDetail>> GetAllSet() => repository.GetSetQuestionDetails();
+        public ActionResult<IEnumerable<SetDTO>> GetAllSet() => repository.GetSetQuestionDetails();
 
         [HttpGet("id")]
-        public ActionResult<IEnumerable<SetQuestionDetail>> GetSetById(string id) => repository.GetSetById(id);
+        public ActionResult<IEnumerable<SetDTO>> GetSetById(string id) => repository.GetSetById(id);
 
         [HttpGet("default")]
-        public ActionResult<IEnumerable<SetQuestionDetail>> GetDefaultSet() => repository.GetDefaultSet();
+        public ActionResult<IEnumerable<SetDTO>> GetDefaultSet() => repository.GetDefaultSet();
     }
 }
