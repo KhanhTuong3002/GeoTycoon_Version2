@@ -106,7 +106,7 @@ namespace DataTransferAPI.DAO
 
             var questions = new List<SetQuestionDetail>();
             var set = new List<SetQuestionDetail>();
-            questions = list.DistinctBy(l => l.QuestionId).ToList();
+            questions = list.ToList();
             set = list.DistinctBy(l => l.SetQuestionId).ToList();
 
             foreach (var item in questions)
