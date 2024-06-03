@@ -63,16 +63,18 @@ namespace DataTransferAPI.DAO
         public List<SetDTO> GetDefaultSet()
         {
             var set = new List<SetQuestionDetail>();
+            var defaultSet = new List<SetQuestionDetail>();
             try
             {
                 using (var context = new GeoTycoonDbcontext())
                 {
-                    set = context.SetQuestionDetails.Include(s => s.SetQuestion).Include(s => s.Question).OrderBy(s => s.SetQuestionId).ToList();
-                    foreach (var item in set)
+                    defaultSet = context.SetQuestionDetails.Include(s => s.SetQuestion).Include(s => s.Question).OrderBy(s => s.SetQuestionId).ToList();
+
+                    foreach (SetQuestionDetail item in defaultSet)
                     {
-                        if (GetRoleUser(item.Question.UserId)!="ADMINISTRATOR")
+                        if (GetRoleUser(item.Question.UserId)=="ADMINISTRATOR")
                         {
-                            set.Remove(item);
+                            set.Add(item);
                         }
                     }
                 }
