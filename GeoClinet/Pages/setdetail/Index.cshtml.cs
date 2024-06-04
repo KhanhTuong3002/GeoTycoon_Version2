@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using DataAccess;
 using BusinessObject.Entites;
 using Microsoft.AspNetCore.Authorization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GeoClient.Pages.setdetail
 {
@@ -74,55 +73,41 @@ namespace GeoClient.Pages.setdetail
 
         public async Task<IActionResult> OnPostAddDetailAsync()
         {
-            var errors = new List<string>();
-
             var setQuestion = await _context.SetQuestions.FindAsync(SetQuestionDetail.SetQuestionId);
+            /*var v1 = await _context.SetQuestionDetails
+                                                    .FirstOrDefaultAsync(sq => sq.SetQuestionId == SetQuestionDetail.SetQuestionId);
+
+            var v2 = await _context.SetQuestionDetails
+                                                    .FirstOrDefaultAsync(sq => sq.QuestionId == SetQuestionDetail.QuestionId);
+            if (v1 != null & v2 != null)
+            {
+                ModelState.AddModelError("SetQuestionDetail.QuestionId", "Title already exists.");
+                return RedirectToPage();
+            }*/
+            // Kiểm tra sự trùng lặp của cặp SetQuestionId và QuestionId
             var isDuplicate = await _context.SetQuestionDetails
                                             .AnyAsync(sqd => sqd.SetQuestionId == SetQuestionDetail.SetQuestionId &&
                                                              sqd.QuestionId == SetQuestionDetail.QuestionId);
 
             if (isDuplicate)
             {
-                errors.Add("This question has been added to the question set.");
+                ModelState.AddModelError("SetQuestionDetail.QuestionId", "This question has been added to the question set.");
+                return RedirectToPage();
             }
             var existingQuestionsCount = _context.SetQuestionDetails
                                                  .Count(sqd => sqd.SetQuestionId == SetQuestionDetail.SetQuestionId);
             if (existingQuestionsCount >= setQuestion.QuestionNumber)
             {
-                errors.Add("The number of questions has exceeded the allowed number.");
-            }
-            if (errors.Any())
-            {
-                return BadRequest(errors);
+                ModelState.AddModelError("SetQuestionDetail.QuestionId", "The number of questions has exceeded the allowed number.");
+                return RedirectToPage();
             }
             _context.SetQuestionDetails.Add(SetQuestionDetail);
             await _context.SaveChangesAsync();
-            return new PageResult();
+            return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostEditDetailAsync(string id)
         {
-            var errors = new List<string>();
-            var setQuestion = await _context.SetQuestions.FindAsync(SetQuestionDetail.SetQuestionId);
-            var isDuplicate = await _context.SetQuestionDetails
-                                            .AnyAsync(sqd => sqd.SetQuestionId == SetQuestionDetail.SetQuestionId &&
-                                                             sqd.QuestionId == SetQuestionDetail.QuestionId &&
-                                                             sqd.Id != SetQuestionDetail.Id);
-            if (isDuplicate)
-            {
-                errors.Add("This question has been added to the question set.");
-            }
-
-            var existingQuestionsCount = _context.SetQuestionDetails
-                                                 .Count(sqd => sqd.SetQuestionId == SetQuestionDetail.SetQuestionId);
-            if (existingQuestionsCount >= setQuestion.QuestionNumber)
-            {
-                errors.Add("The number of questions has exceeded the allowed number.");
-            }
-            if (errors.Any())
-            {
-                return BadRequest(errors);
-            }
             _context.Attach(SetQuestionDetail).State = EntityState.Modified;
 
             try
@@ -140,7 +125,8 @@ namespace GeoClient.Pages.setdetail
                     throw;
                 }
             }
-            return new PageResult();
+
+            return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostDeleteDetailAsync(string id)

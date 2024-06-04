@@ -19,8 +19,6 @@ namespace BusinessObject.Entites
         [StringLength(50)]
         public string SetName { get; set; }
 
-        [ForeignKey(nameof(IdentityUser))] public string? UserId { get; set; }
-
         [Required]
         public int QuestionNumber { get; set; }
 

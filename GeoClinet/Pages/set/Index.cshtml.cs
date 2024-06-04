@@ -77,53 +77,34 @@ namespace GeoClinet.Pages.set
 
         public async Task<IActionResult> OnPostAddAsync()
         {
-            var errors = new List<string>();
-
             var existingSetQuestion = await _context.SetQuestions
-                .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
+            .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
 
             if (existingSetQuestion != null)
             {
-                errors.Add("SetName already exists.");
+                ModelState.AddModelError("SetQuestion.SetName", "SetName already exists.");
+                return RedirectToPage();
             }
-
             if (SetQuestion.QuestionNumber < 30)
             {
-                errors.Add("QuestionNumber must not be less than 30.");
+                ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber must not be less than 30.");
+                return RedirectToPage();
             }
-
-            if (errors.Any())
-            {
-                return BadRequest(errors);
-            }
-
             _context.SetQuestions.Add(SetQuestion);
             await _context.SaveChangesAsync();
-
-            return new PageResult();
+            return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostEditAsync(string id)
         {
-            var errors = new List<string>();
-            var existingSetQuestion = _context.SetQuestions
-                .FirstOrDefault(sq => sq.SetName == SetQuestion.SetName && sq.Id != SetQuestion.Id);
-
-            if (existingSetQuestion != null)
-            {
-                errors.Add("SetName already exists.");
-            }
-
             if (SetQuestion.QuestionNumber < 30)
             {
-
-                errors.Add("QuestionNumber must not be less than 30.");
-
+                ModelState.AddModelError("SetQuestion.QuestionNumber", "QuestionNumber must not be less than 30.");
+                return Page();
             }
-
-            if (errors.Any())
+            if (!ModelState.IsValid)
             {
-                return BadRequest(errors);
+                return Page();
             }
 
             _context.Attach(SetQuestion).State = EntityState.Modified;
@@ -144,7 +125,7 @@ namespace GeoClinet.Pages.set
                 }
             }
 
-            return new PageResult();
+            return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(string id)

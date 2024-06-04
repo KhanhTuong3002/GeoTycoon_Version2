@@ -19,7 +19,7 @@
         <form method="get" class="m-xl-auto">
             <div class="flex">
                 <div class="mr-8">
-                    <input id="searchInput" type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search Set Name Ctrl + K" class="input input-bordered w-64 md:w-auto" />
+                    <input id="searchInput" type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search Set Name Ctrl + K" class="input input-bordered w-64 md:w-auto" />
                 </div>
                 <div class="pt-4">
                 </div>
@@ -37,6 +37,7 @@
                 });
             </script>
         </form>
+
 
         <div class="w-full mt-8">
             @if (Model.SetQuestions != null && Model.SetQuestions.Any())
@@ -78,11 +79,11 @@
     </div>
 </div>
 
+
 <!-- Add Dialog -->
 <dialog id="addModal" class="modal">
-    <form method="post" asp-page-handler="Add" class="modal-box" id="addForm">
+    <form method="post" asp-page-handler="Add" class="modal-box">
         <h3 class="font-bold text-lg">Add New Set Question</h3>
-        <div id="add-error" class="text-danger"></div>
         <div class="form-control">
             <label class="label">Set Name</label>
             <input type="text" name="SetQuestion.SetName" class="input input-bordered" required>
@@ -94,140 +95,75 @@
             <span asp-validation-for="SetQuestion.QuestionNumber" class="text-danger"></span>
         </div>
         <div class="modal-action">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="button" class="btn btn-secondary" onclick="closeAddModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="button" class="btn" onclick="closeAddModal()">Cancel</button>
         </div>
     </form>
 </dialog>
-
 <!-- Edit Dialog -->
 <dialog id="editModal" class="modal">
-    <form method="post" asp-page-handler="Edit" class="modal-box" id="editForm">
+    <form method="post" asp-page-handler="Edit" class="modal-box">
         <h3 class="font-bold text-lg">Edit Set Question</h3>
-        <input type="hidden" id="edit-id" name="SetQuestion.Id">
-        <div id="edit-error" class="text-danger"></div>
+        <input type="hidden" name="SetQuestion.Id" id="edit-id">
         <div class="form-control">
             <label class="label">Set Name</label>
-            <input type="text" id="edit-setname" name="SetQuestion.SetName" class="input input-bordered" required>
+            <input type="text" name="SetQuestion.SetName" id="edit-setname" class="input input-bordered" required>
             <span asp-validation-for="SetQuestion.SetName" class="text-danger"></span>
         </div>
         <div class="form-control">
             <label class="label">Question Number</label>
-            <input type="number" id="edit-questionnumber" name="SetQuestion.QuestionNumber" class="input input-bordered" required>
+            <input type="number" name="SetQuestion.QuestionNumber" id="edit-questionnumber" class="input input-bordered" required>
             <span asp-validation-for="SetQuestion.QuestionNumber" class="text-danger"></span>
         </div>
         <div class="modal-action">
             <button type="submit" class="btn btn-primary">Save</button>
-            <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+            <button type="button" class="btn" onclick="closeEditModal()">Cancel</button>
         </div>
     </form>
 </dialog>
 
-<!-- Delete Dialog -->
+<!-- Delete Confirmation Dialog -->
 <dialog id="deleteModal" class="modal">
     <form method="post" asp-page-handler="Delete" class="modal-box">
-        <h3 class="font-bold text-lg">Delete Set Question</h3>
-        <input type="hidden" id="delete-id" name="id">
-        <p>Are you sure you want to delete this set question?</p>
+        <h3 class="font-bold text-lg">Are you sure you want to delete?</h3>
+        <input type="hidden" name="id" id="delete-id">
         <div class="modal-action">
-            <button type="submit" class="btn btn-error">Delete</button>
-            <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+            <button type="submit" class="btn btn-danger">Yes</button>
+            <button type="button" class="btn" onclick="closeDeleteModal()">No</button>
         </div>
     </form>
 </dialog>
 
+<script>
+    function openAddModal() {
+        document.getElementById('addModal').showModal();
+    }
 
-   
-    <script>
-        
+    function closeAddModal() {
+        document.getElementById('addModal').close();
+    }
 
-        function openAddModal() {
-            document.getElementById('addModal').showModal();
-        }
+    function openEditModal(button) {
+        var id = button.getAttribute('data-id');
+        var setName = button.getAttribute('data-setname');
+        var questionNumber = button.getAttribute('data-questionnumber');
 
-        function closeAddModal() {
-            document.getElementById('add-error').innerText = '';
-            document.getElementById('addForm').reset();
-            document.getElementById('addModal').close();
-        }
+        document.getElementById('edit-id').value = id;
+        document.getElementById('edit-setname').value = setName;
+        document.getElementById('edit-questionnumber').value = questionNumber;
+        document.getElementById('editModal').showModal();
+    }
 
-        function openEditModal(button) {
-            var id = button.getAttribute('data-id');
-            var setName = button.getAttribute('data-setname');
-            var questionNumber = button.getAttribute('data-questionnumber');
+    function closeEditModal() {
+        document.getElementById('editModal').close();
+    }
 
-            document.getElementById('edit-id').value = id;
-            document.getElementById('edit-setname').value = setName;
-            document.getElementById('edit-questionnumber').value = questionNumber;
-            document.getElementById('editModal').showModal();
-        }
+    function openDeleteModal(id) {
+        document.getElementById('delete-id').value = id;
+        document.getElementById('deleteModal').showModal();
+    }
 
-        function closeEditModal() {
-            document.getElementById('edit-error').innerText = '';
-            document.getElementById('editForm').reset();
-            document.getElementById('editModal').close();
-        }
-
-        function openDeleteModal(id) {
-            document.getElementById('delete-id').value = id;
-            document.getElementById('deleteModal').showModal();
-        }
-
-        function closeDeleteModal() {
-            document.getElementById('deleteModal').close();
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('addForm').addEventListener('submit', function (event) {
-                event.preventDefault(); // Ngăn chặn gửi yêu cầu mặc định của form
-
-                var form = event.target;
-                var formData = new FormData(form);
-
-                fetch(form.action, {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            return response.json().then(errors => Promise.reject(errors));
-                        }
-                        return response;
-                    })
-                    .then(() => {
-                        closeAddModal();
-                        location.reload();
-                    })
-                    .catch(errors => {
-                        var errorMessages = Object.values(errors).join('\n');
-                        document.getElementById('add-error').innerText = errorMessages;
-                    });
-            });
-
-            document.getElementById('editForm').addEventListener('submit', function (event) {
-                event.preventDefault(); // Ngăn chặn gửi yêu cầu mặc định của form
-
-                var form = event.target;
-                var formData = new FormData(form);
-
-                fetch(form.action, {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            return response.json().then(errors => Promise.reject(errors));
-                        }
-                        return response;
-                    })
-                    .then(() => {
-                        closeEditModal();
-                        location.reload();
-                    })
-                    .catch(errors => {
-                        var errorMessages = Object.values(errors).join('\n');
-                        document.getElementById('edit-error').innerText = errorMessages;
-                    });
-            });
-        });
-    </script>
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').close();
+    }
+</script>
