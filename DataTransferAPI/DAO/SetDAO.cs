@@ -138,7 +138,7 @@ namespace DataTransferAPI.DAO
                     QuestionNumber = item.SetQuestion.QuestionNumber,
                     SetName = item.SetQuestion.SetName,
                     UserId = item.SetQuestion.UserId,
-                    questionDTOs = listQ.Where(q => q.setId == item.SetQuestionId).ToList()
+                    questions = listQ.Where(q => q.setId == item.SetQuestionId).ToList()
                 };
                 listS.Add(s);
             }

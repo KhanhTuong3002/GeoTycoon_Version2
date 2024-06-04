@@ -9,6 +9,6 @@ namespace DataTransferAPI.DTO
         public int QuestionNumber { get; set; }
         public string? UserId { get; set; }
 
-        public ICollection<QuestionDTO> questionDTOs { get; set; }
+        public ICollection<QuestionDTO> questions { get; set; }
     }
 }
