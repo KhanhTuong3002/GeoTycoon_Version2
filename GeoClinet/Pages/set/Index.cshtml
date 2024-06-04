@@ -87,7 +87,7 @@
         <div id="add-error" class="text-danger"></div>
         <div class="form-control">
             <label class="label">User ID</label>
-            <input type="text" name="SetQuestion.UserId" class="input input-bordered" required>
+            <input type="text" name="SetQuestion.UserId" class="input input-bordered" value="@ViewData["CurrentUserId"]" readonly>
             <span asp-validation-for="SetQuestion.UserId" class="text-danger"></span>
         </div>
         <div class="form-control">
@@ -113,6 +113,11 @@
         <h3 class="font-bold text-lg">Edit Set Question</h3>
         <input type="hidden" id="edit-id" name="SetQuestion.Id">
         <div id="edit-error" class="text-danger"></div>
+        <div class="form-control">
+            <label class="label">User ID</label>
+            <input type="text" name="SetQuestion.UserId" class="input input-bordered" value="@ViewData["CurrentUserId"]" readonly>
+            <span asp-validation-for="SetQuestion.UserId" class="text-danger"></span>
+        </div>
         <div class="form-control">
             <label class="label">Set Name</label>
             <input type="text" id="edit-setname" name="SetQuestion.SetName" class="input input-bordered" required>

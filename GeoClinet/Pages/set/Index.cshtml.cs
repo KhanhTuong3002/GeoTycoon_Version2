@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObject.Entites;
 using DataAccess;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace GeoClinet.Pages.set
 {
@@ -15,12 +16,16 @@ namespace GeoClinet.Pages.set
     public class IndexModel : PageModel
     {
         private readonly GeoTycoonDbcontext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public IndexModel(GeoTycoonDbcontext context)
+        public IndexModel(GeoTycoonDbcontext context, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
-        }
 
+            
+        }
+        public string UserId { get; set; }
         public IList<SetQuestion> SetQuestions { get; set; } = new List<SetQuestion>();
 
         [BindProperty]
@@ -37,6 +42,12 @@ namespace GeoClinet.Pages.set
 
         public async Task OnGetAsync()
         {
+            var userIdClaim = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim != null)
+            {
+                UserId = userIdClaim.Value;
+                ViewData["CurrentUserId"] = UserId;
+            }
             // Default to SearchBySetName if no search type is selected
             if (!SearchBySetName && !SearchByQuestionNumber)
             {
@@ -80,7 +91,21 @@ namespace GeoClinet.Pages.set
             var errors = new List<string>();
 
             var existingSetQuestion = await _context.SetQuestions
-                .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
+    .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
+
+
+            var userIdClaim = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim != null)
+            {
+                UserId = userIdClaim.Value;
+                ViewData["CurrentUserId"] = UserId;
+            }
+            if (string.IsNullOrEmpty(UserId))
+            {
+                ModelState.AddModelError("", "ID not found.");
+                return Page();
+            }
+
 
             if (existingSetQuestion != null)
             {
