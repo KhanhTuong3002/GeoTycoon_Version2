@@ -10,7 +10,6 @@ namespace DataTransferAPI.DAO
 {
     public class SetDAO
     {
-        private readonly UserManager<IdentityUser> _userManager;
         private static SetDAO? instance = null;
         private static readonly object instanceLock = new object();
         public static SetDAO Instance
@@ -72,7 +71,7 @@ namespace DataTransferAPI.DAO
 
                     foreach (SetQuestionDetail item in defaultSet)
                     {
-                        if (GetRoleUser(item.Question.UserId)=="ADMINISTRATOR")
+                        if (GetRoleUser(item.SetQuestion.UserId)=="ADMINISTRATOR")
                         {
                             set.Add(item);
                         }
@@ -138,6 +137,7 @@ namespace DataTransferAPI.DAO
                     Id = item.SetQuestionId,
                     QuestionNumber = item.SetQuestion.QuestionNumber,
                     SetName = item.SetQuestion.SetName,
+                    UserId = item.SetQuestion.UserId,
                     questionDTOs = listQ.Where(q => q.setId == item.SetQuestionId).ToList()
                 };
                 listS.Add(s);

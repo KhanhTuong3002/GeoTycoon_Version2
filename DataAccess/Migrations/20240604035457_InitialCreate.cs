@@ -71,6 +71,7 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     SetName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     QuestionNumber = table.Column<int>(type: "int", nullable: false),
                     LastUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
@@ -348,10 +349,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1a4997ce-2a2b-4c6d-a9f1-8616d118f9c9", null, "Teacher", "TEACHER" },
-                    { "6c8ea00b-c1a2-498b-9a8c-45004ca760e2", null, "Student", "STUDENT" },
-                    { "8bbea7c3-0535-4054-8a46-01d7ea354e3d", null, "Administrator", "ADMINISTRATOR" },
-                    { "d9520c50-818e-4a8b-96fb-b9131cf0f673", null, "Pending", "PENDING" }
+                    { "1a35827a-fca2-4faa-9c43-17d200ad4771", null, "Administrator", "ADMINISTRATOR" },
+                    { "6d90337d-bf36-4cab-847d-fa300c713b2d", null, "Teacher", "TEACHER" },
+                    { "bd27090d-52d7-4845-b147-aa07492b56f7", null, "Student", "STUDENT" },
+                    { "dc886f87-307b-41ac-9124-8def1f7e4e47", null, "Pending", "PENDING" }
                 });
 
             migrationBuilder.InsertData(

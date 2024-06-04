@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-    [Migration("20240604035146_InitialCreate")]
+    [Migration("20240604035457_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -551,6 +551,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("SetQuestions");
@@ -651,25 +654,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8bbea7c3-0535-4054-8a46-01d7ea354e3d",
+                            Id = "1a35827a-fca2-4faa-9c43-17d200ad4771",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "1a4997ce-2a2b-4c6d-a9f1-8616d118f9c9",
+                            Id = "6d90337d-bf36-4cab-847d-fa300c713b2d",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "d9520c50-818e-4a8b-96fb-b9131cf0f673",
+                            Id = "dc886f87-307b-41ac-9124-8def1f7e4e47",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "6c8ea00b-c1a2-498b-9a8c-45004ca760e2",
+                            Id = "bd27090d-52d7-4845-b147-aa07492b56f7",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
