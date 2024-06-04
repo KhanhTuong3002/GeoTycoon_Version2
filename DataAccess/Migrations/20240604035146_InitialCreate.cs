@@ -348,10 +348,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "72c492c4-9ead-45db-b01d-110060bc95d5", null, "Teacher", "TEACHER" },
-                    { "81979990-04fb-4517-8928-cd8298a4a4c8", null, "Pending", "PENDING" },
-                    { "e8d27051-ef4d-4561-b22b-dcaca1615f98", null, "Student", "STUDENT" },
-                    { "f6c074e2-ff82-48fd-b145-76c97b7fc5a9", null, "Administrator", "ADMINISTRATOR" }
+                    { "1a4997ce-2a2b-4c6d-a9f1-8616d118f9c9", null, "Teacher", "TEACHER" },
+                    { "6c8ea00b-c1a2-498b-9a8c-45004ca760e2", null, "Student", "STUDENT" },
+                    { "8bbea7c3-0535-4054-8a46-01d7ea354e3d", null, "Administrator", "ADMINISTRATOR" },
+                    { "d9520c50-818e-4a8b-96fb-b9131cf0f673", null, "Pending", "PENDING" }
                 });
 
             migrationBuilder.InsertData(
