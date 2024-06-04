@@ -45,6 +45,7 @@
                     <thead>
                         <tr>
                             <th class="font-semibold p-4 relative pr-6 text-left">Set ID</th>
+                            <th class="font-semibold p-4 relative pr-6 text-left">User ID</th>
                             <th class="font-semibold p-4 relative pr-6 text-left">Set Name</th>
                             <th class="font-semibold p-4 relative pr-6 text-left">Question Number</th>
                             <th class="font-semibold p-4 relative pr-6 text-left">Action</th>
@@ -55,6 +56,7 @@
                         {
                             <tr class="bg-base-100 hover">
                                 <td class="font-semibold p-4 relative pr-6 break-words">@item.Id</td>
+                                <td class="font-semibold p-4 relative pr-6 break-words">@item.UserId</td>
                                 <td class="font-semibold p-4 relative pr-6 break-words">@item.SetName</td>
                                 <td class="font-semibold p-4 relative pr-6 break-words">@item.QuestionNumber</td>
                                 <td class="flex flex-grow font-semibold p-4 relative pr-6 break-words">
@@ -84,6 +86,11 @@
         <h3 class="font-bold text-lg">Add New Set Question</h3>
         <div id="add-error" class="text-danger"></div>
         <div class="form-control">
+            <label class="label">User ID</label>
+            <input type="text" name="SetQuestion.UserId" class="input input-bordered" value="@ViewData["CurrentUserId"]" readonly>
+            <span asp-validation-for="SetQuestion.UserId" class="text-danger"></span>
+        </div>
+        <div class="form-control">
             <label class="label">Set Name</label>
             <input type="text" name="SetQuestion.SetName" class="input input-bordered" required>
             <span asp-validation-for="SetQuestion.SetName" class="text-danger"></span>
@@ -106,6 +113,11 @@
         <h3 class="font-bold text-lg">Edit Set Question</h3>
         <input type="hidden" id="edit-id" name="SetQuestion.Id">
         <div id="edit-error" class="text-danger"></div>
+        <div class="form-control">
+            <label class="label">User ID</label>
+            <input type="text" name="SetQuestion.UserId" class="input input-bordered" value="@ViewData["CurrentUserId"]" readonly>
+            <span asp-validation-for="SetQuestion.UserId" class="text-danger"></span>
+        </div>
         <div class="form-control">
             <label class="label">Set Name</label>
             <input type="text" id="edit-setname" name="SetQuestion.SetName" class="input input-bordered" required>

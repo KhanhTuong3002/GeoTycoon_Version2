@@ -9,6 +9,7 @@ using BusinessObject.Entites;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace GeoClinet.Pages.set
 {
@@ -16,9 +17,11 @@ namespace GeoClinet.Pages.set
     public class CreateModel : PageModel
     {
         private readonly DataAccess.GeoTycoonDbcontext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CreateModel(DataAccess.GeoTycoonDbcontext context)
+        public CreateModel(DataAccess.GeoTycoonDbcontext context, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
 
@@ -33,12 +36,20 @@ namespace GeoClinet.Pages.set
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                ModelState.AddModelError("", "ID not found.");
+                return Page();
+            }
+
             var existingSetQuestion = await _context.SetQuestions
             .FirstOrDefaultAsync(sq => sq.SetName == SetQuestion.SetName);
 
             if (existingSetQuestion != null)
             {
-                ModelState.AddModelError("SetQuestion.SetName", "SetName đã tồn tại.");
+                ModelState.AddModelError("SetQuestion.SetName", "SetName is ready exits.");
                 return Page();
             }
             _context.SetQuestions.Add(SetQuestion);

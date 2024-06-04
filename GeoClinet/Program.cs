@@ -19,6 +19,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddScoped<DbContext,GeoTycoonDbcontext>();
 builder.Services.AddScoped<ProfileRepo>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
 
 string storagePath = Path.Combine(Directory.GetCurrentDirectory(), "Storage", "Images");
 if (!Directory.Exists(storagePath))
