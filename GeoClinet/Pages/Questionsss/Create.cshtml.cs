@@ -56,6 +56,12 @@ namespace GeoClinet.Pages.Questionsss
                 ModelState.AddModelError("Question.Option3", "Options cannot be duplicated.");
                 return Page();
             }
+            // Validate the Published date
+            if (Question.Published > DateTime.Now)
+            {
+                ModelState.AddModelError("Question.Published", "Published date cannot be in the future.");
+                return Page();
+            }
             Question.UserId = currentUser?.Id;
             _context.Questions.Add(Question);
             await _context.SaveChangesAsync();
