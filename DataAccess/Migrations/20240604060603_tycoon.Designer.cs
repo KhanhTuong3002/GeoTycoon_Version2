@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-    [Migration("20240604035457_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240604060603_tycoon")]
+    partial class tycoon
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -654,25 +654,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1a35827a-fca2-4faa-9c43-17d200ad4771",
+                            Id = "caab55f7-bd45-4d56-9949-936194254b18",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "6d90337d-bf36-4cab-847d-fa300c713b2d",
+                            Id = "ed04417f-3eb0-4fc9-89b3-e80a85509216",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "dc886f87-307b-41ac-9124-8def1f7e4e47",
+                            Id = "08436c8c-6181-4b55-a8b9-7658b0fb914d",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-                            Id = "bd27090d-52d7-4845-b147-aa07492b56f7",
+                            Id = "64896ca7-9e1f-4724-9e79-c8c8a079d07f",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
