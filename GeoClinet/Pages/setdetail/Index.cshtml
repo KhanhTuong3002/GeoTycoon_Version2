@@ -185,6 +185,7 @@
     function closeDeleteDetailModal() {
         document.getElementById('deleteDetailModal').close();
     }
+
     document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('addForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Ngăn chặn gửi yêu cầu mặc định của form
@@ -203,8 +204,8 @@
                     return response;
                 })
                 .then(() => {
-                    closeAddModal();
-                    location.reload();
+                    closeAddDetailModal(); // Đảm bảo đúng tên hàm đóng modal
+                    location.reload(); // Làm mới trang sau khi thêm thành công
                 })
                 .catch(errors => {
                     var errorMessages = Object.values(errors).join('\n');
@@ -229,8 +230,8 @@
                     return response;
                 })
                 .then(() => {
-                    closeEditModal();
-                    location.reload();
+                    closeEditDetailModal(); // Đảm bảo đúng tên hàm đóng modal
+                    location.reload(); // Làm mới trang sau khi chỉnh sửa thành công
                 })
                 .catch(errors => {
                     var errorMessages = Object.values(errors).join('\n');
