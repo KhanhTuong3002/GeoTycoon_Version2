@@ -116,13 +116,13 @@
                     <a class="block text-sm font-bold mb-2 pt-4 flex">
                         @User.Identity?.Name!
                     </a>
-                        <a class="block text-sm font-bold mb-2 pt-4 flex" id="userId">
+                        @* <a class="block text-sm font-bold mb-2 pt-4 flex" id="userId">
                             ID: <span id="actualUserId">@currentUser?.Id</span>
                             <i data-feather="copy" class="text-2xl copy-icon" aria-hidden="true" id="copyIcon"></i>
                             <span class="copy-text">Copy</span>
-                        </a>
+                        </a> *@
 
-                    <script>
+                   @*  <script>
                         // Feather icons initialization
                         document.addEventListener('DOMContentLoaded', (event) => {
                           //  feather.replace();
@@ -155,7 +155,7 @@
                                 copyTextElement.classList.remove('copied');
                             }, 2000);
                         });
-                    </script>
+                    </script> *@
                 </div>
             </div>
             <div class="w-full ml-8">
