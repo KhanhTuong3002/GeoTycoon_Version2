@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.Net.Mime;
 
 namespace GeoClinet.Areas.Identity.Pages.Account
 {
@@ -145,8 +146,7 @@ namespace GeoClinet.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await SendEmailAsync(Input.Email, "Confirm your email", callbackUrl);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -171,32 +171,127 @@ namespace GeoClinet.Areas.Identity.Pages.Account
         {
             try
             {
-                string newEmailContent = @"
-                                       Xin chào,
+                var encodedLink = HtmlEncoder.Default.Encode(confirmLink);
+                string imagePath = Path.Combine("wwwroot", "css", "oc_preview_rev_2.png"); // Tạo đường dẫn tuyệt đối đến hình ảnh
+                string cid = Guid.NewGuid().ToString(); // Tạo một ID duy nhất cho hình ảnh
+                string newEmailContent = $@"
+        <!DOCTYPE html>
+        <html lang='en'>
+        <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    color: #333333;
+                    background-color: #f4f4f4;
+                    padding: 0;
+                    margin: 0;
+                }}
+                .container {{
+                    max-width: 600px;
+                    margin: 20px auto;
+                    padding: 20px;
+                    background-color: #ffffff;
+                    border: 1px solid #e0e0e0;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                }}
+                .header {{
+                    text-align: center;
+                    margin-bottom: 20px;
+                }}
+                .header img {{
+                    width: 80px;
+                    height: auto;
+                    display: block;
+                    margin: 0 auto;
+                }}
+                .header h1 {{
+                    font-size: 24px;
+                    color: #333333;
+                    margin: 10px 0;
+                }}
+                .order-number {{
+                    text-align: center;
+                    font-size: 14px;
+                    color: #777777;
+                    margin-bottom: 20px;
+                }}
+                .content {{
+                    text-align: center;
+                    margin-bottom: 20px;
+                }}
+                .content h2 {{
+                    font-size: 20px;
+                    color: #333333;
+                    margin-bottom: 10px;
+                }}
+                .content p {{
+                    font-size: 14px;
+                    color: #555555;
+                    margin-bottom: 20px;
+                }}
+                .footer {{
+                    text-align: center;
+                    font-size: 0.9em;
+                    color: #777777;
+                }}
+                .btn {{
+                    display: inline-block;
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    color: #ffffff;
+                    background-color: #f0ad4e;
+                    border-radius: 5px;
+                    text-decoration: none;
+                    margin-top: 20px;
+                }}
+                .btn:hover {{
+                    background-color: #ec971f;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <div class='header'>
+                    <img src='cid:{cid}' alt='Company Logo'> <!-- Sử dụng ID của hình ảnh trong thẻ img -->
+                    <h1>Welcome To GeoTycoon!</h1>
+                </div>
+                <div class='content'>
+                    <h2>Thank You For Registering</h2>
+                    <p>We would like to thank you for registering an account. To complete the registration process, please click on the following link to confirm registration:</p>
+                    <a href='{encodedLink}' style='display: inline-block; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; text-decoration: none; border: 1px solid #007bff; border-radius: 5px;'>Click Here</a>
+                    <p>If you do not take this action, your account may not be activated and some features may be limited.</p>
+                </div>
+                <div class='footer'>
+                    <p>Thank you,<br/>The GeoTycoon Team</p>
+                </div>
+            </div>
+        </body>
+        </html>";
 
-                                        Chúng tôi xin gửi lời cảm ơn đến bạn về việc đăng ký tài khoản.
-
-                                        Để hoàn tất quá trình đăng ký, vui lòng nhấp vào liên kết sau để xác nhận đăng ký:
-                                       <a href='" + confirmLink + "'>" + confirmLink + @"</a>
-Nếu bạn không thực hiện hành động này, tài khoản của bạn có thể không được kích hoạt và một số tính năng có thể bị hạn chế.";
                 MailMessage message = new MailMessage();
                 SmtpClient smtpClient = new SmtpClient();
-                // message.From = new MailAddress("AIAIYan@yandex.com");
-                // message.From = new MailAddress("Votuongpro@yandex.com");
                 message.From = new MailAddress("khanhtuongadminsp24@geotycoonclient.se");
                 message.To.Add(email);
                 message.Subject = subject;
-                message.IsBodyHtml = true;
+                message.IsBodyHtml = true; // Important to set this to true for HTML content
                 message.Body = newEmailContent;
 
-                smtpClient.Port = 587;
-                //smtpClient.Host = "smtp.yandex.com";
-                smtpClient.Host = "smtp.simply.com";
+                // Tạo LinkedResource từ hình ảnh và đặt ContentID là ID duy nhất
+                LinkedResource linkedImage = new LinkedResource(imagePath, MediaTypeNames.Image.Jpeg);
+                linkedImage.ContentId = cid;
+                // Tạo AlternateView với nội dung HTML và thêm LinkedResource
+                AlternateView alternateView = AlternateView.CreateAlternateViewFromString(newEmailContent, null, MediaTypeNames.Text.Html);
+                alternateView.LinkedResources.Add(linkedImage);
+                message.AlternateViews.Add(alternateView);
 
+                smtpClient.Port = 587;
+                smtpClient.Host = "smtp.simply.com";
                 smtpClient.EnableSsl = true;
                 smtpClient.UseDefaultCredentials = false;
-                //smtpClient.Credentials = new NetworkCredential("Votuongpro", "treuaefycjlhuceg");
-                // smtpClient.Credentials = new NetworkCredential("AIAIYan","btmfzuuiinntzcou");
                 smtpClient.Credentials = new NetworkCredential("khanhtuongadminsp24@geotycoonclient.se", "Kojlakothe29");
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpClient.Send(message);
@@ -206,10 +301,10 @@ Nếu bạn không thực hiện hành động này, tài khoản của bạn c�
             {
                 Console.WriteLine(ex.ToString());
                 return false;
-
             }
-
         }
+
+
         private IdentityUser CreateUser()
         {
             try
