@@ -127,6 +127,11 @@ namespace GeoClinet.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                if (!ValidateDOB(Input.DOB))
+                {
+                    ModelState.AddModelError("Input.DOB", "Date of Birth must not exceed the year 2020.");
+                    return Page();
+                }
                 var user = CreateUser();
                 await _userManager.AddToRoleAsync(user, Input.Role);
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -166,6 +171,17 @@ namespace GeoClinet.Areas.Identity.Pages.Account
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+        private bool ValidateDOB(string dob)
+        {
+            if (DateTime.TryParse(dob, out DateTime date))
+            {
+                if (date.Year <= 2020)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         public static async Task<bool> SendEmailAsync(string email, string subject, string confirmLink)
         {

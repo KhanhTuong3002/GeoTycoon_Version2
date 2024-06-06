@@ -98,7 +98,6 @@
                 }
             </select>
         </div>
-        <span asp-validation-for="SetQuestionDetail.QuestionId" class="text-danger"></span>
         <div class="modal-action">
             <button type="submit" class="btn btn-primary">Add</button>
             <button type="button" class="btn" onclick="closeAddDetailModal()">Cancel</button>
@@ -230,6 +229,7 @@
                     return response;
                 })
                 .then(() => {
+
                     closeEditDetailModal(); // Đảm bảo đúng tên hàm đóng modal
                     location.reload(); // Làm mới trang sau khi chỉnh sửa thành công
                 })

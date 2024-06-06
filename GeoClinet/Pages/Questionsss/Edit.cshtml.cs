@@ -61,6 +61,11 @@ namespace GeoClinet.Pages.Questionsss
                 ModelState.AddModelError("Question.Option3", "Options cannot be duplicated.");
                 return Page();
             }
+            if (Question.Published > DateTime.Now)
+            {
+                ModelState.AddModelError("Question.Published", "Published date cannot be in the future.");
+                return Page();
+            }
             _context.Attach(Question).State = EntityState.Modified;
             Question.UserId = currentUser?.Id;
 
