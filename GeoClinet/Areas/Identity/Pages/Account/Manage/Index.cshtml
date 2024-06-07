@@ -54,7 +54,28 @@
         document.getElementById("editProfileButton").style.display = "none";
         // Hiển thị nút "Save"
         document.getElementById("saveButton").style.display = "inline-block";
+        document.getElementById("saveAvatarButton").style.display = "inline-block";
+        // Xóa thuộc tính disabled của các phần tử
+        document.getElementById("file-upload").removeAttribute("disabled");
+        document.getElementById("avatar-url").removeAttribute("disabled");
     }
+
+    function resetButtons() {
+        document.getElementById("editProfileButton").style.display = "inline-block";
+        document.getElementById("saveButton").style.display = "none";
+        document.getElementById("saveAvatarButton").style.display = "none";
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById("saveButton").style.display = "none";
+        document.getElementById("saveAvatarButton").style.display = "none";
+
+        document.getElementById('editForm').addEventListener('submit', function () {
+            resetButtons();
+        });
+
+        
+    });
 </script>
 
 <div class="flex items-center justify-center min-h-screen">
@@ -67,8 +88,8 @@
                         <label id="upload-label">
                             <img src="@(!string.IsNullOrEmpty(Model.Input.Avatar) ? Model.Input.Avatar : "https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg")" id="image-preview" />
                         </label>
-                        <input type="file" form="uploadForm" id="file-upload" style="display: none;" accept="image/*" />
-                        <input type="hidden" asp-for="Input.Avatar" id="avatar-url" />
+                        <input disabled type="file" form="uploadForm" id="file-upload" style="display: none;" accept="image/*" />
+                        <input disabled type="hidden" asp-for="Input.Avatar" id="avatar-url" />
                     </div>
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
@@ -112,49 +133,49 @@
                 </div>
 
                 <div class="flex flex-col items-center justify-center mt-4">
-                    <button class="btn btn-outline btn-accent justify-center items-center" form="uploadForm" type="submit">Save Avatar</button>
+                    <button class="btn btn-outline btn-accent justify-center items-center" form="uploadForm" type="submit" id="saveAvatarButton">Save Avatar</button>
                     <a class="block text-sm font-bold mb-2 pt-4 flex">
                         @User.Identity?.Name!
                     </a>
-                        @* <a class="block text-sm font-bold mb-2 pt-4 flex" id="userId">
-                            ID: <span id="actualUserId">@currentUser?.Id</span>
-                            <i data-feather="copy" class="text-2xl copy-icon" aria-hidden="true" id="copyIcon"></i>
-                            <span class="copy-text">Copy</span>
-                        </a> *@
+                    @* <a class="block text-sm font-bold mb-2 pt-4 flex" id="userId">
+                    ID: <span id="actualUserId">@currentUser?.Id</span>
+                    <i data-feather="copy" class="text-2xl copy-icon" aria-hidden="true" id="copyIcon"></i>
+                    <span class="copy-text">Copy</span>
+                    </a> *@
 
-                   @*  <script>
-                        // Feather icons initialization
-                        document.addEventListener('DOMContentLoaded', (event) => {
-                          //  feather.replace();
-                        });
+                    @*  <script>
+                    // Feather icons initialization
+                    document.addEventListener('DOMContentLoaded', (event) => {
+                    //  feather.replace();
+                    });
 
-                        document.getElementById('copyIcon').addEventListener('click', function () {
-                            const actualUserIdElement = document.getElementById('actualUserId');
-                            const copyTextElement = document.querySelector('.copy-text');
+                    document.getElementById('copyIcon').addEventListener('click', function () {
+                    const actualUserIdElement = document.getElementById('actualUserId');
+                    const copyTextElement = document.querySelector('.copy-text');
 
-                            // Lấy ID người dùng từ phần tử span
-                            const userIdText = actualUserIdElement.textContent.trim();
+                    // Lấy ID người dùng từ phần tử span
+                    const userIdText = actualUserIdElement.textContent.trim();
 
-                            // Tạo một thẻ input ẩn để sao chép văn bản
-                            const tempInput = document.createElement('input');
-                            tempInput.value = userIdText;
-                            document.body.appendChild(tempInput);
-                            tempInput.select();
-                            document.execCommand('copy');
-                            document.body.removeChild(tempInput);
+                    // Tạo một thẻ input ẩn để sao chép văn bản
+                    const tempInput = document.createElement('input');
+                    tempInput.value = userIdText;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
 
-                            // Thay đổi văn bản thành "Copied"
-                            copyTextElement.textContent = 'Copied';
+                    // Thay đổi văn bản thành "Copied"
+                    copyTextElement.textContent = 'Copied';
 
-                            // Thêm lớp copied để đổi màu chữ
-                            copyTextElement.classList.add('copied');
+                    // Thêm lớp copied để đổi màu chữ
+                    copyTextElement.classList.add('copied');
 
-                            // Đặt lại văn bản sau 2 giây
-                            setTimeout(() => {
-                                copyTextElement.textContent = 'Copy';
-                                copyTextElement.classList.remove('copied');
-                            }, 2000);
-                        });
+                    // Đặt lại văn bản sau 2 giây
+                    setTimeout(() => {
+                    copyTextElement.textContent = 'Copy';
+                    copyTextElement.classList.remove('copied');
+                    }, 2000);
+                    });
                     </script> *@
                 </div>
             </div>
@@ -184,7 +205,7 @@
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
                         <label class="block text-sm font-bold mb-2"><i data-feather="home" aria-hidden="true"></i> City</label>
-                        <select disabled   asp-for="Input.City" aria-required="true" placeholder="Select your city"
+                        <select disabled asp-for="Input.City" aria-required="true" placeholder="Select your city"
                                 class="input input-bordered w-full">
                             <option value="Can Tho">Can Tho</option>
                             <option value="Ho Chi Minh">Ho Chi Minh</option>
@@ -207,11 +228,12 @@
                 <div class="mb-6 relative">
                     <div class="flex gap-2">
                         <button id="editProfileButton" class="btn btn-accent" type="button" onclick="enableInputs();enableInput()">Edit Profile</button>
-                        <button id="saveButton" class="btn btn-outline btn-success" type="submit" >Save</button>
+                        <button id="saveButton" class="btn btn-outline btn-success" type="submit">Save</button>
                         <a class="btn btn-success  @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Change Password</a>
                     </div>
                 </div>
             </div>
+        </div>
     </form>
 
 
