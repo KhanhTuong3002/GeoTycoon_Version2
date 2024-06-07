@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-    partial class GeoTycoonDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240606095538_Mistusria")]
+    partial class Mistusria
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -651,7 +654,6 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-
                             Id = "c3c27eed-ee36-487f-9ed2-597c217100ef",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
@@ -664,14 +666,12 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-
                             Id = "b0716885-dece-4a9a-8d03-199492807cf9",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-
                             Id = "2bca3b16-db89-4958-83f2-aec4af100728",
                             Name = "Student",
                             NormalizedName = "STUDENT"
