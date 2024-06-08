@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(GeoTycoonDbcontext))]
-<<<<<<<< HEAD:DataAccess/Migrations/20240606095538_Mistusria.Designer.cs
-    [Migration("20240606095538_Mistusria")]
+    [Migration("20240608032528_Mistusria")]
     partial class Mistusria
-========
-    [Migration("20240604035457_InitialCreate")]
-    partial class InitialCreate
->>>>>>>> dev_Khangv2:DataAccess/Migrations/20240604035457_InitialCreate.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -659,41 +654,25 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<<< HEAD:DataAccess/Migrations/20240606095538_Mistusria.Designer.cs
-                            Id = "c3c27eed-ee36-487f-9ed2-597c217100ef",
-========
-                            Id = "1a35827a-fca2-4faa-9c43-17d200ad4771",
->>>>>>>> dev_Khangv2:DataAccess/Migrations/20240604035457_InitialCreate.Designer.cs
+                            Id = "6dc50b37-21a2-471f-982e-578825ffbca0",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-<<<<<<<< HEAD:DataAccess/Migrations/20240606095538_Mistusria.Designer.cs
-                            Id = "7b097a02-cedb-4457-ad18-b21e5fcc1a35",
-========
-                            Id = "6d90337d-bf36-4cab-847d-fa300c713b2d",
->>>>>>>> dev_Khangv2:DataAccess/Migrations/20240604035457_InitialCreate.Designer.cs
+                            Id = "a104d4a3-823e-481c-b299-b7477baf0e29",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-<<<<<<<< HEAD:DataAccess/Migrations/20240606095538_Mistusria.Designer.cs
-                            Id = "b0716885-dece-4a9a-8d03-199492807cf9",
-========
-                            Id = "dc886f87-307b-41ac-9124-8def1f7e4e47",
->>>>>>>> dev_Khangv2:DataAccess/Migrations/20240604035457_InitialCreate.Designer.cs
+                            Id = "58be9e53-beb4-460f-8587-1fc3b4aa8f2b",
                             Name = "Pending",
                             NormalizedName = "PENDING"
                         },
                         new
                         {
-<<<<<<<< HEAD:DataAccess/Migrations/20240606095538_Mistusria.Designer.cs
-                            Id = "2bca3b16-db89-4958-83f2-aec4af100728",
-========
-                            Id = "bd27090d-52d7-4845-b147-aa07492b56f7",
->>>>>>>> dev_Khangv2:DataAccess/Migrations/20240604035457_InitialCreate.Designer.cs
+                            Id = "e372a3ec-d04d-4d80-91e8-b574153c5e59",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
