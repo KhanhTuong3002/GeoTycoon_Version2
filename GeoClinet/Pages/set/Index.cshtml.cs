@@ -139,11 +139,9 @@ namespace GeoClinet.Pages.set
                 errors.Add("SetName already exists.");
             }
 
-            if (SetQuestion.QuestionNumber < 30)
+            if (SetQuestion.QuestionNumber < 70 || SetQuestion.QuestionNumber > 1000)
             {
-
-                errors.Add("QuestionNumber must not be less than 30.");
-
+                errors.Add("QuestionNumber must not be less than 70 and greater than 1000.");
             }
 
             if (errors.Any())

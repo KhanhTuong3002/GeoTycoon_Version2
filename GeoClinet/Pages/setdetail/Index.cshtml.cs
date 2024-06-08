@@ -113,8 +113,8 @@ namespace GeoClient.Pages.setdetail
                 errors.Add("This question has been added to the question set.");
             }
 
-            var existingQuestionsCount = _context.SetQuestionDetails
-                                                 .Count(sqd => sqd.SetQuestionId == SetQuestionDetail.SetQuestionId);
+            var existingQuestionsCount = await _context.SetQuestionDetails
+                                                            .CountAsync(sqd => sqd.SetQuestionId == SetQuestionDetail.SetQuestionId && sqd.Id != SetQuestionDetail.Id);
             if (existingQuestionsCount >= setQuestion.QuestionNumber)
             {
                 errors.Add("The number of questions has exceeded the allowed number.");
