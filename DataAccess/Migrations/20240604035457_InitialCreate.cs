@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class tycoon : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -349,10 +349,10 @@ namespace DataAccess.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "08436c8c-6181-4b55-a8b9-7658b0fb914d", null, "Pending", "PENDING" },
-                    { "64896ca7-9e1f-4724-9e79-c8c8a079d07f", null, "Student", "STUDENT" },
-                    { "caab55f7-bd45-4d56-9949-936194254b18", null, "Administrator", "ADMINISTRATOR" },
-                    { "ed04417f-3eb0-4fc9-89b3-e80a85509216", null, "Teacher", "TEACHER" }
+                    { "1a35827a-fca2-4faa-9c43-17d200ad4771", null, "Administrator", "ADMINISTRATOR" },
+                    { "6d90337d-bf36-4cab-847d-fa300c713b2d", null, "Teacher", "TEACHER" },
+                    { "bd27090d-52d7-4845-b147-aa07492b56f7", null, "Student", "STUDENT" },
+                    { "dc886f87-307b-41ac-9124-8def1f7e4e47", null, "Pending", "PENDING" }
                 });
 
             migrationBuilder.InsertData(
