@@ -49,7 +49,7 @@ namespace DataTransferAPI.DAO
             {
                 using (var context = new GeoTycoonDbcontext())
                 {
-                    set = context.SetQuestionDetails.Where(s => s.Id.ToString().Equals(setId)).Include(s => s.SetQuestion).Include(s => s.Question).OrderBy(s => s.SetQuestionId).ToList();
+                    set = context.SetQuestionDetails.Where(s => s.SetQuestionId.ToString().Equals(setId)).Include(s => s.SetQuestion).Include(s => s.Question).OrderBy(s => s.SetQuestionId).ToList();
                 }
             }
             catch (Exception ex)
