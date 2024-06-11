@@ -78,7 +78,10 @@
 <!-- Add Detail Dialog -->
 <dialog id="addDetailModal" class="modal">
     <form method="post" asp-page-handler="AddDetail" class="modal-box" id="addForm">
-        <h3 class="font-bold text-lg">Add New Set Question Detail</h3>
+        <div class="flex">
+            <i data-feather="plus-circle" aria-hidden="true" class="text-neutral text-2xl mr-2"></i>
+            <h3 class="font-bold text-lg">Add New Set Question Detail</h3>
+        </div>
         <div id="add-error" class="text-danger"></div>
         <div class="form-control">
             <label class="label">Set Name</label>
@@ -99,8 +102,8 @@
             </select>
         </div>
         <div class="modal-action">
-            <button type="submit" class="btn btn-primary">Add</button>
-            <button type="button" class="btn" onclick="closeAddDetailModal()">Cancel</button>
+            <button type="submit" class="btn btn-success w-24 text-white">Create</button>
+            <button type="button" class="btn btn-outline w-24" onclick="closeAddDetailModal()">Cancel</button>
         </div>
     </form>
 </dialog>
@@ -108,7 +111,10 @@
 <!-- Edit Detail Dialog -->
 <dialog id="editDetailModal" class="modal">
     <form method="post" asp-page-handler="EditDetail" class="modal-box" id="editForm">
-        <h3 class="font-bold text-lg">Edit Set Question Detail</h3>
+        <div class="flex">
+            <i data-feather="edit" aria-hidden="true" class="text-neutral text-2xl mr-2"></i>
+            <h3 class="font-bold text-lg">Edit Set Question Detail</h3>
+        </div>
         <input type="hidden" name="SetQuestionDetail.Id" id="edit-detail-id">
         <div id="edit-error" class="text-danger"></div>
         <div class="form-control">
@@ -130,8 +136,8 @@
             </select>
         </div>
         <div class="modal-action">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="button" class="btn" onclick="closeEditDetailModal()">Cancel</button>
+            <button type="submit" class="btn btn-success w-24 text-white">Save</button>
+            <button type="button" class="btn btn-outline w-24" onclick="closeEditDetailModal()">Cancel</button>
         </div>
     </form>
 </dialog>
@@ -139,11 +145,11 @@
 <!-- Delete Detail Confirmation Dialog -->
 <dialog id="deleteDetailModal" class="modal">
     <form method="post" asp-page-handler="DeleteDetail" class="modal-box">
-        <h3 class="font-bold text-lg">Are you sure you want to delete?</h3>
+        <h3 class="font-bold text-lg">Are you sure you want to delete this set question detail?</h3>
         <input type="hidden" name="id" id="delete-detail-id">
         <div class="modal-action">
-            <button type="submit" class="btn btn-danger">Yes</button>
-            <button type="button" class="btn" onclick="closeDeleteDetailModal()">No</button>
+            <button type="submit" class="btn btn-error w-24 text-white">Delete</button>
+            <button type="button" class="btn btn-outline w-24" onclick="closeDeleteDetailModal()">Cancel</button>
         </div>
     </form>
 </dialog>
