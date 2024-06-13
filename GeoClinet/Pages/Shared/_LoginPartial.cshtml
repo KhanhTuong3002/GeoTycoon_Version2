@@ -143,9 +143,9 @@
     }
     else
     {
-        <div class="flex items-center gap-2">
-            <a class="btn btn-accent w-24 text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
-            <a class="btn btn-outline btn-success w-24 text-white" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </div>
+            <div class="flex items-center space-x-4">
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline btn-base-200">Sign In</a>
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-accent text-white font-bold">Sign Up</a>
+            </div>
     }
 </ul>

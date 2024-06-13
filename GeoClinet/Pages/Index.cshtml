@@ -4,125 +4,158 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="flex justify-center items-center bg-base-200 p-8">
-    <div class="flex flex-md-row w-full w-5/6 items-center justify-center">
-        <div class="flex flex-col items-center items-start pr-60 w-1/3 w-auto order-1">
-            <div class="text-left">
-                <h2 class="text-2xl font-bold">Welcome to the</h2>
-                <h2 class="text-2xl font-bold mb-3">GeoTycoon!</h2>
-                <h3 class="text-sm mb-6">Discover the most exciting games</h3>
+<section class="pt-7 mx-auto">
+    <div class="container mx-auto">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 text-center md:text-left py-6">
+                <h1 class="mb-4 text-5xl font-bold">The Design Thinking Superpowers</h1>
+                <p class="mb-6 text-lg text-gray-600">Tools tutorials, design and innovation experts, all<br class="hidden xl:block" />in one place! The most intuitive way to imagine<br class="hidden xl:block" />your next user experience.</p>
+                <div class="text-center md:text-left">
+                    <a class="btn btn-warning mr-3 btn-lg text-white" href="#!" role="button">Get started</a>
+                    <a class="btn btn-link text-warning font-medium" href="#!" role="button" data-bs-toggle="modal" data-bs-target="#popupVideo">
+                        <span class="fas fa-play mr-2"></span>Watch the video
+                    </a>
+                </div>
             </div>
-            <div class="mb-6">
-                <div class="flex justify-center justify-start gap-2">
-                    <button class="btn btn-outline" type="button">Learn More</button>
-                    <button class="btn btn-neutral" type="button">Play Now</button>
+            <div class="md:w-1/2 text-right">
+                <img class="pt-7 md:pt-0 img-fluid" src="~/css/67506141_2443098542394748_1120180827175518208_n.jpg" alt="Hero Image" />
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="pt-5 mt-24 lg:pt-9 mb-6 mx-auto" id="feature">
+    <div class="bg-cover bg-no-repeat bg-bottom-0 hidden lg:block" style="background-image: url(assets/img/category/shape.png); opacity: 0.5;"></div>
+    <!--/.bg-holder-->
+
+    <div class="container mx-auto">
+        <h1 class="text-5xl font-bold mb-4 text-center">We design tools to unveil <br class="hidden xl:block" />your superpowers</h1>
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            <div class="flex flex-col mb-2">
+                <img class="mb-3 -ml-3" src="assets/img/category/icon1.png" width="75" alt="Feature" />
+                <h4 class="mb-3">First click tests</h4>
+                <p class="mb-0 text-gray-600">While most people enjoy casino gambling,</p>
+            </div>
+            <div class="flex flex-col mb-2">
+                <img class="mb-3 -ml-3" src="assets/img/category/icon2.png" width="75" alt="Feature" />
+                <h4 class="mb-3">Design surveys</h4>
+                <p class="mb-0 text-gray-600">Sports betting,lottery and bingo playing for the fun</p>
+            </div>
+            <div class="flex flex-col mb-2">
+                <img class="mb-3 -ml-3" src="assets/img/category/icon3.png" width="75" alt="Feature" />
+                <h4 class="mb-3">Preference tests</h4>
+                <p class="mb-0 text-gray-600">The Myspace page defines the individual.</p>
+            </div>
+            <div class="flex flex-col mb-2">
+                <img class="mb-3 -ml-3" src="assets/img/category/icon4.png" width="75" alt="Feature" />
+                <h4 class="mb-3">Five second tests</h4>
+                <p class="mb-0 text-gray-600">Personal choices and the overall personality of the person.</p>
+            </div>
+        </div>
+        <div class="text-center pt-4"><a class="btn btn-warning text-white" asp-area="Identity" asp-page="/Account/Register" role="button">SIGN UP NOW</a></div>
+    </div><!-- end of .container-->
+</section>
+
+
+
+
+<section class="pt-5 mt-24 mx-auto" id="validation">
+
+    <div class="container mx-auto">
+        <div class="flex flex-wrap justify-center">
+            <div class="w-full lg:w-1/2">
+                <h5 class="text-secondary">Effortless Validation for</h5>
+                <h2 class="mb-2 text-3xl font-bold">Design Professionals</h2>
+                <p class="mb-4 text-lg text-secondary">
+                    The Myspace page defines the individual,his or her
+                    characteristics, traits, personal choices and the overall<br />personality of the person.
+                </p>
+                <h4 class="text-2xl font-bold">Accessory makers</h4>
+                <p class="mb-4 text-lg text-secondary">While most people enjoy casino gambling, sports betting,<br />lottery and bingo playing for the fun</p>
+                <h4 class="text-2xl font-bold">Alterationists</h4>
+                <p class="mb-4 text-lg text-secondary">If you are looking for a new way to promote your business<br />that won't cost you money,</p>
+                <h4 class="text-2xl font-bold">Custom Design designers</h4>
+                <p class="mb-4 text-lg text-secondary">If you are looking for a new way to promote your business<br />that won't cost you more money,</p>
+            </div>
+            <div class="w-full lg:w-1/2"><img class="w-full h-3/4 object-cover" src="~/css/67591935_2284674081639511_4144078566541230080_n.jpg" alt="" /></div>
+        </div>
+    </div><!-- end of .container-->
+
+</section>
+
+<section class="pt-5 mx-auto" id="manager">
+    <div class="container mx-auto">
+        <div class="flex flex-wrap justify-center">
+            <div class="w-full lg:w-1/2 lg:pr-12"><img class="w-full h-3/4 object-cover" src="~/css/84692145_2673254916114757_6351874911270600704_n.jpg" alt="" /></div>
+            <div class="w-full lg:w-1/2">
+                <h5 class="text-secondary">Easier decision making for</h5>
+                <p class="text-3xl font-bold mb-2">Product Managers</p>
+                <p class="mb-4 text-lg text-secondary">
+                    The Myspace page defines the individual,his or her
+                    characteristics, traits, personal choices and the overall<br />personality of the person.
+                </p>
+                <div class="flex items-center mb-3">
+                    <img class="me-sm-4 me-2" src="assets/img/manager/tick.png" width="35" alt="tick" />
+                    <p class="fw-medium mb-0 text-secondary">Never worry about overpaying for your<br />energy again.</p>
+                </div>
+                <div class="flex items-center mb-3">
+                    <img class="me-sm-4 me-2" src="assets/img/manager/tick.png" width="35" alt="tick" />
+                    <p class="fw-medium mb-0 text-secondary">We will only switch you to energy companies<br />that we trust and will treat you right</p>
+                </div>
+                <div class="flex items-center mb-3">
+                    <img class="me-sm-4 me-2" src="assets/img/manager/tick.png" width="35" alt="tick" />
+                    <p class="fw-medium mb-0 text-secondary"> We track the markets daily and know where the<br />savings are.</p>
                 </div>
             </div>
         </div>
-        <div class="flex items-center justify-center w-2/3 ml-30 w-auto order-2">
-            <img src="~/css/67506141_2443098542394748_1120180827175518208_n.jpg" alt="Description of your image" class="w-120 h-80" />
-        </div>
-    </div>
-</div>
+    </div><!-- end of .container-->
 
+</section>
 
+<!-- ============================================-->
 
-<div class="flex justify-center items-center bg-base-200 p-8 mt-8">
-    <div class="max-w-7xl mx-auto flex flex-row space-y-8 space-y-0 space-x-16">
-        <!-- Div 1 (left) -->
-        <div class="flex flex-col space-y-8 w-full w-1/3">
-            <!-- Small Div 1 -->
-            <div class="flex items-center space-x-4">
-                <img src="~/css/post-a5ccdfd60f81f96ee4c674094da5d2b19068b8921533445fcb7a8aec97f8efaa.jpg" alt="Description of image 1" class="w-12 h-12">
-                <div>
-                    <h3 class="text-xl font-bold">New Game Release</h3>
-                    <p>Explore a magical world in the new fantasy adventure!</p>
-                </div>
+<section class="pt-5 mt-24 mx-auto" id="marketer">
+
+    <div class="container mx-auto">
+        <div class="flex flex-wrap justify-center">
+            <div class="w-full lg:w-1/2">
+                <h5 class="text-secondary">Optimisation for</h5>
+                <p class="mb-2 text-3xl font-bold">Marketers</p>
+                <p class="mb-4 text-lg text-secondary">Few would argue that, despite the advancements of<br />feminism over the past three decades, women still face a<br />double standard when it comes to their behavior.</p>
+                <h4 class="text-2xl font-bold">Accessory makers</h4>
+                <p class="mb-4 text-lg text-secondary">While most people enjoy casino gambling, sports betting,<br />lottery and bingo playing for the fun</p>
+                <h4 class="text-2xl font-bold">Alterationists</h4>
+                <p class="mb-4 text-lg text-secondary">If you are looking for a new way to promote your business<br />that won't cost you money,</p>
+                <h4 class="text-2xl font-bold">Custom Design designers</h4>
+                <p class="mb-4 text-lg text-secondary">If you are looking for a new way to promote your business<br />that won't cost you more money,</p>
             </div>
-            <!-- Small Div 2 -->
-            <div class="flex items-center space-x-4">
-                <img src="~/css/post-a5ccdfd60f81f96ee4c674094da5d2b19068b8921533445fcb7a8aec97f8efaa.jpg" alt="Description of image 2" class="w-12 h-12">
-                <div>
-                    <h3 class="text-xl font-bold">Another Game Release</h3>
-                    <p>Experience the thrill of a new quest!</p>
-                </div>
+            <div class="w-full lg:w-1/2"><img class="w-full" src="~/css/c675ccbd-5946-4623-afd0-97e4dfb5b25f.jpg" alt="" /></div>
+        </div>
+    </div><!-- end of .container-->
+
+</section>
+
+<!-- ============================================-->
+
+<section class="py-md-11 mt-24 py-8 mx-auto" id="superhero">
+
+    <div class="bg-holder z-index--1 bottom-0 d-none d-lg-block background-position-top" style="background-image:url(assets/img/superhero/oval.png);opacity:.5; background-position: top !important ;">
+    </div>
+    <!--/.bg-holder-->
+
+    <div class="container mx-auto">
+        <div class="flex justify-center">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold mb-4">Need a super hero?</h1>
+                <p class="mb-5 text-lg text-secondary">Do you require some help for your project: Conception workshop,<br />prototyping, marketing strategy, landing page, Ux/UI?</p>
+                <button class="btn btn-warning btn-md">Contact our expert</button>
             </div>
         </div>
-        <!-- Div 2 (right) -->
-        <div class="flex flex-col justify-center items-start w-full w-2/3">
-            <h2 class="text-4xl font-bold mb-4">Latest News</h2>
-            <button class="btn btn-neutral btn-sm">Play Now</button>
-        </div>
-    </div>
-</div>
+    </div><!-- end of .container-->
 
+</section>
 
-
-
-<div class="carousel w-full mt-8 relative overflow-hidden">
-    <div id="slide1" class="carousel-item w-full">
-        <img src="~/css/a2.jpg" class="w-full h-[50vh] object-cover" alt="Slide 1" />
-        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <button data-target="prev" class="btn btn-circle">❮</button>
-            <button data-target="next" class="btn btn-circle">❯</button>
-        </div>
-    </div>
-    <div id="slide2" class="carousel-item w-full hidden">
-        <img src="~/css/84692145_2673254916114757_6351874911270600704_n.jpg" class="w-full h-[50vh] object-cover" alt="Slide 2" />
-        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <button data-target="prev" class="btn btn-circle">❮</button>
-            <button data-target="next" class="btn btn-circle">❯</button>
-        </div>
-    </div>
-    <div id="slide3" class="carousel-item w-full hidden">
-        <img src="~/css/67591935_2284674081639511_4144078566541230080_n.jpg" class="w-full h-[50vh] object-cover" alt="Slide 3" />
-        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <button data-target="prev" class="btn btn-circle">❮</button>
-            <button data-target="next" class="btn btn-circle">❯</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const slides = document.querySelectorAll(".carousel-item");
-        const totalSlides = slides.length;
-        let currentSlide = 0;
-
-        const showSlide = (index) => {
-            slides.forEach((slide, i) => {
-                slide.classList.toggle("hidden", i !== index);
-            });
-        };
-
-        const nextSlide = () => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            showSlide(currentSlide);
-        };
-
-        const prevSlide = () => {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            showSlide(currentSlide);
-        };
-
-        const autoPlay = () => {
-            nextSlide();
-            setTimeout(autoPlay, 3000); // Chuyển đổi slide sau mỗi 3 giây
-        };
-
-        document.querySelectorAll("[data-target='next']").forEach(button => {
-            button.addEventListener("click", nextSlide);
-        });
-
-        document.querySelectorAll("[data-target='prev']").forEach(button => {
-            button.addEventListener("click", prevSlide);
-        });
-
-        showSlide(currentSlide); // Hiển thị slide đầu tiên ban đầu
-
-        autoPlay(); // Bắt đầu tự động chuyển đổi slide
-    });
-
-
-
-</script>
+<!-- ============================================-->
