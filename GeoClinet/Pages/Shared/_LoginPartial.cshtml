@@ -34,9 +34,9 @@
     {
         var profile = ProfileRepo.GetprofileFrommUser(currentUser);
 
-        <div class="navbar bg-base-200">
+        <div class="navbar">
             <div class="dropdown dropdown-end">
-                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar" id="dropdownToggle">
                     <div class="w[50px] rounded-full">
 
                         @if (!string.IsNullOrEmpty(profile.Avatar))
@@ -50,7 +50,7 @@
                         }
                     </div>
                 </div>
-                <ul tabindex="0" class="dropdown-content menu menu-compact p-2 mt-12 z-50 w-60 shadow-lg bg-base-100 rounded-box inline-block">
+                <ul tabindex="0" class="dropdown-content menu menu-compact p-2 mt-12 z-50 w-60 shadow-lg bg-base-100 rounded-box inline-block" id="dropdownMenu">
                     <li>
                         <a class="text-base-content text-bold" title="Manage">@User.Identity?.Name!</a>
                     </li>

@@ -6,7 +6,7 @@
 }
 
 <div class="content items-center justify-center">
-    <div class="container w-[90%] mx-auto py-8 mb-8 items-center justify-center">
+    <div class="container w-full mx-auto py-8 mb-8 items-center justify-center">
         <!-- Title and Create Button -->
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
@@ -16,8 +16,8 @@
             </a>
         </div>
 
-<form method="get" class="m-xl-auto">
-    <div class="flex">
+        <form method="get" class="m-xl-auto">
+            <div class="flex">
                 <div class="mr-8">
                     <input id="searchInput" type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search Question   Ctrl + K" class="input input-bordered w-64 md:w-auto" />
                 </div>
@@ -26,9 +26,9 @@
                     <input type="checkbox" class="checkbox checkbox-success" name="SearchByContent" value="true" @(Model.SearchByContent ? "checked" : "") /> Search by Content
                 </div>
             </div>
-           
-            
-    <input type="submit" value="Search" style="display:none;" />
+
+
+            <input type="submit" value="Search" style="display:none;" />
 
             <script>
                 document.addEventListener('keydown', function (event) {
@@ -39,7 +39,7 @@
                     }
                 });
             </script>
-</form>
+        </form>
         <!-- Questions Table -->
         <div class="w-full mt-8">
             <table class="table w-full rounded-box table-auto overflow-auto">
@@ -66,7 +66,7 @@
                                     <i data-feather="info" class="text-info text-2xl" aria-hidden="true"></i>
                                 </a>
                                 <a asp-page="./Edit" asp-route-id="@item.Id" class="mr-2">
-                                   <i data-feather="edit" class="text-success text-2xl" aria-hidden="true"></i>
+                                    <i data-feather="edit" class="text-success text-2xl" aria-hidden="true"></i>
                                 </a>
 
                                 <button onclick="openDeleteModal('@item.Id')">
@@ -82,7 +82,7 @@
 
             <!-- Pagination Partial -->
             @* <div class="w-full mt-4 flex justify-end items-center gap-2">
-                @await Html.PartialAsync("_PaginationPartial")
+            @await Html.PartialAsync("_PaginationPartial")
             </div> *@
         </div>
     </div>

@@ -18,82 +18,83 @@
 </head>
 
 <h2 class="text-2xl font-bold items-start mb-4 ml-48">Create New Question</h2>
-<hr class="border-base-300"/>
-<div class="container w-[60%] mx-auto py-8 mb-8 items-center justify-center">
-
+<hr class="border-base-300" />
+<div class="container w-[80%] mx-auto py-8 mb-8 items-center justify-center">
     <form id="uploadFormImageQs" action="/Images"></form>
     <form method="post">
-    <div class="flex">
-        <div class="hidden md:block items-center justify-center mr-8 mt-16">
-            <div class="flex flex-col items-start justify-center mt-4">
-                <label asp-for="Question.Images" class="block text-sm font-bold mb-2">
+        <div class="flex">
+            <div class="hidden md:block items-center justify-center mr-8 mt-16">
+                <div class="flex flex-col items-start justify-center mt-4">
+                    <label asp-for="Question.Images" class="block text-sm font-bold mb-2">
                         <i data-feather="image" aria-hidden="true"></i>
-                    Images (Optional) </label>
-            </div>
-            <div class="avatar">
-                <div class="w-[250px] rounded">
-                    
-                    <label id="upload-label">
-                        <img src="https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg" )" id="image-preview"
-                            alt="Question Image" style="border-radius: 8px;" />
+                        Images (Optional)
                     </label>
-                    <input type="file" form="uploadFormImageQs" id="file-upload" style="display: none;" accept="image/*" />
-                    <input type="hidden" asp-for="Question.Images" id="questionImage-url" />
                 </div>
-        </div>
+                <div class="avatar">
+                    <div class="w-[250px] rounded">
 
-            <div class="flex flex-col items-center justify-center mt-4">
-                <button class="btn btn-outline btn-accent justify-center items-center" form="uploadFormImageQs" type="submit">Save Image</button>
-            </div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    console.log("upload");
-                    document.getElementById('upload-label').addEventListener('click', function () {
-                        document.getElementById('file-upload').click();
-                    });
+                        <label id="upload-label">
+                            <img src="https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg" )" id="image-preview"
+                                 alt="Question Image" style="border-radius: 8px;" />
+                        </label>
+                        <input type="file" form="uploadFormImageQs" id="file-upload" style="display: none;" accept="image/*" />
+                        <input type="hidden" asp-for="Question.Images" id="questionImage-url" />
+                    </div>
+                </div>
 
-                    document.getElementById('file-upload').addEventListener('change', function (event) {
-                        const file = event.target.files[0];
-                        if (file) {
-                            const reader = new FileReader();
-                            reader.onload = function (e) {
-                                document.getElementById('image-preview').src = e.target.result;
-                            };
-                            reader.readAsDataURL(file);
-                        }
-                    });
-                    document.getElementById('uploadFormImageQs').addEventListener('submit', async function (event) {
-                        event.preventDefault();
-                        const formData = new FormData();
-                        formData.append('File', document.getElementById('file-upload').files[0]);
-
-                        const response = await fetch('/Images', {
-                            method: 'POST',
-                            body: formData
+                <div class="flex flex-col items-center justify-center mt-4">
+                    <button class="btn btn-outline btn-accent justify-center items-center" form="uploadFormImageQs" type="submit">Save Image</button>
+                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        console.log("upload");
+                        document.getElementById('upload-label').addEventListener('click', function () {
+                            document.getElementById('file-upload').click();
                         });
 
-                        if (response.ok) {
-                            const imageUrl = await response.text();
-                            document.getElementById("questionImage-url").value = imageUrl;
-                            document.getElementById("image-preview").src = imageUrl;
+                        document.getElementById('file-upload').addEventListener('change', function (event) {
+                            const file = event.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = function (e) {
+                                    document.getElementById('image-preview').src = e.target.result;
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        });
+                        document.getElementById('uploadFormImageQs').addEventListener('submit', async function (event) {
+                            event.preventDefault();
+                            const formData = new FormData();
+                            formData.append('File', document.getElementById('file-upload').files[0]);
+
+                            const response = await fetch('/Images', {
+                                method: 'POST',
+                                body: formData
+                            });
+
+                            if (response.ok) {
+                                const imageUrl = await response.text();
+                                document.getElementById("questionImage-url").value = imageUrl;
+                                document.getElementById("image-preview").src = imageUrl;
                                 document.getElementById('my_modal_1').showModal();
 
-                        } else {
-                                 document.getElementById('my_modal_2').showModal();
-                        }
+                            } else {
+                                document.getElementById('my_modal_2').showModal();
+                            }
+                        });
                     });
-                });
-            </script>
-        </div>
-        <div class="w-full">
-            
+                </script>
+            </div>
+            <div class="w-full">
+
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
                         <label asp-for="Question.Title" class="block text-sm font-bold mb-2">
                             <i data-feather="book" aria-hidden="true"></i>
-                            Title</label>
+                            Title
+                        </label>
                         <input asp-for="Question.Title" aria-required="true"
                                class="input input-bordered w-full bg-base-200" />
                         <span asp-validation-for="Question.Title" class="text-danger"></span>
@@ -101,7 +102,8 @@
                     <div class="relative w-1/2">
                         <label asp-for="Question.ProvinceId" class="block text-sm font-bold mb-2">
                             <i data-feather="globe" aria-hidden="true"></i>
-                            Province</label>
+                            Province
+                        </label>
                         <select asp-for="Question.ProvinceId" aria-required="true" asp-items="ViewBag.ProvinceId"
                                 class="input input-bordered w-full bg-base-200"></select>
                         <span asp-validation-for="Question.ProvinceId" class="text-danger"></span>
@@ -110,7 +112,8 @@
                 <div class="relative mb-2">
                     <label asp-for="Question.Content" class="block text-sm font-bold mb-2">
                         <i data-feather="book-open" aria-hidden="true"></i>
-                        Content</label>
+                        Content
+                    </label>
                     <input asp-for="Question.Content" aria-required="true"
                            class="input input-bordered w-full inline-block bg-base-200" />
                     <span asp-validation-for="Question.Content" class="text-danger"></span>
@@ -126,7 +129,8 @@
                     <div class="relative w-1/2 mr-2">
                         <label asp-for="Question.Option1" class="block text-sm font-bold mb-2">
                             <i data-feather="bookmark" aria-hidden="true"></i>
-                            Option 1</label>
+                            Option 1
+                        </label>
                         <input id="option1Input" asp-for="Question.Option1" aria-required="true" oninput="updateAnswerDropdown()"
                                class="input input-bordered w-full bg-base-200" />
                         <span asp-validation-for="Question.Option1" class="text-danger"></span>
@@ -134,7 +138,8 @@
                     <div class="relative w-1/2">
                         <label asp-for="Question.Option2" class="block text-sm font-bold mb-2">
                             <i data-feather="bookmark" aria-hidden="true"></i>
-                            Option 2</label>
+                            Option 2
+                        </label>
                         <input id="option2Input" asp-for="Question.Option2" aria-required="true" oninput="updateAnswerDropdown()"
                                class="input input-bordered w-full bg-base-200" />
                         <span asp-validation-for="Question.Option2" class="text-danger"></span>
@@ -144,7 +149,8 @@
                     <div class="relative w-1/2 mr-2">
                         <label asp-for="Question.Option3" class="block text-sm font-bold mb-2">
                             <i data-feather="bookmark" aria-hidden="true"></i>
-                            Option 3</label>
+                            Option 3
+                        </label>
                         <input id="option3Input" asp-for="Question.Option3" aria-required="true" oninput="updateAnswerDropdown()"
                                class="input input-bordered w-full bg-base-200" />
                         <span asp-validation-for="Question.Option3" class="text-danger"></span>
@@ -152,7 +158,8 @@
                     <div class="relative w-1/2">
                         <label asp-for="Question.Option4" class="block text-sm font-bold mb-2">
                             <i data-feather="bookmark" aria-hidden="true"></i>
-                            Option 4</label>
+                            Option 4
+                        </label>
                         <input id="option4Input" asp-for="Question.Option4" aria-required="true" oninput="updateAnswerDropdown()"
                                class="input input-bordered w-full bg-base-200" />
                         <span asp-validation-for="Question.Option4" class="text-danger"></span>
@@ -162,7 +169,8 @@
                     <div class="relative w-1/2 mr-2">
                         <label asp-for="Question.Answer" class="block text-sm font-bold mb-2">
                             <i data-feather="check-circle" aria-hidden="true"></i>
-                            Answer</label>
+                            Answer
+                        </label>
                         <select id="answerDropdown" asp-for="Question.Answer" aria-required="true"
                                 class="input input-bordered w-full bg-base-200">
                             <option value="">Select option</option>
@@ -172,7 +180,8 @@
                     <div class="relative w-1/2">
                         <label asp-for="Question.Published" class="block text-sm font-bold mb-2">
                             <i data-feather="clock" aria-hidden="true"></i>
-                            Published</label>
+                            Published
+                        </label>
                         <input asp-for="Question.Published" aria-required="true"
                                class="input input-bordered w-full bg-base-200" />
 
@@ -182,7 +191,8 @@
                 <div class="relative mb-6">
                     <label asp-for="Question.Description" class="block text-sm font-bold mb-2">
                         <i data-feather="clipboard" aria-hidden="true"></i>
-                        Description</label>
+                        Description
+                    </label>
                     <input asp-for="Question.Description" aria-required="true"
                            class="input input-bordered w-full inline-block bg-base-200" />
                     <span asp-validation-for="Question.Description" class="text-danger"></span>
@@ -194,10 +204,10 @@
                         <a asp-page="./Index" class="btn btn-outline w-48" type="button">Cancel</a>
                     </div>
                 </div>
-
-
-            </form>
+            </div>
         </div>
+    </form>
+</div>
 <dialog id="my_modal_1" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg">Images Save SuscessFull !</h3>
@@ -226,8 +236,8 @@
     </div>
 </dialog>
 
-        
-    
+
+
 @section Scripts {
     <script>
         function updateAnswerDropdown() {
