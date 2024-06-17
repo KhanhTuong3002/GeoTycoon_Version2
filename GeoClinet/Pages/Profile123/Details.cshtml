@@ -6,9 +6,10 @@
     var defaultImageUrl = "https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg";
 }
 
-
-<div class="flex items-center justify-center min-h-screen">
-    <form class="w-full h-fit max-w-4xl bg-base-300 p-8 shadow-lg rounded-lg">
+<h2 class="text-2xl font-bold items-start mb-4 ml-48">User Profile</h2>
+<hr class="border-base-300" />
+<div class="container w-[80%] mx-auto py-8 mb-8 items-center justify-center">
+    <form>
         <div class="flex">
             <div class="hidden md:block items-center justify-center" style="padding-top: 3rem">
 
@@ -26,12 +27,11 @@
 
             </div>
             <div class="w-full ml-8">
-                <h2 class="flex text-2xl font-bold items-center mb-3">Your Profile</h2>
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
                         <dt class="block text-sm font-bold mb-2">
                             <i data-feather="user" aria-hidden="true"></i>
-                            @Html.DisplayNameFor(model => model.Profile.FirstName)
+                            First Name
                         </dt>
                         <dd class="border border-base-300 rounded-lg p-4 w-full bg-base-200 inline-block">
                             @Html.DisplayFor(model => model.Profile.FirstName)
@@ -40,7 +40,7 @@
                     <div class="relative w-1/2">
                         <dt class="block text-sm font-bold mb-2">
                             <i data-feather="user" aria-hidden="true"></i>
-                            @Html.DisplayNameFor(model => model.Profile.LastName)
+                            Last Name
                         </dt>
                         <dd class="border border-base-300 rounded-lg p-4 w-full bg-base-200 inline-block">
                             @Html.DisplayFor(model => model.Profile.LastName)
@@ -71,7 +71,7 @@
                     <div class="relative w-1/2 mr-2">
                         <dt class="block text-sm font-bold mb-2">
                             <i data-feather="clock" aria-hidden="true"></i>
-                            @Html.DisplayNameFor(model => model.Profile.LastUpdated)
+                            Last Updated
                         </dt>
                         <dd class="border border-base-300 rounded-lg p-4 w-full bg-base-200 inline-block">
                             @Html.DisplayFor(model => model.Profile.LastUpdated)
@@ -80,7 +80,7 @@
                     <div class="relative w-1/2">
                         <dt class="block text-sm font-bold mb-2">
                             <i data-feather="clock" aria-hidden="true"></i>
-                            @Html.DisplayNameFor(model => model.Profile.CreatedAt)
+                            Created At
                         </dt>
                         <dd class="border border-base-300 rounded-lg p-4 w-full bg-base-200 inline-block">
                             @Html.DisplayFor(model => model.Profile.CreatedAt)
@@ -92,21 +92,21 @@
                         <i data-feather="clipboard" aria-hidden="true"></i>
                         @Html.DisplayNameFor(model => model.Profile.Description)
                     </dt>
-                    <dd class="border border-base-300 rounded-lg p-4 w-full bg-base-200 inline-block">
+                    <dd class="input border-base-300 rounded-lg p-4 w-full bg-base-200 inline-block">
                         @Html.DisplayFor(model => model.Profile.Description)
                     </dd>
                 </div>
                 <div class="flex flex-grow relative mb-6">
                     <dt class="block text-sm font-bold mb-2">
                         <i data-feather="lock" aria-hidden="true"></i>
-                        @Html.DisplayNameFor(model => model.Profile.Isbanned)
+                        Is Banned
                     </dt>
                     <dd class="ml-28">
                         @Html.DisplayFor(model => model.Profile.Isbanned)
                     </dd>
                 </div>
 
-                <a asp-page="./Index" class="btn btn-error w-48 text-white">Back to List</a>
+                <a asp-page="./Index" class="btn btn-warning w-48 text-white">Back to List</a>
 
             </div>
 

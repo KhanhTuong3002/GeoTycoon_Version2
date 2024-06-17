@@ -188,7 +188,7 @@ namespace GeoClinet.Areas.Identity.Pages.Account
             try
             {
                 var encodedLink = HtmlEncoder.Default.Encode(confirmLink);
-                string imagePath = Path.Combine("wwwroot", "css", "oc_preview_rev_2.png"); // Tạo đường dẫn tuyệt đối đến hình ảnh
+                string imagePath = Path.Combine("wwwroot", "css", "GeoTycoonLogo_Trans.png"); // Tạo đường dẫn tuyệt đối đến hình ảnh
                 string cid = Guid.NewGuid().ToString(); // Tạo một ID duy nhất cho hình ảnh
                 string newEmailContent = $@"
         <!DOCTYPE html>
