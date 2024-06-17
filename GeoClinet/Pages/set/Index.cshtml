@@ -84,7 +84,7 @@
 <dialog id="addModal" class="modal">
     <form method="post" asp-page-handler="Add" class="modal-box" id="addForm">
         <div class="flex">
-            <i data-feather="plus-circle" aria-hidden="true" class="text-neutral text-2xl mr-2"></i>
+            <i data-feather="plus-circle" aria-hidden="true" class="text-black text-2xl mr-2"></i>
             <h3 class="font-bold text-lg">Add New Set Question</h3>
         </div>
         <div id="add-error" class="text-danger"></div>
@@ -101,7 +101,7 @@
             <input type="number" name="SetQuestion.QuestionNumber" class="input input-bordered" required>
         </div>
         <div class="modal-action">
-            <button type="submit" class="btn btn-success w-24 text-white">Create</button>
+            <button type="submit" class="btn btn-primary w-24 text-white">Create</button>
             <button type="button" class="btn btn-outline w-24" onclick="closeAddModal()">Cancel</button>
         </div>
     </form>
@@ -111,7 +111,7 @@
 <dialog id="editModal" class="modal">
     <form method="post" asp-page-handler="Edit" class="modal-box" id="editForm">
         <div class="flex">
-            <i data-feather="edit" aria-hidden="true" class="text-neutral text-2xl mr-2"></i>
+            <i data-feather="edit" aria-hidden="true" class="text-black text-2xl mr-2"></i>
             <h3 class="font-bold text-lg">Edit Set Question</h3>
         </div>
         <input type="hidden" id="edit-id" name="SetQuestion.Id">
@@ -132,7 +132,7 @@
             <span asp-validation-for="SetQuestion.QuestionNumber" class="text-danger"></span>
         </div>
         <div class="modal-action">
-            <button type="submit" class="btn btn-success w-24 text-white">Save</button>
+            <button type="submit" class="btn btn-primary w-24 text-white">Save</button>
             <button type="button" class="btn btn-outline w-24" onclick="closeEditModal()">Cancel</button>
         </div>
     </form>

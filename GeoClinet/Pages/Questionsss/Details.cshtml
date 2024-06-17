@@ -14,7 +14,7 @@
         <div class="hidden md:block items-center justify-center mr-8 mt-16">
             <dt class="block text-sm font-bold mb-2">
                 <i data-feather="image" aria-hidden="true"></i>
-                @Html.DisplayNameFor(model => model.Question.Images)
+                Images
             </dt>
                 <img src="@(!string.IsNullOrEmpty(Model.Question.Images) ? Model.Question.Images : defaultImageUrl)"
                      alt="Question Image" class="img-fluid" style="max-width: 320px; border-radius: 8px;" />
@@ -24,7 +24,7 @@
                 <div class="relative w-1/2 mr-2">
                     <dt class="block text-sm font-bold mb-2">
                         <i data-feather="book" aria-hidden="true"></i>
-                        @Html.DisplayNameFor(model => model.Question.Title)
+                        Title
                     </dt>
                     <dd class="border border-base-300 rounded-lg p-2 w-full bg-base-200 inline-block">
                         @Html.DisplayFor(model => model.Question.Title)
@@ -33,7 +33,7 @@
                 <div class="relative w-1/2">
                     <dt class="block text-sm font-bold mb-2">
                         <i data-feather="globe" aria-hidden="true"></i>
-                        @Html.DisplayNameFor(model => model.Question.Province)
+                        Province
                     </dt>
                     <dd class="border border-base-300 rounded-lg p-2 w-full bg-base-200 inline-block">
                         @Html.DisplayFor(model => model.Question.Province.ProvinceName)
@@ -51,7 +51,7 @@
             <div class="relative mb-2">
                 <dt class="block text-sm font-bold mb-2">
                     <i data-feather="book-open" aria-hidden="true"></i>
-                    @Html.DisplayNameFor(model => model.Question.Content)
+                    Content
                 </dt>
                 <dd class="border border-base-300 rounded-lg p-2 w-full bg-base-200 inline-block">
                     @Html.DisplayFor(model => model.Question.Content)
@@ -61,7 +61,7 @@
                 <div class="relative w-1/2 mr-2">
                     <dt class="block text-sm font-bold mb-2">
                         <i data-feather="bookmark" aria-hidden="true"></i>
-                        @Html.DisplayNameFor(model => model.Question.Option1)
+                        Option 1
                     </dt>
                     <dd class="border border-base-300 rounded-lg p-2 w-full bg-base-200 inline-block">
                         @Html.DisplayFor(model => model.Question.Option1)
@@ -70,7 +70,7 @@
                 <div class="relative w-1/2">
                     <dt class="block text-sm font-bold mb-2">
                         <i data-feather="bookmark" aria-hidden="true"></i>
-                        @Html.DisplayNameFor(model => model.Question.Option2)
+                        Option 2
                     </dt>
                     <dd class="border border-base-300 rounded-lg p-2 w-full bg-base-200 inline-block">
                         @Html.DisplayFor(model => model.Question.Option2)
@@ -81,7 +81,7 @@
                 <div class="relative w-1/2 mr-2">
                     <dt class="block text-sm font-bold mb-2">
                         <i data-feather="bookmark" aria-hidden="true"></i>
-                        @Html.DisplayNameFor(model => model.Question.Option3)
+                        Option 3
                     </dt>
                     <dd class="border border-base-300 rounded-lg p-2 w-full bg-base-200 inline-block">
                         @Html.DisplayFor(model => model.Question.Option3)
@@ -90,7 +90,7 @@
                 <div class="relative w-1/2">
                     <dt class="block text-sm font-bold mb-2">
                         <i data-feather="bookmark" aria-hidden="true"></i>
-                        @Html.DisplayNameFor(model => model.Question.Option4)
+                        Option 4
                     </dt>
                     <dd class="border border-base-300 rounded-lg p-2 w-full bg-base-200 inline-block">
                         @Html.DisplayFor(model => model.Question.Option4)
@@ -100,8 +100,8 @@
             <div class="flex w-full space-x-4 mb-2">
                 <div class="relative w-1/2 mr-2">
                     <dt class="block text-sm font-bold mb-2">
-                        <i data-feather="check-cricle" aria-hidden="true"></i>
-                        @Html.DisplayNameFor(model => model.Question.Answer)
+                        <i data-feather="check-circle" aria-hidden="true"></i>
+                        Answer
                     </dt>
                     <dd class="border border-base-300 rounded-lg p-2 w-full bg-base-200 inline-block">
                         @Html.DisplayFor(model => model.Question.Answer)
@@ -110,7 +110,7 @@
                 <div class="relative w-1/2">
                     <dt class="block text-sm font-bold mb-2">
                         <i data-feather="clock" aria-hidden="true"></i>
-                        @Html.DisplayNameFor(model => model.Question.Published)
+                        Published
                     </dt>
                     <dd class="border border-base-300 rounded-lg p-2 w-full bg-base-200 inline-block">
                         @Html.DisplayFor(model => model.Question.Published)
@@ -121,7 +121,7 @@
                 <div class="relative w-1/2 mr-2">
                     <dt class="block text-sm font-bold mb-2">
                         <i data-feather="clock" aria-hidden="true"></i>
-                        @Html.DisplayNameFor(model => model.Question.LastUpdated)
+                        Last Updated
                     </dt>
                     <dd class="border border-base-300 rounded-lg p-2 w-full bg-base-200">
                         @Html.DisplayFor(model => model.Question.LastUpdated)
@@ -130,7 +130,7 @@
                 <div class="relative w-1/2">
                     <dt class="block text-sm font-bold mb-2">
                         <i data-feather="clock" aria-hidden="true"></i>
-                        @Html.DisplayNameFor(model => model.Question.CreatedAt)
+                        Created At
                     </dt>
                     <dd class="border border-base-300 rounded-lg p-2 w-full bg-base-200 inline-block">
                         @Html.DisplayFor(model => model.Question.CreatedAt)

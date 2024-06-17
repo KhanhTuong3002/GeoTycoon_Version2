@@ -77,10 +77,11 @@
         
     });
 </script>
-
-<div class="flex items-center justify-center min-h-screen">
+<h2 class="text-2xl font-bold items-start mb-4 ml-48">Your Profile</h2>
+<hr class="border-base-300" />
+<div class="container w-[80%] mx-auto py-8 mb-8 items-center justify-center">
     <form id="uploadForm" action="/Images"></form>
-    <form id="editForm" method="post" enctype="multipart/form-data" class="w-full h-fit max-w-4xl bg-base-300 p-8 shadow-lg rounded-lg">
+    <form id="editForm" method="post" enctype="multipart/form-data">
         <div class="flex">
             <div class="hidden md:block items-center justify-center" style="padding-top: 3rem">
                 <div class="avatar" style="justify-content:center">
@@ -180,7 +181,6 @@
                 </div>
             </div>
             <div class="w-full ml-8">
-                <h2 class="flex text-2xl font-bold items-center mb-3">Your Profile</h2>
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
                         <label class="block text-sm font-bold mb-2"> <i data-feather="user" aria-hidden="true"></i> First Name</label>
@@ -227,9 +227,9 @@
 
                 <div class="mb-6 relative">
                     <div class="flex gap-2">
-                        <button id="editProfileButton" class="btn btn-accent w-48 text-white" type="button" onclick="enableInputs();enableInput()">Edit Profile</button>
-                        <button id="saveButton" class="btn btn-success w-48 text-white" type="submit">Save</button>
-                        <a class="btn btn-outline btn-success w-48  @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Change Password</a>
+                        <button id="editProfileButton" class="btn btn-warning w-48 text-white" type="button" onclick="enableInputs();enableInput()">Edit Profile</button>
+                        <button id="saveButton" class="btn btn-primary w-48 text-white" type="submit">Save</button>
+                        <a class="btn btn-warning w-48 text-white  @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Change Password</a>
                     </div>
                 </div>
             </div>
