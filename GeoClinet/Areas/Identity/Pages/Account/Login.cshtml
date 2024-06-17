@@ -8,30 +8,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
+<style>
+    .custom-background {
+        background: url('css/background.jpg');
+        background-size: cover;
+        background-position: center center;
+    }
+</style>
+
 <body>
-    <div class="flex items-center justify-center min-h-screen">
-        <form id="account" method="post" class=" w-1/2 bg-base-300 p-8 shadow-lg rounded-lg space-y-4 relative">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+    <div class="flex flex-col items-center flex-1 h-full justify-center mx-auto px-4 sm:px-0 min-h-screen">
+        <div class="flex rounded-lg shadow-lg w-full sm:w-3/4 lg:w-3/4 bg-white sm:mx-0">
+            <form id="account" method="post" class="flex flex-col w-full md:w-1/2 p-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
-            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-            {
-                <div class="alert alert-danger" role="alert">
-                    @Model.ErrorMessage
-                </div>
-            }
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @Model.ErrorMessage
+                    </div>
+                }
 
-            <div class="flex">
-                <div class="w-full mr-8">
-                    <h2 class="flex text-2xl font-bold items-center mb-3">Login to GeoTycoon</h2>
+                <div class="flex flex-col flex-1 justify-center mb-8">
+                    <h2 class="flex text-2xl font-bold items-center mb-3 mx-auto">Login to GeoTycoon</h2>
                     <div class="relative mb-4">
-                        <label asp-for="Input.Email" class="block text-sm font-bold mb-2"><i data-feather="user" aria-hidden="true"></i> Email Address</label>
+                        <label asp-for="Input.Email" class="block text-sm font-bold mb-2"><i class="mr-2" data-feather="user" aria-hidden="true"></i> Email Address</label>
                         <input asp-for="Input.Email" autocomplete="username" aria-required="true" placeholder="Enter your email address"
                                class="input input-bordered w-full" />
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
                     <div class="relative mb-2">
                         <label asp-for="Input.Password" class="block text-sm font-bold mb-2">
-                            <i data-feather="lock" aria-hidden="true"></i> Password
+                            <i class="mr-2" data-feather="lock" aria-hidden="true"></i> Password
                         </label>
                         <div class="relative">
                             <input asp-for="Input.Password" id="password" autocomplete="current-password" aria-required="true" placeholder="Enter your password" class="input input-bordered w-full pr-10" />
@@ -46,7 +54,7 @@
                         <input asp-for="Input.RememberMe" type="checkbox" class="toggle" checked />
                     </label>
                     <div class="mb-6 mt-2 relative">
-                        <button type="submit" id="login-submit" class="btn btn-error w-full">Login</button>
+                        <button type="submit" id="login-submit" class="btn btn-primary w-full text-white">Login</button>
                     </div>
                     <a id="forgot-password" asp-page="./ForgotPassword"
                        class="flex justify-center text-center underline text-gray-500 text-xs mb-2">Forgotten account?</a>
@@ -54,13 +62,10 @@
                         Don't have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="underline">Register</a>.
                     </p>
                 </div>
-                <div class="hidden md:block items-center justify-center">
-                    <div class="flex items-center justify-center h-full">
-                        <img src="~/css/login.webp" alt="Description of your image">
-                    </div>
-                </div>
-            </div>
-        </form>
+            </form>
+            <div class="hidden md:block md:w-1/2 rounded-r-lg" style="background: url('/css/background.jpg'); background-size: cover; background-position: center center;"></div>
+        </div>
+
     </div>
     <script>
         document.getElementById('toggle-password').addEventListener('click', function () {
