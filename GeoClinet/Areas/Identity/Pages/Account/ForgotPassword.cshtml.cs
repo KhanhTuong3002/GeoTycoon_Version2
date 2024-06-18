@@ -173,10 +173,10 @@ namespace GeoClinet.Areas.Identity.Pages.Account
                     <h1>Reset Password</h1>
                 </div>
                 <div class='content'>
-                    <h2>Thank You For Registering</h2>
-                    <p>We would like to thank you for registering an account. To complete the registration process, please click on the following link to confirm registration:</p>
-                    <a href='{encodedLink}' style='display: inline-block; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; text-decoration: none; border: 1px solid #007bff; border-radius: 5px;'>Click Here</a>
-                    <p>If you do not take this action, your account may not be activated and some features may be limited.</p>
+                    <h2>Password Reset Request</h2>
+                    <p>We have received a request to reset your password. To proceed with resetting your password, please click on the following link:</p>
+                    <a href='{encodedLink}' style='display: inline-block; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; text-decoration: none; border: 1px solid #007bff; border-radius: 5px;'>Reset Password</a>
+                    <p>If you did not request this action, you can safely ignore this message. Your account security is important to us.</p>
                 </div>
                 <div class='footer'>
                     <p>Thank you,<br/>The GeoTycoon Team</p>

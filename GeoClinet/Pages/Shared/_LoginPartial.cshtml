@@ -27,6 +27,8 @@
     <!-- Preload fonts -->
     <link rel="preload" href="~/lib/feather/font/feather.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="~/lib/feather/font/feather.ttf" as="font" type="font/ttf" crossorigin>
+
+
 </head>
 <ul class="navbar-nav flex justify-between">
 
@@ -71,25 +73,24 @@
                             <span>Manage</span>
                         </li>
                         <li>
-                            <details>
+                            <details class="text-base-content">
                                 <summary>
-                                    <a asp-page="/Questionsss/Index">
-                                        <i aria-hidden="true" class=" text-base-content" data-feather="package"></i>
-                                        <span class="text-base-content">Question</span>
+                                    <a asp-page="/Questionsss/Index" class="text-base-content">
+                                        <i aria-hidden="true" class="mr-2" data-feather="package"></i>Question
                                     </a>
                                 </summary>
                                 <ul>
                                     <li>
-                                        <a asp-page="/set/Index">
-                                            <i aria-hidden="true" class="text-base-content" data-feather="list"></i>
-                                            <span class="text-base-content">Set Question</span>
+                                        <a asp-page="/set/Index" class="text-base-content">
+                                            <i aria-hidden="true" data-feather="list"></i>
+                                            Set Question
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a asp-page="/setdetail/Index">
-                                            <i aria-hidden="true" class="text-base-content" data-feather="tag"></i>
-                                            <span class="text-base-content">Set Question Detail</span>
+                                        <a asp-page="/setdetail/Index" class="text-base-content">
+                                            <i aria-hidden="true" data-feather="tag"></i>
+                                            Set Question Detail
                                         </a>
                                     </li>
                                 </ul>
@@ -99,38 +100,65 @@
                     @if (isAdmin)
                     {
                         <li>
-                            <details>
+                            <details class="text-base-content">
                                 <summary>
                                     <a asp-page="/Users/Index">
-                                        <i aria-hidden="true" class=" text-base-content" data-feather="users"></i>
-                                        <span class="text-base-content">User</span>
+                                        <i aria-hidden="true" class="mr-2" data-feather="users"></i>User
                                     </a>
                                 </summary>
                                 <ul>
                                     <li>
                                         <a asp-page="/Profile123/Index">
-                                            <i aria-hidden="true" class="text-base-content" data-feather="user-check"></i>
-                                            <span class="text-base-content">Completed</span>
+                                            <i aria-hidden="true" data-feather="user-check"></i>
+                                            Completed
                                         </a>
                                     </li>
 
                                     <li>
                                         <a asp-page="/Pending/Index">
-                                            <i aria-hidden="true" class="text-base-content" data-feather="user-plus"></i>
-                                            <span class="text-base-content">Pending</span>
+                                            <i aria-hidden="true" data-feather="user-plus"></i>
+                                            Pending
                                         </a>
                                     </li>
                                     <li>
                                         <a asp-page="/QuestionsTracking/Index">
-                                            <i aria-hidden="true" class="text-base-content" data-feather="eye"></i>
-                                            <span class="text-base-content">Question Tracking</span>
+                                            <i aria-hidden="true" data-feather="eye"></i>
+                                            Question Tracking
                                         </a>
                                     </li>
                                 </ul>
                             </details>
                         </li>
                     }
-                    <li><a> <i data-feather="settings" aria-hidden="true"></i>  Settings</a></li>
+                    <li>
+                        <details class="text-base-content">
+                            <summary>
+                                <a>
+                                    <i data-feather="settings" class="mr-2" aria-hidden="true"></i>Settings
+                                </a>
+                            </summary>
+                            <ul>
+                                <li>
+                                    <a class="text-base-content" href="#" onclick="setTheme('ayu-light')">
+                                        <i aria-hidden="true" data-feather="sun"></i>
+                                        Default
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-base-content" href="#" onclick="setTheme('ayu-dark')">
+                                        <i aria-hidden="true" data-feather="moon"></i>
+                                        Dark
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-base-content" href="#" onclick="setTheme('catpuccin-macchiato')">
+                                        <i aria-hidden="true" data-feather="star"></i>
+                                        Macchiato
+                                    </a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
                     <li></li>
                     <li>
                         <button class="text-error hover:bg-error hover:text-error-content" form="logout-form" type="submit"> <i data-feather="log-out" aria-hidden="true"></i> Sign out</button>
@@ -143,9 +171,16 @@
     }
     else
     {
-            <div class="flex items-center space-x-4">
-                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline btn-base-200">Sign In</a>
-                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-accent text-white font-bold">Sign Up</a>
-            </div>
+        <div class="flex items-center space-x-4">
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline btn-base-200">Sign In</a>
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-accent text-white font-bold">Sign Up</a>
+        </div>
     }
 </ul>
+
+<script>
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme); // Save the theme to localStorage
+    }
+</script>
