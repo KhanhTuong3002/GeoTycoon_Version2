@@ -9,7 +9,7 @@
     <div class="container w-full mx-auto py-8 mb-8 items-center justify-center">
         <!-- Title and Create Button -->
         <div class="flex justify-between items-center mb-8">
-            <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
+            <h2 class="text-2xl font-bold mb-4 text-base-content">@ViewData["Title"]</h2>
             <a class="btn btn-success" asp-page="Create">
                 <img src="~/css/plus-circle.svg" class="mr-2" />
                 <span class="text-white">Create New Question</span>
@@ -21,7 +21,7 @@
                 <div class="mr-8">
                     <input id="searchInput" type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search Question   Ctrl + K" class="input input-bordered w-64 md:w-auto" />
                 </div>
-                <div class="pt-4">
+                <div class="pt-4 text-base-content">
                     <input type="checkbox" class="checkbox checkbox-success" name="SearchByTitle" value="true" @(Model.SearchByTitle ? "checked" : "") /> Search by Title
                     <input type="checkbox" class="checkbox checkbox-success" name="SearchByContent" value="true" @(Model.SearchByContent ? "checked" : "") /> Search by Content
                 </div>
@@ -42,7 +42,7 @@
         </form>
         <!-- Questions Table -->
         <div class="w-full mt-8">
-            <table class="table w-full rounded-box table-auto overflow-auto">
+            <table class="table w-full rounded-box table-auto overflow-auto text-base-content">
                 <thead>
                     <tr>
                         <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].Title)</th>
@@ -91,7 +91,7 @@
 <!-- Delete Confirmation Dialog -->
 <dialog id="deleteModal" class="modal">
     <form method="post" asp-page-handler="Delete" class="modal-box">
-        <h3 class="font-bold text-lg">Are you sure you want to delete this question?</h3>
+        <h3 class="font-bold text-lg text-base-content">Are you sure you want to delete this question?</h3>
         <input type="hidden" name="id" id="delete-id">
         <div class="modal-action">
             <button type="submit" class="btn btn-error w-24 text-white">Delete</button>

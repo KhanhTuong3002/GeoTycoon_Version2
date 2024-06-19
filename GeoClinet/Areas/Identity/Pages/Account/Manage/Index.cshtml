@@ -77,14 +77,14 @@
         
     });
 </script>
-<h2 class="text-2xl font-bold items-start mb-4 ml-48">Your Profile</h2>
+<h2 class="text-2xl font-bold items-start mb-4 ml-48 text-base-content">Your Profile</h2>
 <hr class="border-base-300" />
 <div class="container w-[80%] mx-auto py-8 mb-8 items-center justify-center">
     <form id="uploadForm" action="/Images"></form>
     <form id="editForm" method="post" enctype="multipart/form-data">
         <div class="flex">
             <div class="hidden md:block items-center justify-center" style="padding-top: 3rem">
-                <div class="avatar" style="justify-content:center">
+                <div class="avatar text-base-content" style="justify-content:center">
                     <div class="w-[250px] rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                         <label id="upload-label">
                             <img src="@(!string.IsNullOrEmpty(Model.Input.Avatar) ? Model.Input.Avatar : "https://h5p.org/sites/default/files/h5p/content/1209180/images/file-6113d5f8845dc.jpeg")" id="image-preview" />
@@ -133,9 +133,9 @@
                     </script>
                 </div>
 
-                <div class="flex flex-col items-center justify-center mt-4">
+                <div class="flex flex-col items-center justify-center mt-4 ">
                     <button class="btn btn-outline btn-accent justify-center items-center" form="uploadForm" type="submit" id="saveAvatarButton">Save Avatar</button>
-                    <a class="block text-sm font-bold mb-2 pt-4 flex">
+                    <a class="block text-sm font-bold mb-2 pt-4 flex text-base-content">
                         @User.Identity?.Name!
                     </a>
                     @* <a class="block text-sm font-bold mb-2 pt-4 flex" id="userId">
@@ -180,23 +180,23 @@
                     </script> *@
                 </div>
             </div>
-            <div class="w-full ml-8">
+            <div class="w-full ml-8 text-base-content">
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
-                        <label class="block text-sm font-bold mb-2"> <i data-feather="user" aria-hidden="true"></i> First Name</label>
+                        <label class="block text-sm font-bold mb-2"> <i data-feather="user" class="mr-2" aria-hidden="true"></i>First Name</label>
                         <input disabled asp-for="Input.FirstName" aria-required="true" placeholder="Enter your first name"
                                class="input input-bordered w-full" />
                         <span class="text-danger"></span>
                     </div>
                     <div class="relative w-1/2">
-                        <label class="block text-sm font-bold mb-2"> <i data-feather="user" aria-hidden="true"></i> Last Name</label>
+                        <label class="block text-sm font-bold mb-2"> <i data-feather="user" class="mr-2" aria-hidden="true"></i> Last Name</label>
                         <input disabled asp-for="Input.LastName" aria-required="true" placeholder="Enter your last name"
                                class="input input-bordered w-full" />
                         <span class="text-danger"></span>
                     </div>
                 </div>
                 <div class="relative mb-2">
-                    <label class="block text-sm font-bold mb-2"><i data-feather="phone" aria-hidden="true"></i> Phone</label>
+                    <label class="block text-sm font-bold mb-2"><i data-feather="phone" class="mr-2" aria-hidden="true"></i> Phone</label>
                     <input disabled asp-for="Input.PhoneNumber" aria-required="true" placeholder="Enter your phone"
                            class="input input-bordered w-full" />
                     <span class="text-danger"></span>
@@ -204,7 +204,7 @@
                 </div>
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
-                        <label class="block text-sm font-bold mb-2"><i data-feather="home" aria-hidden="true"></i> City</label>
+                        <label class="block text-sm font-bold mb-2"><i data-feather="home" class="mr-2" aria-hidden="true"></i> City</label>
                         <select disabled asp-for="Input.City" aria-required="true" placeholder="Select your city"
                                 class="input input-bordered w-full">
                             <option value="Can Tho">Can Tho</option>
@@ -212,7 +212,7 @@
                         </select>
                     </div>
                     <div class="relative w-1/2">
-                        <label class="block text-sm font-bold mb-2"><i data-feather="globe" aria-hidden="true"></i> State</label>
+                        <label class="block text-sm font-bold mb-2"><i data-feather="globe" class="mr-2" aria-hidden="true"></i> State</label>
                         <select disabled asp-for="Input.State" aria-required="true" placeholder="Select your state"
                                 class="input input-bordered w-full">
                             <option value="Vietnam">Vietnam</option>
@@ -221,15 +221,15 @@
                     </div>
                 </div>
                 <div class="relative mb-6">
-                    <label class="block text-sm font-bold mb-2"><i data-feather="clipboard" aria-hidden="true"></i> Description</label>
+                    <label class="block text-sm font-bold mb-2"><i data-feather="clipboard" class="mr-2" aria-hidden="true"></i> Description</label>
                     <textarea disabled asp-for="Input.Description" type class="textarea textarea-bordered h-24 w-full" placeholder="Description"></textarea>
                 </div>
 
                 <div class="mb-6 relative">
                     <div class="flex gap-2">
-                        <button id="editProfileButton" class="btn btn-warning w-48 text-white mr-2" type="button" onclick="enableInputs();enableInput()">Edit Profile</button>
-                        <button id="saveButton" class="btn btn-primary w-48 text-white" type="submit">Save</button>
-                        <a class="btn btn-warning w-48 text-white  @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Change Password</a>
+                        <button id="editProfileButton" class="btn btn-warning w-48 mr-2" type="button" onclick="enableInputs();enableInput()">Edit Profile</button>
+                        <button id="saveButton" class="btn btn-primary w-48 mr-2" type="submit">Save</button>
+                        <a class="btn btn-warning w-48   @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Change Password</a>
                     </div>
                 </div>
             </div>
