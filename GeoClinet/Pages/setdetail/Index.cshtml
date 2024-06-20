@@ -5,7 +5,7 @@
     ViewData["Title"] = "List of Set Question Details";
 }
 
-<div class="content">
+<div class="content text-base-content">
     <div class="container w-full mx-auto py-8 mb-8 items-center justify-center">
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
@@ -78,10 +78,10 @@
 </div>
 
 <!-- Add Detail Dialog -->
-<dialog id="addDetailModal" class="modal">
+<dialog id="addDetailModal" class="modal text-base-content">
     <form method="post" asp-page-handler="AddDetail" class="modal-box" id="addForm">
         <div class="flex">
-            <i data-feather="plus-circle" aria-hidden="true" class="text-black text-2xl mr-2"></i>
+            <i data-feather="plus-circle" aria-hidden="true" class="text-base-content text-2xl mr-2"></i>
             <h3 class="font-bold text-lg">Add New Set Question Detail</h3>
         </div>
         <div id="add-error" class="text-danger"></div>
@@ -111,10 +111,10 @@
 </dialog>
 
 <!-- Edit Detail Dialog -->
-<dialog id="editDetailModal" class="modal">
+<dialog id="editDetailModal" class="modal text-base-content">
     <form method="post" asp-page-handler="EditDetail" class="modal-box" id="editForm">
         <div class="flex">
-            <i data-feather="edit" aria-hidden="true" class="text-black text-2xl mr-2"></i>
+            <i data-feather="edit" aria-hidden="true" class="text-base-content text-2xl mr-2"></i>
             <h3 class="font-bold text-lg">Edit Set Question Detail</h3>
         </div>
         <input type="hidden" name="SetQuestionDetail.Id" id="edit-detail-id">
@@ -145,7 +145,7 @@
 </dialog>
 
 <!-- Delete Detail Confirmation Dialog -->
-<dialog id="deleteDetailModal" class="modal">
+<dialog id="deleteDetailModal" class="modal text-base-content">
     <form method="post" asp-page-handler="DeleteDetail" class="modal-box">
         <h3 class="font-bold text-lg">Are you sure you want to delete this set question detail?</h3>
         <input type="hidden" name="id" id="delete-detail-id">

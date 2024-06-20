@@ -5,7 +5,7 @@
     ViewData["Title"] = "Questions Tracking";
 }
 
-<div class="content items-center justify-center">
+<div class="content items-center justify-center text-base-content">
     <div class="container w-full mx-auto py-8 mb-8 items-center justify-center">
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
@@ -92,7 +92,7 @@
 </div>
 
 <!-- Delete Confirmation Dialog -->
-<dialog id="deleteModal" class="modal">
+<dialog id="deleteModal" class="modal text-base-content">
     <form method="post" asp-page-handler="Delete" class="modal-box">
         <h3 class="font-bold text-lg">Are you sure you want to delete?</h3>
         <input type="hidden" name="id" id="delete-id">
