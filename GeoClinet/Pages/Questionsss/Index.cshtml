@@ -16,10 +16,28 @@
             </a>
         </div>
 
-        <form method="get" class="m-xl-auto">
+        <form method="get" class="m-xl-auto" id="filterForm">
             <div class="flex">
                 <div class="mr-8">
-                    <input id="searchInput" type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search Question   Ctrl + K" class="input input-bordered w-64 md:w-auto" />
+                    <input id="searchInput" type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search Question Ctrl + K" class="input input-bordered w-64 md:w-auto" />
+                </div>
+                <div class="mr-8">
+                    <select name="SelectedProvinceName" class="select select-bordered text-base-content" onchange="submitForm()">
+                        <option value="">All Provinces</option>
+                        @foreach (var province in Model.Provinces)
+                        {
+                            <text>
+                                @if (province.ProvinceName == Model.SelectedProvinceName)
+                                {
+                                <option value="@province.ProvinceName" selected>@province.ProvinceName</option>
+                                }
+                                else
+                                {
+                                <option value="@province.ProvinceName">@province.ProvinceName</option>
+                                }
+                            </text>
+                        }
+                    </select>
                 </div>
                 <div class="pt-4 text-base-content">
                     <input type="checkbox" class="checkbox checkbox-success" name="SearchByTitle" value="true" @(Model.SearchByTitle ? "checked" : "") /> Search by Title
@@ -27,6 +45,11 @@
                 </div>
             </div>
 
+            <script>
+                function submitForm() {
+                    document.getElementById("filterForm").submit();
+                }
+            </script>
 
             <input type="submit" value="Search" style="display:none;" />
 
@@ -40,14 +63,15 @@
                 });
             </script>
         </form>
+
         <!-- Questions Table -->
         <div class="w-full mt-8">
             <table class="table w-full rounded-box table-auto overflow-auto text-base-content">
                 <thead>
                     <tr>
                         <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].Title)</th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].Province)</th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].User)</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].Province.ProvinceName)</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].User.UserName)</th>
                         <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].Content)</th>
                         <th class="font-semibold p-4 relative pr-6 text-left">Action</th>
                     </tr>
@@ -72,18 +96,11 @@
                                 <button onclick="openDeleteModal('@item.Id')">
                                     <i data-feather="trash-2" aria-hidden="true" class="text-error text-2xl"></i>
                                 </button>
-
-
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-
-            <!-- Pagination Partial -->
-            @* <div class="w-full mt-4 flex justify-end items-center gap-2">
-            @await Html.PartialAsync("_PaginationPartial")
-            </div> *@
         </div>
     </div>
 </div>
@@ -110,4 +127,3 @@
         document.getElementById('deleteModal').close();
     }
 </script>
-

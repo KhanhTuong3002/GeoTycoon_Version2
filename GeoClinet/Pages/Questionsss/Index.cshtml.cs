@@ -23,6 +23,7 @@ namespace GeoClinet.Pages.Questionsss
         }
 
         public IList<Question> Question { get; set; } = default!;
+        public IList<Province> Provinces { get; set; } = default!;
 
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
@@ -33,16 +34,21 @@ namespace GeoClinet.Pages.Questionsss
         [BindProperty(SupportsGet = true)]
         public bool SearchByContent { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SelectedProvinceName { get; set; }
+
         public async Task OnGetAsync()
         {
+            // Load all provinces for the dropdown
+            Provinces = await _context.Provinces.ToListAsync();
+
             // Default to SearchByTitle if no search type is selected
             if (!SearchByTitle && !SearchByContent)
             {
                 SearchByTitle = true;
             }
 
-            var questions = from q in _context.Questions
-                            select q;
+            var questions = _context.Questions.Include(q => q.Province).Include(q => q.User).AsQueryable();
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {
@@ -60,11 +66,14 @@ namespace GeoClinet.Pages.Questionsss
                 }
             }
 
-            Question = await questions
-                .Include(q => q.Province)
-                .Include(q => q.User)
-                .ToListAsync();
+            if (!string.IsNullOrEmpty(SelectedProvinceName))
+            {
+                questions = questions.Where(q => q.Province.ProvinceName.Contains(SelectedProvinceName));
+            }
+
+            Question = await questions.ToListAsync();
         }
+
         public async Task<IActionResult> OnPostDeleteAsync(string id)
         {
             var questionToDelete = await _context.Questions.FindAsync(id);

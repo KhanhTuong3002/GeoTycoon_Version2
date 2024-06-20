@@ -24,7 +24,7 @@ namespace DataAccess
         public virtual DbSet<SetQuestionDetail> SetQuestionDetails { get; init; } = default!;
         public virtual DbSet<Game> Games { get; init; } = default!;
         public virtual DbSet<GameSession> GameSessions { get; init; } = default!;
-
+        public virtual DbSet<Province> Provinces { get; init; } = default!;
         public override int SaveChanges()
         {
             AddTrackingEntries();
