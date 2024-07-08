@@ -308,7 +308,7 @@ namespace GeoClinet.Areas.Identity.Pages.Account
                 smtpClient.Host = "smtp.simply.com";
                 smtpClient.EnableSsl = true;
                 smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = new NetworkCredential("khanhtuongadminsp24@geotycoonclient.se", "Kojlakothe29");
+                smtpClient.Credentials = new NetworkCredential("khanhtuongadminsp24@geotycoonclient.se", "Kojlakothe3002@");
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpClient.Send(message);
                 return true;

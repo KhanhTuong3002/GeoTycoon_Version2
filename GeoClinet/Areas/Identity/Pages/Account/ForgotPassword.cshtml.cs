@@ -210,7 +210,7 @@ namespace GeoClinet.Areas.Identity.Pages.Account
                 smtpClient.UseDefaultCredentials = false;
                 //smtpClient.Credentials = new NetworkCredential("Votuongpro", "treuaefycjlhuceg");
                 // smtpClient.Credentials = new NetworkCredential("AIAIYan","btmfzuuiinntzcou");
-                smtpClient.Credentials = new NetworkCredential("khanhtuongadminsp24@geotycoonclient.se", "Kojlakothe29");
+                smtpClient.Credentials = new NetworkCredential("khanhtuongadminsp24@geotycoonclient.se", "Kojlakothe3002@");
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpClient.Send(message);
                 return true;
