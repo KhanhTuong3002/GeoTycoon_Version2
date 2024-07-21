@@ -40,33 +40,73 @@ namespace DataAccess
         private void AddTrackingEntries()
         {
             var trackingEntries = new List<Tracking>();
+            var entries = ChangeTracker.Entries<Question>().ToList();
 
-            var entries = ChangeTracker.Entries<Question>();
             foreach (var entry in entries)
             {
-                if (entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.State == EntityState.Deleted)
+                if (entry.State == EntityState.Added)
                 {
                     var tracking = new Tracking
                     {
                         Id = Guid.NewGuid().ToString(),
                         QuestionId = entry.Entity.Id,
                         UserId = entry.Entity.UserId,
-                        Action = entry.State == EntityState.Added ? "Added" :
-                                 entry.State == EntityState.Modified ? "Updated" :
-                                 "Deleted",
-                        OldValues = entry.State == EntityState.Added
-                                    ? JsonConvert.SerializeObject(entry.OriginalValues.ToObject())
-                                    : null,
-                        NewValues = entry.State == EntityState.Modified || entry.State == EntityState.Added
-                                    ? JsonConvert.SerializeObject(entry.CurrentValues.ToObject())
-                                    : null
+                        Action = "Added",
+                        OldValues = "No value",
+                        NewValues = JsonConvert.SerializeObject(entry.CurrentValues.ToObject()),
+                        CreatedAt = DateTime.UtcNow
                     };
                     trackingEntries.Add(tracking);
+                }
+                else if (entry.State == EntityState.Modified)
+                {
+                    var lastTracking = Trackings
+                        .Where(t => t.QuestionId == entry.Entity.Id)
+                        .OrderByDescending(t => t.CreatedAt)
+                        .FirstOrDefault();
+
+                    var tracking = new Tracking
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        QuestionId = entry.Entity.Id,
+                        UserId = entry.Entity.UserId,
+                        Action = "Updated",
+                        OldValues = lastTracking?.NewValues ?? "No previous data",
+                        NewValues = JsonConvert.SerializeObject(entry.CurrentValues.ToObject()),
+                        CreatedAt = DateTime.UtcNow
+                    };
+                    trackingEntries.Add(tracking);
+                }
+                else if (entry.State == EntityState.Deleted)
+                {
+                    entry.State = EntityState.Unchanged; // Tạm thời đặt lại trạng thái để lấy giá trị hiện tại
+                    var currentValues = entry.CurrentValues.ToObject();
+
+                    var tracking = new Tracking
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        QuestionId = entry.Entity.Id,
+                        UserId = entry.Entity.UserId,
+                        Action = "Deleted",
+                        OldValues = JsonConvert.SerializeObject(currentValues),
+                        NewValues = "No value",
+                        CreatedAt = DateTime.UtcNow
+                    };
+
+                    trackingEntries.Add(tracking); // Thêm tracking vào danh sách trước khi xóa thực thể
+                    entry.State = EntityState.Deleted; // Đặt lại trạng thái thành Deleted
                 }
             }
 
             Trackings.AddRange(trackingEntries);
         }
+
+
+
+
+
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
