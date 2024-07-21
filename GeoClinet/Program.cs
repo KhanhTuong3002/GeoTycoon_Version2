@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using System.Security.Claims;
+using GeoClinet.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
