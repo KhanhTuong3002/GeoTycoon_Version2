@@ -37,32 +37,35 @@ namespace GeoClinet.Pages.Questionsss
         [BindProperty(SupportsGet = true)]
         public string SelectedProvinceName { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchType { get; set; }
+
         public async Task OnGetAsync()
         {
             // Load all provinces for the dropdown
             Provinces = await _context.Provinces.ToListAsync();
 
-            // Default to SearchByTitle if no search type is selected
-            if (!SearchByTitle && !SearchByContent)
+            // Default SearchType if not set
+            if (string.IsNullOrEmpty(SearchType))
             {
-                SearchByTitle = true;
+                SearchType = "Title"; // Default to searching by title
             }
 
             var questions = _context.Questions.Include(q => q.Province).Include(q => q.User).AsQueryable();
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {
-                if (SearchByTitle && SearchByContent)
-                {
-                    questions = questions.Where(q => q.Title.Contains(SearchTerm) || q.Content.Contains(SearchTerm));
-                }
-                else if (SearchByTitle)
+                if (SearchType == "Title")
                 {
                     questions = questions.Where(q => q.Title.Contains(SearchTerm));
                 }
-                else if (SearchByContent)
+                else if (SearchType == "Content")
                 {
                     questions = questions.Where(q => q.Content.Contains(SearchTerm));
+                }
+                else if (SearchType == "Both")
+                {
+                    questions = questions.Where(q => q.Title.Contains(SearchTerm) || q.Content.Contains(SearchTerm));
                 }
             }
 

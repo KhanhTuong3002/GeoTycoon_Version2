@@ -16,34 +16,57 @@
             </a>
         </div>
 
-        <form method="get" class="m-xl-auto" id="filterForm">
-            <div class="flex">
-                <div class="mr-8">
-                    <input id="searchInput" type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search Question Ctrl + K" class="input input-bordered w-64 md:w-auto" />
-                </div>
-                <div class="mr-8">
-                    <select name="SelectedProvinceName" class="select select-bordered text-base-content" onchange="submitForm()">
-                        <option value="">All Provinces</option>
-                        @foreach (var province in Model.Provinces)
-                        {
-                            <text>
-                                @if (province.ProvinceName == Model.SelectedProvinceName)
-                                {
-                                <option value="@province.ProvinceName" selected>@province.ProvinceName</option>
-                                }
-                                else
-                                {
-                                <option value="@province.ProvinceName">@province.ProvinceName</option>
-                                }
-                            </text>
-                        }
+        <form method="get" class="m-xl-auto flex" id="filterForm">
+            <div class="bg-base-200 p-2 rounded-none">
+                <div class="flex">
+                    <input id="searchInput" type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search Question Ctrl + K" class="input input-bordered rounded-none w-64 md:w-auto text-base-content" />
+                    <select name="SearchType" id="searchTypeDropdown" class="select select-bordered rounded-none text-base-content" onchange="submitForm()">
+                        <option value="Both">All Category</option>
+                        <option value="Title">Title</option>
+                        <option value="Content">Content</option>
                     </select>
-                </div>
-                <div class="pt-4 text-base-content">
-                    <input type="checkbox" class="checkbox checkbox-success" name="SearchByTitle" value="true" @(Model.SearchByTitle ? "checked" : "") /> Search by Title
-                    <input type="checkbox" class="checkbox checkbox-success" name="SearchByContent" value="true" @(Model.SearchByContent ? "checked" : "") /> Search by Content
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var defaultSearchType = "@Model.SearchType";
+                            var dropdown = document.getElementById('searchTypeDropdown');
+                            for (var i = 0; i < dropdown.options.length; i++) {
+                                if (dropdown.options[i].value === defaultSearchType) {
+                                    dropdown.options[i].selected = true;
+                                    break;
+                                }
+                            }
+                        });
+
+                        function submitForm() {
+                            document.getElementById("filterForm").submit();
+                        }
+                    </script>
+
+                    <div class="mr-2">
+                        <select name="SelectedProvinceName" class="select select-bordered rounded-none text-base-content" onchange="submitForm()">
+                            <option value="">All Provinces</option>
+                            @foreach (var province in Model.Provinces)
+                            {
+                                <text>
+                                    @if (province.ProvinceName == Model.SelectedProvinceName)
+                                    {
+                                    <option value="@province.ProvinceName" selected>@province.ProvinceName</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@province.ProvinceName">@province.ProvinceName</option>
+                                    }
+                                </text>
+                            }
+                        </select>
+                    </div>
+
+                    <button type="submit" value="Search" class="btn btn-primary text-white rounded-none">
+                        <i data-feather="search" class="text-white text-xl mr-2" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
+            
 
             <script>
                 function submitForm() {
@@ -69,10 +92,10 @@
             <table class="table w-full rounded-box table-auto overflow-auto text-base-content">
                 <thead>
                     <tr>
-                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].Title)</th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].Province.ProvinceName)</th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].User.UserName)</th>
-                        <th class="font-semibold p-4 relative pr-6 text-left">@Html.DisplayNameFor(model => model.Question[0].Content)</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Title</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Province Name</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">User Name</th>
+                        <th class="font-semibold p-4 relative pr-6 text-left">Content</th>
                         <th class="font-semibold p-4 relative pr-6 text-left">Action</th>
                     </tr>
                 </thead>
