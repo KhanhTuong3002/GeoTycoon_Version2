@@ -1,0 +1,194 @@
+﻿@page
+@model GeoClinet.Pages.HowToPlayModel
+@{
+}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const steps = document.querySelectorAll('.step');
+        steps.forEach((step, index) => {
+            step.addEventListener('click', () => {
+                steps.forEach((s, i) => {
+                    if (i <= index) {
+                        s.classList.add('step-primary');
+                    } else {
+                        s.classList.remove('step-primary');
+                    }
+                });
+                document.querySelectorAll('.text-content > div').forEach((content, contentIndex) => {
+                    content.classList.add('hidden');
+                    if (index === contentIndex) {
+                        content.classList.remove('hidden');
+                    }
+                });
+            });
+        });
+    });
+</script>
+<body class="bg-gray-100 p-6 text-base-content">
+
+    <div class="container mx-auto">
+        <h1 class="text-3xl font-bold mb-4">How to Play Monopoly</h1>
+
+        <div class="steps steps-vertical lg:steps-horizontal w-full">
+            <div class="step w-full lg:w-auto flex-grow cursor-pointer">Main Menu</div>
+            <div class="step w-full lg:w-auto flex-grow cursor-pointer">Offline Game Mode</div>
+            <div class="step w-full lg:w-auto flex-grow cursor-pointer">Online Game Mode</div>
+            <div class="step w-full lg:w-auto flex-grow cursor-pointer">Game Play</div>
+        </div>
+
+        <div class="text-content mt-8">
+            <div id="step1-content" class="hidden">
+                <h2 class="text-2xl font-bold mb-2">Main Menu</h2>
+                <p>To start the game, each player ...</p>
+            </div>
+            <div id="step2-content" class="hidden">
+                <h2 class="text-2xl font-bold mb-2">Offline Game Mode</h2>
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">Step 1: Click on the “Start” button. The game will be moved to the lobby screen.</h3>
+                    <img src="~/css/5432883.png" alt="Step 1" class="w-[80%] mx-auto mb-4" />
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">Step 2: At the lobby screen, click the “Start Game” button to start the game.</h3>
+                    <img src="~/css/LobbyScreen.png" alt="Step 2" class="w-[80%] mx-auto mb-4" />
+                </div>
+            </div>
+            <div id="step3-content" class="hidden">
+                <h2 class="text-2xl font-bold mb-2">Online Game Mode</h2>
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">Step 1: Click on the “Start” button. The game will be moved to the lobby screen.</h3>
+                    <img src="~/css/5432883.png" alt="Step 1" class="w-[80%] mx-auto mb-4" />
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">Step 2: At the lobby screen, click the Multiplayer Mode button to switch to online mode.</h3>
+                    <img src="/images/online-step2.png" alt="Step 2" class="w-[80%] mx-auto mb-4" />
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">Step 3: Wait for the server to connect.</h3>
+                    <img src="~/css/ConnectToServer.png" alt="Step 3" class="w-[80%] mx-auto mb-4" />
+                </div>
+                <h3 class="text-xl font-bold mt-4">Create Room</h3>
+                <div>
+                    <h4 class="text-lg font-semibold mb-1">Step 1: Fill in information such as nickname, Room ID, and Set ID.</h4>
+                    <img src="~/css/CreateRoom.png" alt="Create Room Step 1" class="w-[80%] mx-auto mb-4" />
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-1">Step 2: Click on the “Create” button to create room.</h4>
+                    <img src="~/css/LobbyScreen_1.png" alt="Create Room Step 2" class="w-[80%] mx-auto mb-4" />
+                </div>
+                <h3 class="text-xl font-bold mt-4">Join Room</h3>
+                <div>
+                    <h4 class="text-lg font-semibold mb-1">Step 1: Fill in information such as nickname, and Room ID.</h4>
+                    <img src="~/css/JoinRoom.png" alt="Join Room Step 1" class="w-[80%] mx-auto mb-4" />
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-1">Step 2: Click on the “Join” button to join room.</h4>
+                    <img src="~/css/LobbyScreen_1.png" alt="Join Room Step 2" class="w-[80%] mx-auto mb-4" />
+                </div>
+            </div>
+            <div id="step4-content" class="hidden">
+                <h2 class="text-2xl font-bold mb-2">Game Play</h2>
+                <div>
+                    <h3 class="text-xl font-bold mb-1">Roll Dice</h3>
+                    <h4 class="text-lg font-semibold mb-1">Step 1: Click on the “Roll Dice” button.</h4>
+                    <img src="/images/roll-dice-step1.png" alt="Roll Dice Step 1" class="w-4/5 mx-auto mb-4" />
+                    <h4 class="text-lg font-semibold mb-1">Step 2: The character will be moved based on the total number rolled on the dice.</h4>
+                    <img src="/images/roll-dice-step2.png" alt="Roll Dice Step 2" class="w-4/5 mx-auto mb-4" />
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mt-4">Buy House</h3>
+                    <h4 class="text-lg font-semibold mb-1">Step 1: Click on the “Roll Dice” button.</h4>
+                    <img src="/images/buy-house-step1.png" alt="Buy House Step 1" class="w-4/5 mx-auto mb-4" />
+                    <h4 class="text-lg font-semibold mb-1">Step 2: The character will be moved based on the total number rolled on the dice.</h4>
+                    <img src="/images/buy-house-step2.png" alt="Buy House Step 2" class="w-4/5 mx-auto mb-4" />
+                    <h4 class="text-lg font-semibold mb-1">Step 3: When you enter a plot of land that has no owner, you will have to answer a question in the Set Question that the room owner has created.</h4>
+                    <img src="/images/buy-house-step3.png" alt="Buy House Step 3" class="w-4/5 mx-auto mb-4" />
+                    <h4 class="text-lg font-semibold mb-1">Step 4: If you answer correctly, you will have the right to buy that plot of land. Click "Buy" to purchase the plot, or click "Close" to cancel the action. If you answer incorrectly, you will not be able to purchase.</h4>
+                    <img src="/images/buy-house-step4.png" alt="Buy House Step 4" class="w-4/5 mx-auto mb-4" />
+                    <h4 class="text-lg font-semibold mb-1">Step 5: After you buy a plot of land, that plot will be changed to your name.</h4>
+                    <img src="/images/buy-house-step5.png" alt="Buy House Step 5" class="w-4/5 mx-auto mb-4" />
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mt-4">Manage System</h3>
+                    <h4 class="text-lg font-bold mt-4">Mortgage</h4>
+                    <h5 class="text-lg font-semibold mb-1">Step 1: Click on the “Manage” button.</h5>
+                    <img src="/images/manage-mortgage-step1.png" alt="Mortgage Step 1" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 2: Click the "Mortgage" button on the land you want to mortgage.</h5>
+                    <img src="/images/manage-mortgage-step2.png" alt="Mortgage Step 2" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 3: Your plot of land has been mortgaged. The corresponding mortgage amount will be added to your balance.</h5>
+                    <img src="/images/manage-mortgage-step3.png" alt="Mortgage Step 3" class="w-4/5 mx-auto mb-4" />
+                    <h4 class="text-lg font-bold mt-4">Un-mortgage</h4>
+                    <h5 class="text-lg font-semibold mb-1">Step 1: Click on the “Manage” button.</h5>
+                    <img src="/images/manage-unmortgage-step1.png" alt="Un-mortgage Step 1" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 2: Click the "Un-mortgage" button on the mx-auto land you want to un-mortgage.</h5>
+                    <img src="/images/manage-unmortgage-step2.png" alt="Un-mortgage Step 2" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 3: Your plot of land has been un-mortgaged. The corresponding un-mortgage amount will be added to your balance.</h5>
+                    <img src="/images/manage-unmortgage-step3.png" alt="Un-mortgage Step 3" class="w-4/5 mx-auto mb-4" />
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mt-4">Trading System</h3>
+                    <h4 class="text-lg font-bold mt-4">Offer Price</h4>
+                    <h5 class="text-lg font-semibold mb-1">Step 1: Click on the “Trade” button.</h5>
+                    <img src="/images/trade-offer-step1.png" alt="Offer Price Step 1" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 2: The Trade System table appears; click to select the character you want to offer price. Then, the system will display all the assets they currently own.</h5>
+                    <img src="/images/trade-offer-step2.png" alt="Offer Price Step 2" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 3: Click to select the asset you want to offer.</h5>
+                    <img src="/images/trade-offer-step3.png" alt="Offer Price Step 3" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 4: You can use the slider to offer the price you want, or you can both choose your property and offer money in exchange.</h5>
+                    <p class="text-sm">P/S: However, the total amount you use to exchange must be equal to or greater than the value of the property you want to exchange.</p>
+                    <img src="/images/trade-offer-step4.png" alt="Offer Price Step 4" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 5: Click on the “Make Offer” button to initiate the exchange.</h5>
+                    <img src="/images/trade-offer-step5.png" alt="Offer Price Step 5" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 6: The transaction notification will be sent and displayed on the proposed person's screen. If they agree to exchange, the money and property you use to exchange will be updated to their assets, and then the property you requested will also change to the name you own. If they do not agree, no updates will occur.</h5>
+                    <img src="/images/trade-offer-step6.png" alt="Offer Price Step 6" class="w-4/5 mx-auto mb-4" />
+                    <h4 class="text-lg font-bold mt-4">Request Price</h4>
+                    <h5 class="text-lg font-semibold mb-1">Step 1: Click on the “Trade” button.</h5>
+                    <img src="/images/trade-request-step1.png" alt="Request Price Step 1" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 2: The Trade System table appears; click to select the character you want to request price. Then, the system will display all the assets they currently own.</h5>
+                    <img src="/images/trade-request-step2.png" alt="Request Price Step 2" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 3: Click to select the asset you want to request.</h5>
+                    <img src="/images/trade-request-step3.png" alt="Request Price Step 3" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 4: You can use the slider to request the price you want, or you can both choose your property and request money in exchange.</h5>
+                    <p class="text-sm">P/S: However, the total amount you use to exchange must be equal to or greater than the value of the property you want to exchange.</p>
+                    <img src="/images/trade-request-step4.png" alt="Request Price Step 4" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 5: Click on the “Make Offer” button to initiate the exchange.</h5>
+                    <img src="/images/trade-request-step5.png" alt="Request Price Step 5" class="w-4/5 mx-auto mb-4" />
+                    <h5 class="text-lg font-semibold mb-1">Step 6: The transaction notification will be sent and displayed on the proposed person's screen. If they agree to exchange, the money and property you use to exchange will be updated to their assets, and then the property you requested will also change to the name you own. If they do not agree, no updates will occur.</h5>
+                    <img src="/images/trade-request-step6.png" alt="Request Price Step 6" class="w-4/5 mx-auto mb-4" />
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mt-4">End Turn</h3>
+                    <h4 class="text-lg font-semibold mb-1">Step 1: Click on the “End Turn” button.</h4>
+                    <img src="/images/end-turn-step1.png" alt="End Turn Step 1" class="w-4/5 mx-auto mb-4" />
+                    <h4 class="text-lg font-semibold mb-1">Step 2: Your turn will be ended.</h4>
+                    <img src="/images/end-turn-step2.png" alt="End Turn Step 2" class="w-4/5 mx-auto mb-4" />
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mt-4">Bankrupt</h3>
+                    <h4 class="text-lg font-semibold mb-1">Step 1: Click on the “Declare Bankrupt” button.</h4>
+                    <img src="/images/bankrupt-step1.png" alt="Bankrupt Step 1" class="w-4/5 mx-auto mb-4" />
+                    <h4 class="text-lg font-semibold mb-1">Step 2: Dialog will confirm whether you are sure or not. If you choose "Yes", you have confirmed that you are bankrupt and will be removed from the game. If "No" is selected, the system will cancel the action.</h4>
+                    <img src="/images/bankrupt-step2.png" alt="Bankrupt Step 2" class="w-4/5 mx-auto mb-4" />
+                    <h4 class="text-lg font-semibold mb-1">Step 3: The "Game Over" screen will appear on your screen as soon as you lose. You can choose "Restart" or "Exit to Menu".</h4>
+                    <img src="/images/bankrupt-step3.png" alt="Bankrupt Step 3" class="w-4/5 mx-auto mb-4" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const steps = document.querySelectorAll('.step');
+            steps.forEach((step, index) => {
+                step.addEventListener('click', () => {
+                    document.querySelectorAll('.text-content > div').forEach((content, contentIndex) => {
+                        content.classList.add('hidden');
+                        if (index === contentIndex) {
+                            content.classList.remove('hidden');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
