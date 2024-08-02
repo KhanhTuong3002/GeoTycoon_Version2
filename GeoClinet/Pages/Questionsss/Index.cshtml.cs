@@ -48,7 +48,7 @@ namespace GeoClinet.Pages.Questionsss
             // Default SearchType if not set
             if (string.IsNullOrEmpty(SearchType))
             {
-                SearchType = "Title"; // Default to searching by title
+                SearchType = "Both"; // Default to searching by title
             }
 
             var questions = _context.Questions.Include(q => q.Province).Include(q => q.User).AsQueryable();

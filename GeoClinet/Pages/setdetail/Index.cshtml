@@ -16,20 +16,32 @@
         </div>
 
         <!-- Search Form -->
-        <form method="get" class="m-xl-auto">
-            <div class="flex">
-                <div class="mr-8">
-                    <input id="searchInput" type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search Set Name Ctrl + K" class="input input-bordered w-64 md:w-auto" />
-                </div>
-                <div class="pt-4">
+        <form method="get" class="m-xl-auto flex justify-end" id="filterForm">
+            <div class="bg-base-200 p-2 rounded-none">
+                <div class="flex">
+                    <input id="searchInput" type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search Set Name Ctrl + K" class="input input-bordered rounded-none w-64 md:w-auto text-base-content" />
+
+                    <button type="submit" value="Search" class="btn btn-primary text-white rounded-none">
+                        <i data-feather="search" class="text-white text-xl mr-2" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
+
+
+            <script>
+                function submitForm() {
+                    document.getElementById("filterForm").submit();
+                }
+            </script>
+
             <input type="submit" value="Search" style="display:none;" />
+
             <script>
                 document.addEventListener('keydown', function (event) {
+                    // Check if the 'Ctrl' key and 'K' key are pressed together
                     if (event.ctrlKey && event.key === 'k') {
-                        event.preventDefault();
-                        document.getElementById('searchInput').focus();
+                        event.preventDefault(); // Prevent the default browser action
+                        document.getElementById('searchInput').focus(); // Set focus to the search input
                     }
                 });
             </script>
