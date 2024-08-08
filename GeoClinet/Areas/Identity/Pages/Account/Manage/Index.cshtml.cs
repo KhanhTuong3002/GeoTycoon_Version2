@@ -60,13 +60,19 @@ namespace GeoClinet.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [Required]
             [Phone]
+            [RegularExpression(@"^0\d{9}$", ErrorMessage = "Phone number must be 10 digits and start with 0.")]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 
+            [Required]
+            [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name can only contain letters.")]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
+            [Required]
+            [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name can only contain letters.")]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
@@ -79,6 +85,7 @@ namespace GeoClinet.Areas.Identity.Pages.Account.Manage
             [Display(Name = "State")]
             public string State { get; set; }
 
+            [Required]
             [Display(Name = "Description")]
             public string Description { get; set; }
         }
@@ -124,8 +131,10 @@ namespace GeoClinet.Areas.Identity.Pages.Account.Manage
 
             if (!ModelState.IsValid)
             {
-                await LoadAsync(user);
+                await LoadAsync(await _userManager.GetUserAsync(User));
                 return Page();
+                /*await LoadAsync(user);
+                return Page();*/
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);

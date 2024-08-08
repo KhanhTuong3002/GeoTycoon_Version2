@@ -187,12 +187,14 @@
                         <input disabled asp-for="Input.FirstName" aria-required="true" placeholder="Enter your first name"
                                class="input input-bordered w-full" />
                         <span class="text-danger"></span>
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                     </div>
                     <div class="relative w-1/2">
                         <label class="block text-sm font-bold mb-2"> <i data-feather="user" class="mr-2" aria-hidden="true"></i> Last Name</label>
                         <input disabled asp-for="Input.LastName" aria-required="true" placeholder="Enter your last name"
                                class="input input-bordered w-full" />
                         <span class="text-danger"></span>
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="relative mb-2">
@@ -200,7 +202,7 @@
                     <input disabled asp-for="Input.PhoneNumber" aria-required="true" placeholder="Enter your phone"
                            class="input input-bordered w-full" />
                     <span class="text-danger"></span>
-
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                 </div>
                 <div class="flex w-full space-x-4 mb-2">
                     <div class="relative w-1/2 mr-2">
@@ -223,6 +225,7 @@
                 <div class="relative mb-6">
                     <label class="block text-sm font-bold mb-2"><i data-feather="clipboard" class="mr-2" aria-hidden="true"></i> Description</label>
                     <textarea disabled asp-for="Input.Description" type class="textarea textarea-bordered h-24 w-full" placeholder="Description"></textarea>
+                    <span asp-validation-for="Input.Description" class="text-danger"></span>
                 </div>
 
                 <div class="mb-6 relative">
@@ -295,3 +298,4 @@
 
 
 }
+
