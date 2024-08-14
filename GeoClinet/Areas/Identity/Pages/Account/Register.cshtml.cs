@@ -277,6 +277,7 @@ namespace GeoClinet.Areas.Identity.Pages.Account
                 </div>
                 <div class='content'>
                     <h2>Thank You For Registering</h2>
+                    <p>You are registering with ""Teacher"" rights, your account will need time to be approved, please wait two minutes.</p>
                     <p>We would like to thank you for registering an account. To complete the registration process, please click on the following link to confirm registration:</p>
                     <a href='{encodedLink}' style='display: inline-block; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; text-decoration: none; border: 1px solid #007bff; border-radius: 5px;'>Click Here</a>
                     <p>If you do not take this action, your account may not be activated and some features may be limited.</p>
