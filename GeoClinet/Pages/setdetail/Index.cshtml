@@ -55,7 +55,7 @@
                 <table class="table w-full rounded-box table-auto">
                     <thead>
                         <tr>
-                            <th class="font-semibold p-4 relative pr-6 text-left">Set Detail ID</th>
+                            @* <th class="font-semibold p-4 relative pr-6 text-left">Set Detail ID</th> *@
                             <th class="font-semibold p-4 relative pr-6 text-left">Set Name</th>
                             <th class="font-semibold p-4 relative pr-6 text-left">Title</th>
                             <th class="font-semibold p-4 relative pr-6 text-left">Action</th>
@@ -65,7 +65,7 @@
                         @foreach (var item in Model.SetQuestionDetails)
                         {
                             <tr class="bg-base-100 hover">
-                                <td class="font-semibold p-4 relative pr-6 break-words">@item.Id</td>
+                                @* <td class="font-semibold p-4 relative pr-6 break-words">@item.Id</td> *@
                                 <td class="font-semibold p-4 relative pr-6 break-words">@item.SetQuestion.SetName</td>
                                 <td class="font-semibold p-4 relative pr-6 break-words">@item.Question.Title</td>
                                 <td class="flex flex-grow font-semibold p-4 relative pr-6 break-words">
