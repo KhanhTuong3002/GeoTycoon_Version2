@@ -31,25 +31,32 @@ namespace GeoClinet.Pages
 
         [BindProperty(SupportsGet = true)]
         public bool SearchByEmail { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string SearchType { get; set; }
 
 
         public async Task OnGetAsync()
         {
-            var usersQuery = _userManager.Users.AsQueryable();
-            if (!SearchByUserName && !SearchByEmail)
+            if (string.IsNullOrEmpty(SearchType))
             {
-                SearchByUserName = true;
+                SearchType = "Both"; // Default to searching by title
             }
+            var usersQuery = _userManager.Users.AsQueryable();
+            
             if (!string.IsNullOrEmpty(SearchTerm))
             {
-                if (SearchByUserName)
+                if (SearchType == "SearchByUserName")
                 {
                     usersQuery = usersQuery.Where(u => u.UserName.Contains(SearchTerm));
                 }
 
-                if (SearchByEmail)
+                if (SearchType == "SearchByEmail")
                 {
                     usersQuery = usersQuery.Where(u => u.Email.Contains(SearchTerm));
+                }
+                if (SearchType == "Both")
+                {
+                    usersQuery = usersQuery.Where(u => u.UserName.Contains(SearchTerm) || u.Email.Contains(SearchTerm));
                 }
             }
 

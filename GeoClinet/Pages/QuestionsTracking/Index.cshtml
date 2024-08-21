@@ -15,14 +15,21 @@
             </a>
         </div>
 
-        <form method="get" class="m-xl-auto">
-            <div class="flex">
-                <div class="mr-8">
-                    <input id="searchInput" type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search title Ctrl + K" class="input input-bordered w-64 md:w-auto" />
-                </div>
-                <div class="pt-4">
+        <form method="get" class="m-xl-auto flex justify-end" id="filterForm">
+            <div class="bg-base-200 p-2 rounded-none">
+                <div class="flex">
+                    <input id="searchInput" type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search Question Ctrl + K" class="input input-bordered rounded-none w-64 md:w-auto text-base-content" />
+
+                    <button type="submit" value="Search" class="btn btn-primary text-white rounded-none">
+                        <i data-feather="search" class="text-white text-xl mr-2" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
+            <script>
+                function submitForm() {
+                    document.getElementById("filterForm").submit();
+                }
+            </script>
             <input type="submit" value="Search" style="display:none;" />
             <script>
                 document.addEventListener('keydown', function (event) {

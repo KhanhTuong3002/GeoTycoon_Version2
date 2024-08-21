@@ -12,17 +12,36 @@
             <h2 class="text-2xl font-bold mb-4">@ViewData["Title"]</h2>
         </div>
         <!-- Search Form -->
-        <form method="get" class="m-xl-auto">
-            <div class="flex">
-                <div class="mr-8">
-                    <input id="searchUserInput" type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search Ctrl + K" class="input input-bordered w-64 md:w-auto" />
+        <form method="get" class="m-xl-auto flex justify-end" id="filterForm">
+            <div class="bg-base-200 p-2 rounded-none">
+                <div class="flex">
+                    <input id="searchInput" type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search User Ctrl + K" class="input input-bordered rounded-none w-64 md:w-auto text-base-content" />
+                    <select name="SearchType" id="searchTypeDropdown" class="select select-bordered rounded-none text-base-content" onchange="submitForm()">
+                        <option value="Both">All Category</option>
+                        <option value="SearchByUserName">Usename</option>
+                        <option value="SearchByEmail">Email</option>
+                    </select>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var defaultSearchType = "@Model.SearchType";
+                            var dropdown = document.getElementById('searchTypeDropdown');
+                            for (var i = 0; i < dropdown.options.length; i++) {
+                                if (dropdown.options[i].value === defaultSearchType) {
+                                    dropdown.options[i].selected = true;
+                                    break;
+                                }
+                            }
+                        });
+
+                        function submitForm() {
+                            document.getElementById("filterForm").submit();
+                        }
+                    </script>
+                    <button type="submit" value="Search" class="btn btn-primary text-white rounded-none">
+                        <i data-feather="search" class="text-white text-xl mr-2" aria-hidden="true"></i>
+                    </button>
                 </div>
-                <div class="pt-4">
-                    <input type="checkbox" class="checkbox checkbox-success" name="SearchByUserName" value="true" @(Model.SearchByUserName ? "checked" : "") /> Search by UserName
-                  @*   <input type="checkbox" class="checkbox checkbox-success ml-4" name="SearchByEmail" value="true" @(Model.SearchByEmail ? "checked" : "") /> Search by Email *@
-                </div>
-            </div>
-            <input type="submit" value="Search" style="display:none;" />
+            </div>              
             <script>
                 document.addEventListener('keydown', function (event) {
                     if (event.ctrlKey && event.key === 'k') {

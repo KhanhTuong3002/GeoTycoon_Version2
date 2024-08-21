@@ -37,29 +37,37 @@ namespace GeoClinet.Pages.Profile123
 
         [BindProperty(SupportsGet = true)]
         public bool SearchByLastName { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string SearchType { get; set; }
 
         public async Task OnGetAsync()
         {
+            if (string.IsNullOrEmpty(SearchType))
+            {
+                SearchType = "Both"; // Default to searching by title
+            }
+
             var profiles = from p in _context.Profiles.Include(p => p.User)
                            select p;
-            if (!SearchByLastName && !SearchByFirstName)
-            {
-                SearchByEmail = true;
-            }
+
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {
-                if (SearchByEmail)
+                if (SearchType == "SearchByEmail")
                 {
                     profiles = profiles.Where(p => p.User.Email.Contains(SearchTerm));
                 }
-                if (SearchByFirstName)
+                if (SearchType == "SearchByFirstName")
                 {
                     profiles = profiles.Where(p => p.FirstName.Contains(SearchTerm));
                 }
-                if (SearchByLastName)
+                if (SearchType == "SearchByLastName")
                 {
                     profiles = profiles.Where(p => p.LastName.Contains(SearchTerm));
+                }
+                if (SearchType == "Both")
+                {
+                    profiles = profiles.Where(p => p.User.Email.Contains(SearchTerm) || p.FirstName.Contains(SearchTerm) || p.LastName.Contains(SearchTerm));
                 }
             }
 
